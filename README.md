@@ -4,9 +4,9 @@ This is the Bootcamp to get a basic understanding of Network Automation and what
 
 
 ## Topics
-* Linux
-* Networks
-* Programming
+* [Linux](/Topics/Linux/readme.md)
+* [Networks](/Topics/Linux/readme.md)
+* [Programming](/Topics/Linux/readme.md)
 * Protocols
 * Automation 
 * Templating
