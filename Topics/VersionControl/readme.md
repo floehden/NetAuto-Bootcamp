@@ -1,6 +1,5 @@
 # Version Control
 
-
 ## Systems
 * GitHub
 * GitLab

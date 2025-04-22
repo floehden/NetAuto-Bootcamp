@@ -1,9 +1,7 @@
 # Cloud
-
-* SaaS 
-* PaaS 
-* IaaS
-
+* Software as a Service (SaaS)
+* Platform as a Service (PaaS)
+* Infrastructure as a Service (IaaS)
 
 ## Cloud Services
 

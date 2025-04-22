@@ -4,3 +4,4 @@ In the case of Network Automation two programming lanugages are the most popular
 
 * Go
 * Python 
+* Shell / Bash

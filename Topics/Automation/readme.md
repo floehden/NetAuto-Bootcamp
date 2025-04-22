@@ -6,7 +6,7 @@
 * Chef
 * Puppet
 
-## IaC
+## Infrastructure as Code (IaC)
 * Terraform
 * OpenTofu
 * Pulumi
