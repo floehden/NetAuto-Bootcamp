@@ -6,6 +6,7 @@
 
 ## Prerequisites
 * Docker
+* Docker
 
 
 ## Interesting Commands
@@ -81,7 +82,8 @@ ncdu
 
 
 ## Challenge
-The Challenges are at: [Challenges](/Challenges/readme.md)
+
+
 
 ## Sources
 
