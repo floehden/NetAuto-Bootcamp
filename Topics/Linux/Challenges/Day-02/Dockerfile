@@ -12,8 +12,8 @@ RUN go mod init netauto.com/m
 RUN go build -o server
 
 # Set environment variables (can be overridden at runtime)
-ENV NAME=Florian
-ENV AGE=30
+ENV NAME=Alice
+ENV AGE=25
 
 # Expose the port the app runs on
 EXPOSE 8080

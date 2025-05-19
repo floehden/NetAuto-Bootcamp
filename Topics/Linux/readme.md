@@ -81,7 +81,7 @@ ncdu
 
 
 ## Challenge
-The Challenges are at: [Challanges]()
+The Challenges are at: [Challenges](/Challenges/readme.md)
 
 ## Sources
 

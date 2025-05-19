@@ -1,4 +1,4 @@
-# Day 01
+# Day 03
 ## Introduction
 Using curl, jq, awk
 
