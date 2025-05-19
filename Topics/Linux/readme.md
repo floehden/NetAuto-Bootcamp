@@ -81,8 +81,7 @@ ncdu
 
 
 ## Challenge
-* use basic commands
-* webserver exposing environmental variable
+The Challenges are at: [Challanges]()
 
 ## Sources
 

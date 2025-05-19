@@ -38,7 +38,11 @@ docker run -p 8080:8080 -e NAME=${NAME} -e AGE=${AGE} go-env-server
 ```
 Go in your Browser to http://localhost:8080
 
+we can stop the server with Crtl + C
+
 ### Challenge 3
+a docker-compose challange
+
 
 
 
