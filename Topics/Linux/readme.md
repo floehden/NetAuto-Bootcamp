@@ -5,10 +5,29 @@
 
 
 ## Prerequisites
-
+* Docker
 
 
 ## Interesting Commands
+
+* pwd
+* id
+* touch
+* chmod
+* chown
+* su
+* sudo
+* cp
+* mv
+* symbolic links
+* export
+* curl
+* jq
+* ip a
+* vi/vim
+* cat
+* echo
+
 * id / whoami
 * pwd
 * touch
@@ -62,7 +81,7 @@ ncdu
 
 
 ## Challenge
-* usage of basic commands
+* use basic commands
 * webserver exposing environmental variable
 
 ## Sources
