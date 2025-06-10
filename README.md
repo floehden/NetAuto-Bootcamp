@@ -3,6 +3,7 @@ This is the Bootcamp to get a basic understanding of Network Automation and what
 
 ## Topics
 * [Linux](/Topics/Linux/readme.md) 
+* [Version Control](/Topics/VersionControl/readme.md)
 * [Networks](/Topics/Networks/readme.md) 
 * [Protocols](/Topics/Protocols/readme.md)
 * [Programming](/Topics/Programming/readme.md)
@@ -10,8 +11,8 @@ This is the Bootcamp to get a basic understanding of Network Automation and what
 * [Containerization](/Topics/Containerization/readme.md)
 * [Cloud](/Topics/Cloud/readme.md)
 * [Automation](/Topics/Automation/readme.md)
-* [Version Control](/Topics/VersionControl/readme.md)
-* [Monitoring / Observability]()
+* [CI/CD](/Topics/CI/readme.md)
+* [Monitoring / Observability](/Topics/Monitoring/readme.md)
 
 ## Prerequisites
 
