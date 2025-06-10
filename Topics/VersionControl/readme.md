@@ -6,7 +6,6 @@
 * GitTea
 * BitBucket
 
-## Continuoues Integrations / Continuous Delivery (CI/CD)
-* GitHub Actions
-* GitLab Pipelines
-* Jenkins
+
+## Challenge
+In [Challenge](/Challenges/readme.md) you can find the challenges for this topic.
