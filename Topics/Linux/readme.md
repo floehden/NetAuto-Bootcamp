@@ -82,7 +82,7 @@ ncdu
 
 
 ## Challenge
-
+In [Challenge](/Challenges/readme.md) you can find the challenges for this topic.
 
 
 ## Sources
