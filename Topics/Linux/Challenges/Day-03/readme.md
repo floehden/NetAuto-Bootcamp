@@ -3,9 +3,11 @@
 Using curl, jq, awk
 
 
-## Rerequisites
+## Prerequisites
 * Done [Day 2](../Day-02/readme.md)
 * Docker
 
 ## Challenge
+
+### Challenge 1
 
