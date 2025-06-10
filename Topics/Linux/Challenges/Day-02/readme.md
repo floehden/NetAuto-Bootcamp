@@ -4,7 +4,6 @@ Using export, echo and docker
 
 ## Prerequisites
 * Docker
-* docker-compose
 
 ## Challenge
 

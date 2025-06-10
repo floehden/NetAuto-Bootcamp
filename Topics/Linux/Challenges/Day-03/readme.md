@@ -179,9 +179,11 @@ curl localhost:8080 | jq
 ```
 
 ### Challenge 4
-At last get all of the path from the JSON data
+At last get all of the path from the JSON data or if you want it harder get the interface name from the path.
 
 <!--  curl -s localhost:8080 | jq '.[].Path' -->
+<!-- curl -s localhost:8080 | jq -r '.[].Path | match("name=([^,]+)").string | match("[^=]+$").string' -->
+
 
 ## Final ToDo
 
