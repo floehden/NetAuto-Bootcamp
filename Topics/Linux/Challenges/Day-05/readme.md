@@ -98,6 +98,87 @@ You can combine wildcards, intervals, and lists to create more complex schedules
 
 By completing these five parts, you'll have a solid understanding of how to schedule tasks using cron jobs in Linux. Good luck!
 
+## More interesting script
+Since cron jobs are not designed to handle intervals smaller than a minute, you can't directly create a cron job that runs every 10 seconds. However, you can use a workaround by creating a script that runs continuously in the background and handles the 10-second interval itself. You can then use a cron job to ensure that this script is always running, for example, by starting it at system boot or checking periodically to see if it's running and restarting it if necessary.
+
+Here's how you can set this up:
+
+### Step 1: Create the Script
+
+First, create the script that will handle the 10-second interval. Save this script to a file, for example, `funny_logger.sh`.
+
+```bash
+#!/bin/bash
+
+# Define an array of funny sentences
+funny_sentences=(
+    "Why don’t scientists trust atoms? Because they make up everything!"
+    "Did you hear about the mathematician who’s afraid of negative numbers? He’ll stop at nothing to avoid them!"
+    "Why don’t skeletons fight each other? They don’t have the guts."
+    "I told my wife she was drawing her eyebrows too high. She looked surprised."
+    "What do you call a fake noodle? An impasta."
+)
+
+# Function to log time and a funny sentence
+log_funny_sentence() {
+    while true; do
+        current_time=$(date "+%Y-%m-%d %H:%M:%S")
+        random_index=$((RANDOM % ${#funny_sentences[@]}))
+        random_sentence=${funny_sentences[$random_index]}
+        echo "[$current_time] $random_sentence" >> /path/to/funny_log.txt
+        sleep 10
+    done
+}
+
+# Check if the script is already running
+if [ $(pgrep -c -f "funny_logger.sh") -gt 2 ]; then
+    echo "Script is already running."
+    exit
+fi
+
+# Start logging
+log_funny_sentence
+```
+
+Make sure to replace `/path/to/funny_log.txt` with the actual path where you want to store the log file.
+
+### Step 2: Make the Script Executable
+
+Run the following command to make the script executable:
+
+```bash
+chmod +x /path/to/funny_logger.sh
+```
+
+### Step 3: Create a Cron Job to Ensure the Script is Running
+
+You can create a cron job to check if the script is running and start it if it's not. For example, you can add the following line to your crontab file to check every 5 minutes:
+
+1. Open your crontab file:
+
+```bash
+crontab -e
+```
+
+2. Add the following line to check and start the script if it's not running:
+
+```bash
+*/5 * * * * /bin/bash -c 'if ! pgrep -f "/path/to/funny_logger.sh" > /dev/null; then /path/to/funny_logger.sh & fi'
+```
+
+This cron job will check every 5 minutes if the `funny_logger.sh` script is running. If it's not running, it will start the script.
+
+### Step 4: Start the Script Manually
+
+You can also start the script manually to ensure it's running:
+
+```bash
+/path/to/funny_logger.sh &
+```
+
+This setup ensures that your script runs continuously, logging the time and a funny sentence every 10 seconds, and the cron job helps to keep it running in case it stops for any reason.
+
+## FINAL ToDO
 
 Post about your journey, what you learned on different platforms like [LinkedIn](https://www.linkedin.com/feed/), [Twitter](https://x.com/intent/post?url=https%3A%2F%2Fgithub.com%2FNetAuto-RheinMain%2FNetAuto-Bootcamp&text=I%20just%20completed%20Day%205%20of%20the%20NetAuto%20Bootcamp%20on%20Linux!&hashtags=NetAutoBootcamp%2CNetworkAutomation) or any other of your favourite platforms. Follow up on your journey and share it with others! Use the Hashtags #NetAutoBootcamp #NetworkAutomation </br>
 You can also tag us on LinkedIn with @NetAutoGroupRM (or something else)
