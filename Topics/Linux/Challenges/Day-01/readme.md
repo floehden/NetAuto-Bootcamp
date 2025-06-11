@@ -10,7 +10,6 @@ In todays challenge we will use folders and files with the following commands
 * [vi]()
 * [cat]()
 * [awk]()
-* [chmod]()
 * [chown]()
 * [sh]()
 * [rm]()
@@ -71,7 +70,7 @@ user@host:~$ cat file.txt
 This is some text.
 ```
 
-We can also just get single words with awk0
+We can also just get single words with awk
 ```sh
 cat file.txt | awk '{print $3}'
 ```
