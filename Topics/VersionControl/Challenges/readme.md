@@ -143,3 +143,10 @@
      ```
 
 By the end of these 5 days, you should have a good understanding of basic Git commands, branching, merging, and working with remote repositories. Happy coding!
+
+## Day 6 Forking a repository
+https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo?tool=webui
+https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/about-pull-request-merges
+
+## Day 7 Creating a Pull request
+https://www.gitkraken.com/learn/git/tutorials/what-is-a-pull-request-in-git#:~:text=A%20pull%20request%2C%20often%20abbreviated,clean%2C%20well%2Ddocumented%20codebase.
