@@ -1,12 +1,25 @@
 # Version Control
+A version control system, or VCS, tracks the history of changes as people and teams collaborate on projects together. As developers make changes to the project, any earlier version of the project can be recovered at any time.
 
-Git is an open source distributed version control system (DVCS), mainly used for source code management (SCM), with an emphasis on speed. Git was initially designed and created by Linus Torvalds for Linux kernel development. Git operates on a decentralized architecture, so every Git working directory is a full-fledged repository with a complete history and full revision-tracking capabilities, and is not dependent upon network access or a central server.
+Developers can review project history to find out:
 
-Unlike popular non-distributed predecessors, such as Subversion and CVS, Git only needs a central server for one thing: publishing changes to users of that server. You can equally share changes directly with other people without the need to consult a central hub.
+* Which changes were made?
+* Who made the changes?
+* When were the changes made?
+* Why were changes needed?
+VCSs give each contributor a unified and consistent view of a project, surfacing work that's already in progress. Seeing a transparent history of changes, who made them, and how they contribute to the development of a project helps team members stay aligned while working independently.</br>
+</br>
+In a distributed version control system, every developer has a full copy of the project and project history. Unlike once popular centralized version control systems, DVCSs don't need a constant connection to a central repository. Git is the most popular distributed version control system. Git is commonly used for both open source and commercial software development, with significant benefits for individuals, teams and businesses.
+* Git lets developers see the entire timeline of their changes, decisions, and progression of any project in one place. From the moment they access the history of a project, the developer has all the context they need to understand it and start contributing.
+* Developers work in every time zone. With a DVCS like Git, collaboration can happen any time while maintaining source code integrity. Using branches, developers can safely propose changes to production code.
+* Businesses using Git can break down communication barriers between teams and keep them focused on doing their best work. Plus, Git makes it possible to align experts across a business to collaborate on major projects.
+</br>
+A repository, or Git project, encompasses the entire collection of files and folders associated with a project, along with each file's revision history. The file history appears as snapshots in time called commits. The commits can be organized into multiple lines of development called branches. Because Git is a DVCS, repositories are self-contained units and anyone who has a copy of the repository can access the entire codebase and its history. Using the command line or other ease-of-use interfaces, a Git repository also allows for: interaction with the history, cloning the repository, creating branches, committing, merging, comparing changes across versions of code, and more.</br>
+</br>
+Through platforms like GitHub, Git also provides more opportunities for project transparency and collaboration. Public repositories help teams work together to build the best possible final product.</br>
+Source: https://docs.github.com/en/get-started/using-git/about-git
 
-Also unlike the monolithic design of Subversion and CVS, Git follows the typical Unix philosophy with a great many small components that do single atomic tasks. Of course, only a few of the dozens of separate commands are often used. Most commands are for specialized actions, and a good portion are designed to be called by shell scripts rather than users
-
-## System
+## Systems
 
 There are multiple Version control systems, we can only name some of them:
 * [GitHub](https://learn.microsoft.com/en-us/training/paths/github-foundations/)
@@ -18,7 +31,10 @@ There are multiple Version control systems, we can only name some of them:
 ## Challenge
 In [Challenge](/Topics/VersionControl/Challenges/readme.md) you can find the challenges for this topic.
 
-## Sources
-* https://en.wikibooks.org/wiki/Git
-* https://en.wikibooks.org/wiki/Git/Introduction
-* https://en.wikibooks.org/wiki/Git/Branching_%26_merging
+
+
+## Additiional Sources
+* Linux Foundation Training: https://training.linuxfoundation.org/training/git-for-distributed-software-development-lfd109x/
+* Wiki Bookshttps://en.wikibooks.org/wiki/Git
+* W3Schools Traininghttps://www.w3schools.com/git/
+* GitHub Getting startedhttps://docs.github.com/en/get-started
