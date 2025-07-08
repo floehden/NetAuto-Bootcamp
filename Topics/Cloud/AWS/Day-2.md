@@ -68,3 +68,8 @@ aws configure
 # Challenge
 
 Create a user and add it to a group which can only access S3 bucket.
+
+# Final ToDo
+
+Post about your journey, what you learned on different platforms like LinkedIn, Twitter or any other of your favourite platforms. Follow up on your journey and share it with others! Use the Hashtags #NetAutoBootcamp #NetworkAutomation
+You can also tag us on LinkedIn with @netauto-group-rheinmain

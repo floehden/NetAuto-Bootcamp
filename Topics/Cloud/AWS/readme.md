@@ -1,4 +1,4 @@
-# AWS 5-Day Course: EC2, S3, IAM, RDS, Lambda
+# AWS Course: EC2, S3, IAM, Lambda
 
 ## Course Overview
 A 4-day practical AWS course covering 4 core services with theory, labs. With you will have most basic handson which is a must while entering into the world of NetDevOps.
@@ -44,6 +44,9 @@ A 4-day practical AWS course covering 4 core services with theory, labs. With yo
 
 ## Tools & Resources
 - AWS Free Tier Account
-- AWS CLI & SDKs
 - Visual Studio Code or any preferred IDE
+- Visit [AWS Official Website](https://aws.amazon.com/) for more details.
+
+
+
 

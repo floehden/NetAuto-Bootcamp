@@ -86,3 +86,8 @@ There are many ways to connect to to instance and start using it. IT depends on 
 # Challenge
 
 Create an Ubuntu istance and install basic packages into it.
+
+# Final ToDo
+
+Post about your journey, what you learned on different platforms like LinkedIn, Twitter or any other of your favourite platforms. Follow up on your journey and share it with others! Use the Hashtags #NetAutoBootcamp #NetworkAutomation
+You can also tag us on LinkedIn with @netauto-group-rheinmain

@@ -64,4 +64,9 @@ Click **Create bucket** at the bottom.
 
 # Challenge
 
-Make an s3 bucket. Make it Public. Add some policies. IF you are feeling luck make static website out of it.
+Make an s3 bucket. Make it Public. Add some policies. If you are feeling luck make static website out of it.
+
+# Final ToDo
+
+Post about your journey, what you learned on different platforms like LinkedIn, Twitter or any other of your favourite platforms. Follow up on your journey and share it with others! Use the Hashtags #NetAutoBootcamp #NetworkAutomation
+You can also tag us on LinkedIn with @netauto-group-rheinmain
