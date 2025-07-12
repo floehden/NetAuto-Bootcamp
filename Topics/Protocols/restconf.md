@@ -1,0 +1,37 @@
+# RESTCONF
+
+RESTCONF is an HTTP based protocol as defined in RFC 8040. RESTCONF standardizes a mechanism to allow Web applications to access the configuration data, state data, data-model-specific Remote Procedure Call (RPC) operations, and event notifications within a networking device.
+
+RESTCONF uses HTTP methods to provide Create, Read, Update, Delete (CRUD) operations on a conceptual datastore containing YANG-defined data, which is compatible with a server that implements NETCONF datastores as defined in RFC 6241
+
+Configuration data and state data are exposed as resources that can be retrieved with the GET method. Resources representing configuration data can be modified with the DELETE, PATCH, POST, and PUT methods. Data is encoded with either XML ( W3C.REC-xml-20081126) or JSON ( RFC 7951)
+
+RESTCONF uses HTTP methods to provide CRUD operations on a conceptual datastore containing YANG-defined data, which is compatible with a server that implements NETCONF datastores.
+
+## How does restconf works
+
+ RESTCONF can be implemented on a device that supports the NETCONF protocol. Representational State Transfer Configuration (RESTCONF) is a standard protocol based on HTTP or HTTPS that provides a programmatic interface to access data defined in YANG, using the datastore concepts defined in the Network Configuration Protocol (NETCONF). YANG is a data modeling language that together with RESTCONF, provides the tools that network administrators need to automate configuration tasks across heterogenous devices in a software-defined network.
+
+The RESTCONF interface allows client applications to access and manipulate configuration data, state data, data-model-specific Remote Procedure Call (RPC) operations, and event notifications on a networking device, in a modular and extensible manner.
+
+The API uses common HTTP operations such as GET, POST, PATCH, and DELETE, on a conceptual datastore containing YANG-defined data. Request and response messages can be in JSON format. The YANG data model explicitly and precisely determines the structure, syntax, and semantics of the data. The YANG modules are vendor-neutral and include models that are part of the OpenConfig project, standard IETF models, as well as some native models.
+
+image here
+
+## Netconf vs RESTconf
+
+| Feature       | NETCONF                       | RESTCONF                     |
+| ------------- | ----------------------------- | ---------------------------- |
+| Transport     | SSH (TCP 830)                 | HTTP/HTTPS (TCP 80/443)      |
+| Encoding      | XML                           | JSON or XML                  |
+| Operations    | RPC (get, edit, commit, etc.) | REST (GET, POST, PUT, etc.)  |
+| Data Model    | YANG                          | YANG                         |
+| Use Case      | Bulk, transactional config    | Simple, web API integration  |
+| Tooling       | Custom clients, network tools | Browser, curl, scripts       |
+| Ease of Use   | More complex                  | Easier, familiar to web devs |
+| Notifications | Yes, robust                   | Yes, less advanced           |
+
+## Reference
+
+https://datatracker.ietf.org/doc/html/rfc8040
+https://documentation.extremenetworks.com/restconf_31.6/GUID-E6C98F14-2CE0-4103-B1B7-F7052ECBE364.shtml
