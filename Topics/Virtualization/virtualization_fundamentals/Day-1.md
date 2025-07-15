@@ -12,12 +12,12 @@ Using software, virtualization creates an abstraction layer over computer hardwa
 
 Virtualization offers numerous benefits to both on-premises and cloud-based data centers that support IT operations, including the following:
 
-Resource efficiency
-Easier management
-Minimal downtime
-Faster provisioning
-Disaster recovery (DR)
-Cost-effectiveness
+- Resource efficiency
+- Easier management
+- Minimal downtime
+- Faster provisioning
+- Disaster recovery (DR)
+- Cost-effectiveness
 
 ## Virtualization Components
 
@@ -41,7 +41,7 @@ Virtual machines typically consist of several files, including the configuration
 
 A hypervisor is the software layer that coordinates VMs. It serves as an interface between the VM and the underlying physical hardware, ensuring that each has access to the physical resources it needs to execute. It also makes sure that the VMs don’t interfere with each other by impinging on each other’s memory space or compute cycles.
 
-![Types of hypervisor](Topics/Virtualization/virtualization_fundamentals/img/hypervisor-types.png) 
+![Types of hypervisor](img/hypervisor-types.png) 
 
 There are two types of hypervisors:
 
@@ -52,16 +52,16 @@ There are two types of hypervisors:
 
 Beyond server virtualization, many different types of IT infrastructure can be virtualized to deliver significant advantages to IT managers in particular and the enterprise as a whole. These types of virtualization include the following:
 
-Desktop virtualization
-Network virtualization
-Storage virtualization
-Data virtualization
-Application virtualization
-Data center virtualization
-CPU virtualization
-GPU virtualization
-Linux virtualization
-Cloud virtualization
+1. Desktop virtualization
+2. Network virtualization
+3. Storage virtualization
+4. Data virtualization
+5. Application virtualization
+6. Data center virtualization
+7. CPU virtualization
+8. GPU virtualization
+9. Linux virtualization
+10. Cloud virtualization
 
 ## Virtualization marketplace solutions
 
@@ -72,3 +72,12 @@ Numerous companies offer specialized virtualization solutions tailored to differ
 3. Citrix: Known for its strength in application virtualization, Citrix also offers server and virtual desktop solutions, providing a platform for organizations that need remote access and centralized app delivery.
 3. Microsoft Hyper-V: Built into into Microsoft Windows, Hyper-V offers a cost-effective server and desktop virtualization product.
 4. Red Hat Virtualization: Built on KVM, Red Hat Virtualization provides an enterprise-grade platform for server and desktop virtualization with a focus on open-source platforms.
+
+## References
+
+- [Virtualization Explained (IBM)](https://www.ibm.com/topics/virtualization)
+- [Server Virtualization Overview (Microsoft)](https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/hyper-v-technology-overview)
+- [Desktop Virtualization (Citrix)](https://www.citrix.com/solutions/desktop-virtualization/)
+- [Network Virtualization (VMware)](https://www.vmware.com/topics/glossary/content/network-virtualization.html)
+- [VirtualBox Documentation (Oracle)](https://www.virtualbox.org/manual/ch01.html)
+- [Red Hat Virtualization Product Page](https://www.redhat.com/en/technologies/virtualization/enterprise-virtualization)
