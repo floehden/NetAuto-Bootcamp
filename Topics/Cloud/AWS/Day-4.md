@@ -54,8 +54,3 @@ Save it
 # Challenge
 
 Create a real event driven lamda function such that the function is triggered when someone uplodas a file in your s3 bucket.
-
-# Final ToDo
-
-Post about your journey, what you learned on different platforms like LinkedIn, Twitter or any other of your favourite platforms. Follow up on your journey and share it with others! Use the Hashtags #NetAutoBootcamp #NetworkAutomation
-You can also tag us on LinkedIn with @netauto-group-rheinmain

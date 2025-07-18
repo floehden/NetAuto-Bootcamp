@@ -42,10 +42,15 @@ A 4-day practical AWS course covering 4 core services with theory, labs. With yo
 
 ---
 
-## Tools & Resources
+## Additional Resources
 - AWS Free Tier Account
 - Visual Studio Code or any preferred IDE
 - Visit [AWS Official Website](https://aws.amazon.com/) for more details.
+
+# Final ToDo
+
+Post about your journey, what you learned on different platforms like LinkedIn, Twitter or any other of your favourite platforms. Follow up on your journey and share it with others! Use the Hashtags #NetAutoBootcamp #NetworkAutomation
+You can also tag us on LinkedIn with @netauto-group-rheinmain
 
 
 

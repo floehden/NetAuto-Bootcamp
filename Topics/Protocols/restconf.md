@@ -12,11 +12,13 @@ RESTCONF uses HTTP methods to provide CRUD operations on a conceptual datastore 
 
  RESTCONF can be implemented on a device that supports the NETCONF protocol. Representational State Transfer Configuration (RESTCONF) is a standard protocol based on HTTP or HTTPS that provides a programmatic interface to access data defined in YANG, using the datastore concepts defined in the Network Configuration Protocol (NETCONF). YANG is a data modeling language that together with RESTCONF, provides the tools that network administrators need to automate configuration tasks across heterogenous devices in a software-defined network.
 
+<div align="center">
+  <img src="./img/restconf.png" alt="restconf client-server communication flowchart" width="400"/>
+</div>
+
 The RESTCONF interface allows client applications to access and manipulate configuration data, state data, data-model-specific Remote Procedure Call (RPC) operations, and event notifications on a networking device, in a modular and extensible manner.
 
 The API uses common HTTP operations such as GET, POST, PATCH, and DELETE, on a conceptual datastore containing YANG-defined data. Request and response messages can be in JSON format. The YANG data model explicitly and precisely determines the structure, syntax, and semantics of the data. The YANG modules are vendor-neutral and include models that are part of the OpenConfig project, standard IETF models, as well as some native models.
-
-image here
 
 ## Netconf vs RESTconf
 
@@ -31,7 +33,23 @@ image here
 | Ease of Use   | More complex                  | Easier, familiar to web devs |
 | Notifications | Yes, robust                   | Yes, less advanced           |
 
-## Reference
+## Example Usage
 
-https://datatracker.ietf.org/doc/html/rfc8040
-https://documentation.extremenetworks.com/restconf_31.6/GUID-E6C98F14-2CE0-4103-B1B7-F7052ECBE364.shtml
+Alex manages a fleet of routers and needs to check interface status regularly. Instead of logging in via SSH each time, Alex uses RESTCONF, a protocol that lets him query and update device configuration securely with simple HTTP requests. This allows him to integrate network management with web tools and scripts easily.
+
+Alex can use the following one-line `curl` command to get all interfaces from the Nokia SR Linux router:
+
+```bash
+curl -k -u admin:NokiaSrl1! \
+  "https://172.20.20.2/restconf/data/srl_nokia-interfaces:interface"
+```
+```bash
+<!doctype html>
+<html lang=en>
+<title>404 Not Found</title>
+<h1>Not Found</h1>
+<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>
+```
+
+Nokia SR Linux is designed to support modern, scalable network automation protocols such as gNMI and NETCONF, but not RESTCONF. This is by design, as these protocols offer more features for model-driven management and telemetry in large-scale, cloud-native networks.
+

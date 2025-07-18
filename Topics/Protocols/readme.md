@@ -2,7 +2,21 @@
 
 Network automation relies on standard protocols to enable communication, configuration, monitoring, and management of network devices. Understanding these protocols is crucial for any network engineer or automation specialist.
 
-# Table of Contents
+## Course Overview
+
+This course will guide you through the most important network automation protocols in today’s infrastructure. You’ll gain both conceptual understanding and hands-on experience with each protocol, so you can:
+
+- **Automate repetitive tasks** and reduce human error  
+- **Integrate heterogeneous devices** into unified automation workflows  
+- **Leverage modern telemetry** for proactive network monitoring  
+- **Securely manage configurations** across your network  
+
+**Prerequisites:**  
+- Fundamental networking knowledge (IP, routing, switching)  
+- Comfort with CLI on network devices  
+- Basic scripting or programming experience is helpful but not required  
+
+## Table of Contents
 
 | Day    | Topic               | What You’ll Learn                                                      |
 |--------|---------------------|-----------------------------------------------------------------------|
@@ -11,8 +25,72 @@ Network automation relies on standard protocols to enable communication, configu
 | Day 3  | RESTCONF            | Modern RESTful APIs for config/monitoring with YANG over HTTP(S).      |
 | Day 4  | SNMP                | Classic protocol for device monitoring and status polling.             |
 | Day 5  | gNMI                | Streaming telemetry & automation via gRPC and Protocol Buffers.        |
-| Day 6  | HTTP/REST APIs      | Universal API approach for vendor/device management and automation.    |
 
-# Lab setup
+
+## Lab setup
 
 In order to get handson on all of the protocols we needs to spin up simple 1 router containerlab with Nokia SR linux
+
+---
+
+### Topology
+1. Save this yaml file
+
+```yaml
+# clab-protocol-demo.clab.yaml
+name: protocol-lab
+
+topology:
+  nodes:
+    srl1:
+      kind: srl
+      image: ghcr.io/nokia/srlinux:latest
+```
+2. Deploy the lab
+
+```bash
+containerlab deploy -t clab-ssh-demo.yaml
+```
+3. Inspect the topology to get the ip address
+
+```bash
+containerlab inspect -t clab-ssh-demo.yaml
+```
+
+Deploy this lab to get a complete hands on on all the protocols.
+
+## Additional Resource
+
+# Network Protocol References
+
+Here are key specifications and guides for modern network management protocols:
+
+* **gNMI Specification (OpenConfig)**
+  Official gNMI (gRPC Network Management Interface) specification by OpenConfig.
+  [https://www.openconfig.net/docs/gnmi/gnmi-specification/](https://www.openconfig.net/docs/gnmi/gnmi-specification/)
+
+* **RFC 6241: Network Configuration Protocol (NETCONF)**
+  Defines the NETCONF protocol for installing, manipulating, and deleting configuration of network devices.
+  [https://datatracker.ietf.org/doc/html/rfc6241](https://datatracker.ietf.org/doc/html/rfc6241)
+
+* **RFC 8040: RESTCONF Protocol**
+  Specifies RESTCONF, a REST-like protocol for accessing data defined in YANG, modeled after NETCONF.
+  [https://datatracker.ietf.org/doc/html/rfc8040](https://datatracker.ietf.org/doc/html/rfc8040)
+
+* **Extreme Networks RESTCONF Guide**
+  Vendor-specific RESTCONF implementation guide by Extreme Networks.
+  [https://documentation.extremenetworks.com/restconf\_31.6/GUID-E6C98F14-2CE0-4103-B1B7-F7052ECBE364.shtml](https://documentation.extremenetworks.com/restconf_31.6/GUID-E6C98F14-2CE0-4103-B1B7-F7052ECBE364.shtml)
+
+* **RFC 4253: SSH Transport Layer Protocol**
+  Describes the SSH Transport Layer Protocol used for secure network device connections.
+  [https://datatracker.ietf.org/doc/html/rfc4253](https://datatracker.ietf.org/doc/html/rfc4253)
+
+* **SNMP Basics: What It Is and How It Works**
+  Introduction to SNMP (Simple Network Management Protocol) by Fortra.
+  [https://www.fortra.com/resources/articles/snmp-basics-what-it-and-how-it-works](https://www.fortra.com/resources/articles/snmp-basics-what-it-and-how-it-works)
+
+
+# Final ToDo
+
+Post about your journey, what you learned on different platforms like LinkedIn, Twitter or any other of your favourite platforms. Follow up on your journey and share it with others! Use the Hashtags #NetAutoBootcamp #NetworkAutomation
+You can also tag us on LinkedIn with @netauto-group-rheinmain

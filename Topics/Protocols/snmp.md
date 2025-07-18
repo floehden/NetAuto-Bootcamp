@@ -21,16 +21,37 @@ SNMP works by sending messages, called protocol data units (PDUs), to devices wi
 | **INFORM**   | Like TRAP, but requires acknowledgment    | Agent → Manager |
 | **GET-BULK** | Efficiently retrieve lots of data at once | Manager → Agent |
 
-image here
+<div align="center">
+  <img src="./img/snmp.png" alt="snmp client-server communication flowchart" width="400"/>
+</div>
 
-example uscase:
+## Example Usag:
 
-SNMP Manager sends a GET request for the interface status OID.
+1. **Manager GET**  
+   The SNMP Manager polls the device by sending a **GetRequest** for an OID—e.g., the interface operational-status OID (`1.3.6.1.2.1.2.2.1.8.<ifIndex>`).
 
-SNMP Agent receives the request and responds with the current value.
+2. **Agent Response**  
+   The SNMP Agent on the router processes the GetRequest and replies with a **GetResponse**, carrying the current value of that OID.
 
-If something critical happens (e.g., link down), the SNMP Agent sends a TRAP to the manager immediately—no request needed.
+3. **Agent Trap**  
+   If a critical event occurs—such as a link going down—the Agent immediately sends an unsolicited **Trap** PDU to the Manager (no polling required).  
+   This allows real-time alerting for priority faults. :contentReference[oaicite:0]{index=0}
 
-## Reference 
+```bash
+snmpwalk -v2c -c public 172.20.20.2 1.3.6.1.2.1.2.2.1.2     # list interfaces
+snmpget  -v2c -c public 172.20.20.2 1.3.6.1.2.1.1.3.0       # uptime
+```
+```bash
+iso.3.6.1.2.1.2.2.1.2.1851390 = STRING: "ethernet-1/57"
+iso.3.6.1.2.1.2.2.1.2.1884158 = STRING: "ethernet-1/58"
+iso.3.6.1.2.1.2.2.1.2.1077936129 = STRING: "mgmt0.0"
+iso.3.6.1.2.1.2.2.1.2.1077952510 = STRING: "mgmt0"
+iso.3.6.1.2.1.1.3.0 = Timeticks: (644400) 1:47:24.00
+```
+Those large numbers don’t imply thousands of ports they’re just the internal indices SR Linux assigns under the hood (often derived from hardware identifiers)
 
-https://www.fortra.com/resources/articles/snmp-basics-what-it-and-how-it-works
+- OID .1.3.6.1.2.1.2.2.1.2 is the ifDescr object, which returns the human-readable name of an interface.
+
+- The numeric suffix after that (e.g. 16382, 49150, …) is the ifIndex, a unique integer the agent uses internally to identify each interface instance.
+
+- The value returned (STRING: "ethernet-1/1", etc.) is the interface’s configured name.

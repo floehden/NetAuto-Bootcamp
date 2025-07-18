@@ -10,12 +10,22 @@ The protocol works in the client-server model, which means that the connection i
 
 The figure below presents a simplified setup flow of a secure shell connection
 
-IMAGE HERE
+<div align="center">
+  <img src="./img/ssh-connection.png" alt="SSH client-server communication flowchart" width="400"/>
+</div>
 
 ## Example usage
 
+1. Using SSH to get the secure access of the device to do troubleshooting or configuration.
 
+For example, a popular tool for network device automation called Ansible uses SSH to connect to devices and execute playbooks, which are collections of configuration tasks defined in YAML. Ansible uses SSH to securely deliver these commands to the device and manage its configuration.
 
-## Reference
+As we have already deployed a containerlab we can SSH into the device to look around or do whatever!
 
-https://datatracker.ietf.org/doc/html/rfc4253
+```bash
+ssh clab-srlceos01-srl@172.20.20.2
+```
+<div align="center">
+  <img src="./img/clab-ssh.png" alt="SSH usage" width="400"/>
+</div>
+
