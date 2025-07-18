@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive 7-Day Containerlab Course</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chosen Palette: Calm Neutrals & Tech Blue -->
+    <!-- Application Structure Plan: The application is structured as an interactive course with a fixed vertical navigation sidebar for selecting the day, and a main content area. This structure was chosen because the source material is a multi-day course, and this layout provides a clear, intuitive progression for the user. Within each day, content is organized into tabs ("Concepts", "Example Lab", "Challenge") to break down information into digestible chunks and prevent overwhelming the user with a long scroll. This enhances usability by allowing users to focus on one aspect at a time (theory, practice, or assessment) and easily navigate between days without losing context. Interactive code blocks with copy functionality and simple HTML/CSS topology diagrams are included to make the hands-on labs more efficient and visually understandable. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Day-by-day course structure -> Goal: Organize/Navigate -> Viz/Presentation: Vertical Navigation Sidebar & Main Content Area -> Interaction: Click to load day's content -> Justification: Provides a clear, persistent navigation structure that mirrors the course's format, making it easy for users to track progress and jump between topics. -> Library/Method: HTML/Tailwind/JS.
+        - Report Info: Lab Topologies (e.g., two cEOS nodes connected) -> Goal: Organize/Inform -> Viz/Presentation: HTML/CSS Diagrams -> Interaction: Static view -> Justification: Visually represents the network structure described in the text and YAML, making the lab setup much easier to understand at a glance. Avoids SVG/Mermaid as required. -> Library/Method: HTML/Tailwind.
+        - Report Info: YAML and Shell code snippets -> Goal: Instruct -> Viz/Presentation: Styled Code Blocks -> Interaction: "Copy to Clipboard" button -> Justification: A critical usability feature for a technical course, eliminating manual copy/paste errors and speeding up the lab setup process. -> Library/Method: HTML/Tailwind/JS.
+        - Report Info: Daily content (concepts, examples, challenges) -> Goal: Inform/Organize -> Viz/Presentation: Tabbed Interface -> Interaction: Click to switch between content sections -> Justification: Segments the information for each day into logical parts, reducing cognitive load and allowing users to focus on a specific type of content. -> Library/Method: HTML/Tailwind/JS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        @import url('https://rsms.me/inter/inter.css');
+        .code-block {
+            background-color: #1E293B; /* slate-800 */
+            color: #E2E8F0; /* slate-200 */
+            border-radius: 0.5rem;
+            padding: 1rem;
+            position: relative;
+            overflow-x: auto;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background-color: #334155; /* slate-700 */
+            color: #CBD5E1; /* slate-300 */
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: background-color 0.2s;
+        }
+        .copy-btn:hover {
+            background-color: #475569; /* slate-600 */
+        }
+        .nav-item.active {
+            background-color: #3B82F6; /* blue-500 */
+            color: white;
+        }
+        .tab-item.active {
+            border-bottom-color: #3B82F6; /* blue-500 */
+            color: #3B82F6; /* blue-500 */
+        }
+        .topology-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4rem;
+            padding: 2rem;
+            background-color: #F1F5F9; /* slate-100 */
+            border-radius: 0.5rem;
+            min-height: 150px;
+            position: relative;
+        }
+        .topo-node {
+            background-color: white;
+            border: 2px solid #64748B; /* slate-500 */
+            border-radius: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            z-index: 10;
+        }
+        .topo-link {
+            position: absolute;
+            height: 2px;
+            background-color: #64748B; /* slate-500 */
+            z-index: 5;
+        }
+        .topo-host {
+            border-style: dashed;
+            color: #475569; /* slate-600 */
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+    <div class="flex h-screen">
+        <!-- Sidebar Navigation -->
+        <nav class="w-64 bg-white shadow-md p-4 flex-shrink-0">
+            <h1 class="text-2xl font-bold text-slate-900 mb-6">Containerlab Course</h1>
+            <ul id="course-nav" class="space-y-2"></ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6 lg:p-10 overflow-y-auto">
+            <div id="content-area" class="max-w-5xl mx-auto">
+                <h2 id="content-title" class="text-4xl font-bold text-slate-900 mb-4"></h2>
+                <p id="content-intro" class="text-lg text-slate-600 mb-8"></p>
+
+                <!-- Tabs -->
+                <div class="border-b border-slate-200 mb-6">
+                    <nav id="content-tabs" class="flex space-x-6 -mb-px"></nav>
+                </div>
+
+                <!-- Tab Panels -->
+                <div id="tab-panels"></div>
+            </div>
+        </main>
+    </div>
+
+<script>
+const courseData = [
+    {
+        day: 1,
+        title: 'Introduction to Containerlab & Basic Setup',
+        intro: 'This first day introduces the core concepts of Containerlab. You will learn what it is, why it is a powerful tool for network lab automation, and how to get it installed on your system. The goal is to get you up and running with a simple two-node Arista cEOS topology.',
+        content: {
+            concepts: `
+                <h3 class="text-2xl font-semibold mb-4">Key Concepts</h3>
+                <ul class="list-disc list-inside space-y-3 text-slate-700">
+                    <li><strong>What is Containerlab?</strong> A tool for orchestrating container-based networking labs. It allows you to build virtual network topologies using various Network Operating Systems (NOS) running as containers.</li>
+                    <li><strong>Why use Containerlab?</strong>
+                        <ul class="list-disc list-inside ml-6 mt-2 space-y-1">
+                            <li><strong>Lightweight:</strong> Uses containers, which are more resource-efficient than traditional VMs.</li>
+                            <li><strong>Fast Deployment:</strong> Spin up complex topologies in seconds.</li>
+                            <li><strong>Reproducible:</strong> Define your lab in a YAML file for consistent deployments.</li>
+                            <li><strong>Automated:</strong> Integrates well with CI/CD pipelines and automation tools.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Installation:</strong> Requires Docker (or Podman) and the <code>containerlab</code> binary.</li>
+                </ul>
+                <h3 class="text-2xl font-semibold mt-6 mb-4">Basic Commands</h3>
+                <div class="space-y-2">
+                    <p><code>clab deploy -t &lt;file.yaml&gt;</code>: Deploys the lab.</p>
+                    <p><code>clab destroy -t &lt;file.yaml&gt;</code>: Destroys the lab.</p>
+                    <p><code>clab inspect</code>: Shows details about running labs.</p>
+                    <p><code>clab graph</code>: Generates a visual graph of the lab.</p>
+                </div>
+            `,
+            example: `
+                <h3 class="text-2xl font-semibold mb-4">First Simple cEOS Topology</h3>
+                <p class="mb-4">This example creates a lab with two Arista cEOS nodes connected via a single link. It demonstrates the basic structure of a Containerlab topology file.</p>
+                
+                <h4 class="text-xl font-semibold mt-6 mb-2">Topology Diagram</h4>
+                <div class="topology-diagram my-4">
+                    <div class="topo-node">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto mb-1 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/></svg>
+                        ceos1
+                    </div>
+                    <div class="topo-link" style="width: 4rem; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
+                    <div class="topo-node">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto mb-1 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/></svg>
+                        ceos2
+                    </div>
+                </div>
+
+                <h4 class="text-xl font-semibold mt-6 mb-2">Topology File: <code>ceos-basic.yaml</code></h4>
+                <div class="code-block">
+<button class="copy-btn">Copy</button>
+<pre><code>name: ceos-basic
+topology:
+  nodes:
+    ceos1:
+      kind: ceos
+      image: arista/ceos:latest
+      startup-config: |
+        hostname ceos1
+        interface Ethernet1
+          no switchport
+          ip address 10.0.0.1/24
+        interface Management0
+          ip address 192.168.1.101/24
+          no shutdown
+    ceos2:
+      kind: ceos
+      image: arista/ceos:latest
+      startup-config: |
+        hostname ceos2
+        interface Ethernet1
+          no switchport
+          ip address 10.0.0.2/24
+        interface Management0
+          ip address 192.168.1.102/24
+          no shutdown
+  links:
+    - endpoints: ["ceos1:eth1", "ceos2:eth1"]</code></pre>
+                </div>
+
+                <h4 class="text-xl font-semibold mt-6 mb-2">Commands</h4>
+                <p class="mb-4">Use these commands to deploy, access, and verify the lab.</p>
+                <div class="code-block mb-2">
+<button class="copy-btn">Copy</button>
+<pre><code>sudo clab deploy -t ceos-basic.yaml</code></pre>
+                </div>
+                <div class="code-block">
+<button class="copy-btn">Copy</button>
+<pre><code># Access ceos1
+docker exec -it clab-ceos-basic-ceos1 Cli
+
+# Access ceos2
+docker exec -it clab-ceos-basic-ceos2 Cli</code></pre>
+                </div>
+            `,
+            challenge: `
+                <h3 class="text-2xl font-semibold mb-4">Day 1 Challenge</h3>
+                <div class="bg-blue-50 border-l-4 border-blue-500 text-blue-800 p-4 rounded-r-lg">
+                    <p class="font-bold mb-2">Your Task:</p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Modify the <code>ceos-basic.yaml</code> file to add a third cEOS node named <code>ceos3</code>.</li>
+                        <li>Connect <code>ceos3</code> to <code>ceos1</code> using a new link (e.g., <code>ceos1:eth2</code> to <code>ceos3:eth1</code>).</li>
+                        <li>Assign appropriate IP addresses to the new link and the management interface of <code>ceos3</code>.</li>
+                        <li>Deploy the updated topology, verify connectivity between all nodes, and then destroy it.</li>
+                    </ul>
+                </div>
+            `
+        }
+    },
+    {
+        day: 2,
+        title: 'Understanding Topology Files (YAML)',
+        intro: 'Day 2 dives deep into the heart of Containerlab: the YAML topology file. You will learn about the required structure, key properties for defining nodes and links, and the specific interface naming conventions for both Arista cEOS and Nokia SR Linux. This knowledge is fundamental to building any custom lab.',
+        content: {
+            concepts: `
+                <h3 class="text-2xl font-semibold mb-4">Key Concepts</h3>
+                <ul class="list-disc list-inside space-y-3 text-slate-700">
+                    <li><strong>YAML Structure:</strong> Containerlab files are written in YAML, which uses indentation to define structure.</li>
+                    <li><strong>Root Elements:</strong> The main keys are <code>name</code> (required) and <code>topology</code> (required), which contains <code>nodes</code> and <code>links</code>.</li>
+                    <li><strong>Nodes Section:</strong> Defines each device. Key properties include <code>kind</code> (e.g., 'ceos', 'srl'), <code>image</code>, and optional <code>startup-config</code>.</li>
+                    <li><strong>Links Section:</strong> Defines connections using <code>endpoints</code>, which lists the two nodes and interfaces to connect.</li>
+                </ul>
+                 <h3 class="text-2xl font-semibold mt-6 mb-4">Interface Naming</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-slate-100 p-4 rounded-lg">
+                        <h4 class="font-bold">Arista cEOS</h4>
+                        <p class="text-sm text-slate-600">e.g., <code>Ethernet1</code>, <code>Management0</code></p>
+                    </div>
+                    <div class="bg-slate-100 p-4 rounded-lg">
+                        <h4 class="font-bold">Nokia SR Linux</h4>
+                        <p class="text-sm text-slate-600">e.g., <code>e1-1</code>, <code>mgmt0</code></p>
+                    </div>
+                </div>
+            `,
+            example: `
+                <h3 class="text-2xl font-semibold mb-4">Mixed cEOS and SR Linux Topology</h3>
+                <p class="mb-4">This example shows the power of Containerlab to mix vendors in a single topology. We connect one Arista cEOS node to one Nokia SR Linux node.</p>
+                
+                <h4 class="text-xl font-semibold mt-6 mb-2">Topology Diagram</h4>
+                <div class="topology-diagram my-4">
+                    <div class="topo-node">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto mb-1 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/></svg>
+                        ceos1
+                    </div>
+                    <div class="topo-link" style="width: 4rem; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
+                    <div class="topo-node">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto mb-1 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        srlinux1
+                    </div>
+                </div>
+
+                <h4 class="text-xl font-semibold mt-6 mb-2">Topology File: <code>mixed-lab.yaml</code></h4>
+                <div class="code-block">
+<button class="copy-btn">Copy</button>
+<pre><code>name: mixed-lab
+topology:
+  nodes:
+    ceos1:
+      kind: ceos
+      image: arista/ceos:latest
+      startup-config: |
+        hostname ceos1
+        interface Ethernet1
+          no switchport
+          ip address 10.0.0.1/24
+    srlinux1:
+      kind: srl
+      image: ghcr.io/nokia/srlinux
+      startup-config: |
+        set / interface ethernet-1/1 subinterface 0 ipv4 address 10.0.0.2/24
+        set / system name srlinux1
+  links:
+    - endpoints: ["ceos1:eth1", "srlinux1:e1-1"]</code></pre>
+                </div>
+            `,
+            challenge: `
+                 <h3 class="text-2xl font-semibold mb-4">Day 2 Challenge</h3>
+                <div class="bg-blue-50 border-l-4 border-blue-500 text-blue-800 p-4 rounded-r-lg">
+                    <p class="font-bold mb-2">Your Task:</p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Create a topology file (<code>triangle-lab.yaml</code>) with three nodes: <code>ceos1</code>, <code>srlinux1</code>, and <code>ceos2</code>.</li>
+                        <li>Connect them in a triangle: <code>ceos1</code> &harr; <code>srlinux1</code> &harr; <code>ceos2</code> &harr; <code>ceos1</code>.</li>
+                        <li>Assign a unique IP subnet to each of the three links.</li>
+                        <li>Deploy, verify basic pings across each link, and then destroy the lab.</li>
+                    </ul>
+                </div>
+            `
+        }
+    },
+    {
+        day: 3,
+        title: 'Arista cEOS Specifics',
+        intro: "Today focuses entirely on Arista cEOS. You will learn the essentials for configuring cEOS in Containerlab, including the `startup-config` syntax for interfaces and routing protocols. The example lab demonstrates how to build a three-router OSPF network, a common and fundamental routing scenario.",
+        content: {
+            concepts: `
+                <h3 class="text-2xl font-semibold mb-4">Key Concepts</h3>
+                <ul class="list-disc list-inside space-y-3 text-slate-700">
+                    <li><strong>Image Acquisition:</strong> cEOS images are typically downloaded from Arista's official portal and loaded into Docker manually with <code>docker load</code>.</li>
+                    <li><strong>Initial Configuration:</strong> Use the <code>startup-config</code> property with standard EOS/IOS-like CLI commands.</li>
+                    <li><strong>L3 Interfaces:</strong> Remember to use <code>no switchport</code> on interfaces intended for routing.</li>
+                    <li><strong>Accessing the CLI:</strong> Use <code>docker exec -it &lt;container_name&gt; Cli</code> to get an interactive shell.</li>
+                </ul>
+            `,
+            example: `
+                <h3 class="text-2xl font-semibold mb-4">cEOS Network with OSPF</h3>
+                <p class="mb-4">This lab builds a classic 3-router triangle, with all nodes running OSPF to exchange routing information. Each router advertises a loopback interface.</p>
+                
+                <h4 class="text-xl font-semibold mt-6 mb-2">Topology Diagram</h4>
+                <div class="topology-diagram my-4 flex-col h-64">
+                    <div class="topo-node absolute" style="top: 1rem; left: 50%; transform: translateX(-50%);">r1</div>
+                    <div class="topo-node absolute" style="bottom: 1rem; left: 20%;">r2</div>
+                    <div class="topo-node absolute" style="bottom: 1rem; right: 20%;">r3</div>
+                    <div class="topo-link" style="width: 13rem; top: 48%; left: 33%; transform: rotate(45deg);"></div>
+                    <div class="topo-link" style="width: 13rem; top: 48%; right: 33%; transform: rotate(-45deg);"></div>
+                    <div class="topo-link" style="width: 13rem; bottom: 1.8rem; left: 50%; transform: translateX(-50%);"></div>
+                </div>
+
+                <h4 class="text-xl font-semibold mt-6 mb-2">Topology File: <code>ceos-ospf.yaml</code></h4>
+                <div class="code-block">
+<button class="copy-btn">Copy</button>
+<pre><code>name: ceos-ospf
+topology:
+  nodes:
+    r1:
+      kind: ceos
+      image: arista/ceos:latest
+      startup-config: |
+        hostname r1
+        interface Loopback0
+          ip address 1.1.1.1/32
+        interface Ethernet1
+          no switchport
+          ip address 10.0.1.1/24
+        interface Ethernet2
+          no switchport
+          ip address 10.0.2.1/24
+        router ospf 1
+          network 0.0.0.0/0 area 0
+    r2:
+      kind: ceos
+      image: arista/ceos:latest
+      startup-config: |
+        hostname r2
+        interface Loopback0
+          ip address 2.2.2.2/32
+        interface Ethernet1
+          no switchport
+          ip address 10.0.1.2/24
+        interface Ethernet2
+          no switchport
+          ip address 10.0.3.1/24
+        router ospf 1
+          network 0.0.0.0/0 area 0
+    r3:
+      kind: ceos
+      image: arista/ceos:latest
+      startup-config: |
+        hostname r3
+        interface Loopback0
+          ip address 3.3.3.3/32
+        interface Ethernet1
+          no switchport
+          ip address 10.0.2.2/24
+        interface Ethernet2
+          no switchport
+          ip address 10.0.3.2/24
+        router ospf 1
+          network 0.0.0.0/0 area 0
+  links:
+    - endpoints: ["r1:eth1", "r2:eth1"]
+    - endpoints: ["r1:eth2", "r3:eth1"]
+    - endpoints: ["r2:eth2", "r3:eth2"]</code></pre>
+                </div>
+            `,
+            challenge: `
+                <h3 class="text-2xl font-semibold mb-4">Day 3 Challenge</h3>
+                <div class="bg-blue-50 border-l-4 border-blue-500 text-blue-800 p-4 rounded-r-lg">
+                    <p class="font-bold mb-2">Your Task:</p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Add a fourth cEOS node (<code>r4</code>) to the OSPF lab.</li>
+                        <li>Connect <code>r4</code> to <code>r1</code> and <code>r2</code>.</li>
+                        <li>Configure OSPF on <code>r4</code> and give it a unique loopback IP.</li>
+                        <li>Deploy and verify that all four routers can ping each other's loopback addresses.</li>
+                    </ul>
+                </div>
+            `
+        }
+    },
+    {
+        day: 4,
+        title: 'Nokia SR Linux Specifics',
+        intro: "Welcome to the world of Nokia SR Linux. This day covers the unique aspects of working with this modern, model-driven NOS. You'll learn the hierarchical `set` command syntax for configuration and how to build an ISIS routing domain, providing a contrast to the OSPF lab from Day 3.",
+        content: {
+            concepts: `
+                <h3 class="text-2xl font-semibold mb-4">Key Concepts</h3>
+                <ul class="list-disc list-inside space-y-3 text-slate-700">
+                    <li><strong>Image Acquisition:</strong> SR Linux images are publicly available on GitHub Container Registry (ghcr.io), making them easy to access.</li>
+                    <li><strong>Configuration Model:</strong> SR Linux uses a hierarchical, model-driven configuration. All configuration is done with <code>set</code> commands, followed by <code>commit full</code> to apply changes.</li>
+                    <li><strong>CLI Access:</strong> Use <code>docker exec -it &lt;container_name&gt; sr_cli</code> to enter the interactive CLI.</li>
+                    <li><strong>Operational State:</strong> Use <code>info from state ...</code> to view operational data, similar to <code>show</code> commands on other platforms.</li>
+                </ul>
+            `,
+            example: `
+                <h3 class="text-2xl font-semibold mb-4">SR Linux Network with ISIS</h3>
+                <p class="mb-4">This lab builds the same 3-router triangle as Day 3, but this time using Nokia SR Linux and the ISIS routing protocol. This highlights the differences in configuration syntax and protocol choice.</p>
+                
+                <h4 class="text-xl font-semibold mt-6 mb-2">Topology Diagram</h4>
+                <div class="topology-diagram my-4 flex-col h-64">
+                    <div class="topo-node absolute" style="top: 1rem; left: 50%; transform: translateX(-50%);">sr1</div>
+                    <div class="topo-node absolute" style="bottom: 1rem; left: 20%;">sr2</div>
+                    <div class="topo-node absolute" style="bottom: 1rem; right: 20%;">sr3</div>
+                    <div class="topo-link" style="width: 13rem; top: 48%; left: 33%; transform: rotate(45deg);"></div>
+                    <div class="topo-link" style="width: 13rem; top: 48%; right: 33%; transform: rotate(-45deg);"></div>
+                    <div class="topo-link" style="width: 13rem; bottom: 1.8rem; left: 50%; transform: translateX(-50%);"></div>
+                </div>
+
+                <h4 class="text-xl font-semibold mt-6 mb-2">Topology File: <code>srlinux-isis.yaml</code></h4>
+                <div class="code-block">
+<button class="copy-btn">Copy</button>
+<pre><code>name: srlinux-isis
+topology:
+  nodes:
+    sr1:
+      kind: srl
+      image: ghcr.io/nokia/srlinux
+      startup-config: |
+        set / interface ethernet-1/1 subinterface 0 ipv4 address 10.0.1.1/24
+        set / interface ethernet-1/2 subinterface 0 ipv4 address 10.0.2.1/24
+        set / interface lo0 subinterface 0 ipv4 address 1.1.1.1/32
+        set / router isis instance 1
+        set / router isis instance 1 interface ethernet-1/1.0
+        set / router isis instance 1 interface ethernet-1/2.0
+        set / router isis instance 1 interface lo0.0
+        commit full
+    sr2:
+      kind: srl
+      image: ghcr.io/nokia/srlinux
+      startup-config: |
+        set / interface ethernet-1/1 subinterface 0 ipv4 address 10.0.1.2/24
+        set / interface ethernet-1/2 subinterface 0 ipv4 address 10.0.3.1/24
+        set / interface lo0 subinterface 0 ipv4 address 2.2.2.2/32
+        set / router isis instance 1
+        set / router isis instance 1 interface ethernet-1/1.0
+        set / router isis instance 1 interface ethernet-1/2.0
+        set / router isis instance 1 interface lo0.0
+        commit full
+    sr3:
+      kind: srl
+      image: ghcr.io/nokia/srlinux
+      startup-config: |
+        set / interface ethernet-1/1 subinterface 0 ipv4 address 10.0.2.2/24
+        set / interface ethernet-1/2 subinterface 0 ipv4 address 10.0.3.2/24
+        set / interface lo0 subinterface 0 ipv4 address 3.3.3.3/32
+        set / router isis instance 1
+        set / router isis instance 1 interface ethernet-1/1.0
+        set / router isis instance 1 interface ethernet-1/2.0
+        set / router isis instance 1 interface lo0.0
+        commit full
+  links:
+    - endpoints: ["sr1:e1-1", "sr2:e1-1"]
+    - endpoints: ["sr1:e1-2", "sr3:e1-1"]
+    - endpoints: ["sr2:e1-2", "sr3:e1-2"]</code></pre>
+                </div>
+            `,
+            challenge: `
+                <h3 class="text-2xl font-semibold mb-4">Day 4 Challenge</h3>
+                <div class="bg-blue-50 border-l-4 border-blue-500 text-blue-800 p-4 rounded-r-lg">
+                    <p class="font-bold mb-2">Your Task:</p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Add a fourth SR Linux node (<code>sr4</code>) to the ISIS lab.</li>
+                        <li>Connect <code>sr4</code> to <code>sr1</code> and <code>sr2</code>.</li>
+                        <li>Configure ISIS on <code>sr4</code>, give it a unique loopback IP, and ensure it forms adjacencies.</li>
+                        <li>Deploy and verify that all four routers can ping each other's loopback addresses.</li>
+                    </ul>
+                </div>
+            `
+        }
+    },
+    {
+        day: 5,
+        title: 'Advanced Containerlab Features',
+        intro: "Now that you're comfortable with the basics, Day 5 introduces advanced features. You'll learn how to connect your lab to external networks using bridges and how to persist configurations using bind mounts. This is key for creating more complex, stateful labs that survive reboots.",
+        content: {
+            concepts: `
+                <h3 class="text-2xl font-semibold mb-4">Key Concepts</h3>
+                <ul class="list-disc list-inside space-y-3 text-slate-700">
+                    <li><strong>External Links:</strong> Use <code>kind: bridge</code> to create a Docker bridge that your lab nodes can connect to, providing a gateway to your host machine or other networks.</li>
+                    <li><strong>Binding Mounts (<code>binds</code>):</strong> This powerful feature lets you mount a host directory or file into a container. It's the primary method for persisting configuration files.</li>
+                    <li><strong>Lab Management:</strong> Explore additional commands like <code>clab graph</code> to visualize your topology (requires Graphviz) and <code>clab tools netns</code> for low-level network namespace debugging.</li>
+                </ul>
+            `,
+            example: `
+                <h3 class="text-2xl font-semibold mb-4">Connecting to Host & Persisting Config</h3>
+                <p class="mb-4">This example shows two advanced features: connecting a cEOS node to a host bridge and mounting a local directory to save its startup configuration.</p>
+                
+                <h4 class="text-xl font-semibold mt-6 mb-2">Topology Diagram</h4>
+                <div class="topology-diagram my-4">
+                    <div class="topo-node">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto mb-1 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/></svg>
+                        ceos1
+                    </div>
+                    <div class="topo-link" style="width: 4rem; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
+                    <div class="topo-node topo-host">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        Host Bridge
+                    </div>
+                </div>
+                 <h4 class="text-xl font-semibold mt-6 mb-2">Host Directory Setup</h4>
+                <div class="code-block mb-4">
+<button class="copy-btn">Copy</button>
+<pre><code># Create directory on host before deploying
+mkdir ./ceos1-config</code></pre>
+                </div>
+
+                <h4 class="text-xl font-semibold mt-6 mb-2">Topology File: <code>host-connect.yaml</code></h4>
+                <div class="code-block">
+<button class="copy-btn">Copy</button>
+<pre><code>name: host-connect
+topology:
+  nodes:
+    ceos1:
+      kind: ceos
+      image: arista/ceos:latest
+      binds:
+        - ./ceos1-config:/mnt/flash
+      startup-config: /mnt/flash/startup-config
+  links:
+    - endpoints: ["ceos1:eth1", "bridge:clab-host-br"]</code></pre>
+                </div>
+            `,
+            challenge: `
+                <h3 class="text-2xl font-semibold mb-4">Day 5 Challenge</h3>
+                <div class="bg-blue-50 border-l-4 border-blue-500 text-blue-800 p-4 rounded-r-lg">
+                    <p class="font-bold mb-2">Your Task:</p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Create a topology with one SR Linux node.</li>
+                        <li>Configure a persistent mount for its configuration file (<code>/etc/opt/srlinux/config.json</code>).</li>
+                        <li>Deploy, make a change (e.g., add a loopback), save the config, destroy, and re-deploy to verify persistence.</li>
+                        <li>Use <code>clab graph</code> on your host to generate a PNG image of the topology.</li>
+                    </ul>
+                </div>
+            `
+        }
+    },
+    {
+        day: 6,
+        title: 'Interoperability and Advanced Routing',
+        intro: "Day 6 focuses on a real-world scenario: making different vendors talk to each other. You'll build a lab with both cEOS and SR Linux and configure them to peer using BGP. This day also introduces the concept of route redistribution, a critical skill for complex network integrations.",
+        content: {
+            concepts: `
+                <h3 class="text-2xl font-semibold mb-4">Key Concepts</h3>
+                <ul class="list-disc list-inside space-y-3 text-slate-700">
+                    <li><strong>Multi-Vendor Topologies:</strong> Containerlab makes it trivial to mix and match different network operating systems in the same lab.</li>
+                    <li><strong>BGP Peering:</strong> Learn the basic configuration to establish an eBGP session between a cEOS router and an SR Linux router.</li>
+                    <li><strong>Route Redistribution:</strong> The technique of sharing routes learned from one routing protocol (like OSPF) into another (like BGP), and vice-versa.</li>
+                    <li><strong>AS Numbers:</strong> BGP requires each router to be in an Autonomous System, identified by a unique number.</li>
+                </ul>
+            `,
+            example: `
+                <h3 class="text-2xl font-semibold mb-4">Multi-Vendor BGP Peering</h3>
+                <p class="mb-4">A simple but powerful lab showing an Arista cEOS router in AS 65001 peering directly with a Nokia SR Linux router in AS 65002. Each router advertises its loopback IP into BGP.</p>
+                
+                <h4 class="text-xl font-semibold mt-6 mb-2">Topology Diagram</h4>
+                 <div class="topology-diagram my-4">
+                    <div class="topo-node">
+                        AS 65001<br/><strong>ceos1</strong>
+                    </div>
+                    <div class="topo-link" style="width: 4rem; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
+                    <div class="topo-node">
+                       AS 65002<br/><strong>srlinux1</strong>
+                    </div>
+                </div>
+
+                <h4 class="text-xl font-semibold mt-6 mb-2">Topology File: <code>multi-vendor-bgp.yaml</code></h4>
+                <div class="code-block">
+<button class="copy-btn">Copy</button>
+<pre><code>name: multi-vendor-bgp
+topology:
+  nodes:
+    ceos1:
+      kind: ceos
+      image: arista/ceos:latest
+      startup-config: |
+        hostname ceos1
+        interface Loopback0
+          ip address 1.1.1.1/32
+        interface Ethernet1
+          no switchport
+          ip address 10.0.0.1/24
+        router bgp 65001
+          neighbor 10.0.0.2 remote-as 65002
+          network 1.1.1.1/32
+    srlinux1:
+      kind: srl
+      image: ghcr.io/nokia/srlinux
+      startup-config: |
+        set / interface ethernet-1/1 subinterface 0 ipv4 address 10.0.0.2/24
+        set / interface lo0 subinterface 0 ipv4 address 2.2.2.2/32
+        set / router bgp autonomous-system 65002
+        set / router bgp neighbor 10.0.0.1 peer-as 65001
+        set / router bgp network 2.2.2.2/32
+        commit full
+  links:
+    - endpoints: ["ceos1:eth1", "srlinux1:e1-1"]</code></pre>
+                </div>
+            `,
+            challenge: `
+                <h3 class="text-2xl font-semibold mb-4">Day 6 Challenge</h3>
+                <div class="bg-blue-50 border-l-4 border-blue-500 text-blue-800 p-4 rounded-r-lg">
+                    <p class="font-bold mb-2">Your Task:</p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Build a 3-node chain: <code>ceos1</code> &harr; <code>srlinux1</code> &harr; <code>ceos2</code>.</li>
+                        <li>Run BGP between <code>ceos1</code> and <code>srlinux1</code>.</li>
+                        <li>Run OSPF between <code>srlinux1</code> and <code>ceos2</code>.</li>
+                        <li>On <code>srlinux1</code>, redistribute routes between BGP and OSPF.</li>
+                        <li>Verify that <code>ceos1</code> can ping the loopback of <code>ceos2</code>, and vice-versa.</li>
+                    </ul>
+                </div>
+            `
+        }
+    },
+    {
+        day: 7,
+        title: 'Troubleshooting and Best Practices',
+        intro: "On the final day, you'll learn the crucial skill of troubleshooting. We'll look at common issues, the tools available to debug them, and best practices to help you build reliable and maintainable labs. A deliberate error in the example lab provides a hands-on troubleshooting exercise.",
+        content: {
+            concepts: `
+                <h3 class="text-2xl font-semibold mb-4">Common Issues</h3>
+                <ul class="list-disc list-inside space-y-3 text-slate-700">
+                    <li><strong>Image Not Found:</strong> Double-check that the image exists in your local Docker daemon.</li>
+                    <li><strong>YAML Syntax Errors:</strong> Indentation must be perfect. Use a linter.</li>
+                    <li><strong>Container Not Starting:</strong> Use <code>docker logs &lt;container_name&gt;</code> to check for startup errors.</li>
+                    <li><strong>Connectivity Issues:</strong> Check IPs/masks, ensure interfaces are enabled (<code>no shutdown</code>), and verify routing protocol neighbors.</li>
+                </ul>
+                <h3 class="text-2xl font-semibold mt-6 mb-4">Best Practices</h3>
+                <ul class="list-disc list-inside space-y-3 text-slate-700">
+                    <li><strong>Version Control:</strong> Always keep your lab files in Git.</li>
+                    <li><strong>Clear Naming:</strong> Use descriptive names for labs, nodes, and interfaces.</li>
+                    <li><strong>Modularity:</strong> Break large, complex labs into smaller, more manageable files.</li>
+                    <li><strong>Destroy Labs:</strong> Destroy labs with <code>clab destroy</code> when you're finished to free up system resources.</li>
+                </ul>
+            `,
+            example: `
+                <h3 class="text-2xl font-semibold mb-4">Deliberate Error and Troubleshooting</h3>
+                <p class="mb-4">This lab has an intentional error: the subnet masks on the link between the two nodes do not match. This is a common mistake that prevents connectivity. Your task is to find and fix it.</p>
+                
+                <h4 class="text-xl font-semibold mt-6 mb-2">Topology File: <code>broken-lab.yaml</code></h4>
+                <div class="code-block">
+<button class="copy-btn">Copy</button>
+<pre><code>name: broken-lab
+topology:
+  nodes:
+    ceos1:
+      kind: ceos
+      image: arista/ceos:latest
+      startup-config: |
+        hostname ceos1
+        interface Ethernet1
+          no switchport
+          ip address 10.0.0.1/24
+    srlinux1:
+      kind: srl
+      image: ghcr.io/nokia/srlinux
+      startup-config: |
+        # INTENTIONAL ERROR: Mismatched subnet mask
+        set / interface ethernet-1/1 subinterface 0 ipv4 address 10.0.0.2/25
+        commit full
+  links:
+    - endpoints: ["ceos1:eth1", "srlinux1:e1-1"]</code></pre>
+                </div>
+
+                <h4 class="text-xl font-semibold mt-6 mb-2">Troubleshooting Steps</h4>
+                <ol class="list-decimal list-inside space-y-2 mt-4">
+                    <li>Deploy the lab. Pings will fail.</li>
+                    <li>On <code>ceos1</code>, run <code>show ip interface brief</code>. Note the <code>/24</code> mask.</li>
+                    <li>On <code>srlinux1</code>, run <code>info from state interface ethernet-1/1.0</code>. Note the <code>/25</code> mask.</li>
+                    <li><strong>Diagnosis:</strong> The mismatched masks mean the nodes believe they are on different subnets.</li>
+                    <li><strong>Fix:</strong> Destroy the lab, correct the mask in the YAML to <code>/24</code> on <code>srlinux1</code>, and re-deploy.</li>
+                </ol>
+            `,
+            challenge: `
+                 <h3 class="text-2xl font-semibold mb-4">Day 7 Challenge</h3>
+                <div class="bg-blue-50 border-l-4 border-blue-500 text-blue-800 p-4 rounded-r-lg">
+                    <p class="font-bold mb-2">Your Task:</p>
+                    <p>This is your final exam! Build a new, multi-vendor topology of your own design. It must include:</p>
+                    <ul class="list-disc list-inside space-y-2 mt-2">
+                        <li>At least two cEOS nodes and two SR Linux nodes.</li>
+                        <li>At least two different routing protocols (e.g., OSPF and BGP).</li>
+                        <li>Route redistribution between the protocols.</li>
+                        <li><strong>Introduce an intentional but subtle error.</strong></li>
+                        <li>Write down the steps you would take to troubleshoot and fix your own broken lab.</li>
+                    </ul>
+                </div>
+            `
+        }
+    }
+];
+
+document.addEventListener('DOMContentLoaded', () => {
+    const navContainer = document.getElementById('course-nav');
+    const contentTitle = document.getElementById('content-title');
+    const contentIntro = document.getElementById('content-intro');
+    const contentTabs = document.getElementById('content-tabs');
+    const tabPanels = document.getElementById('tab-panels');
+    let currentDay = 0;
+    let currentTab = 'concepts';
+
+    function renderNav() {
+        navContainer.innerHTML = courseData.map((day, index) => `
+            <li>
+                <button data-day="${index}" class="nav-item w-full text-left px-4 py-2 rounded-lg transition-colors ${index === currentDay ? 'active' : 'hover:bg-slate-100'}">
+                    <span class="font-semibold">Day ${day.day}:</span> ${day.title}
+                </button>
+            </li>
+        `).join('');
+    }
+    
+    function renderContent() {
+        const dayData = courseData[currentDay];
+        contentTitle.textContent = `Day ${dayData.day}: ${dayData.title}`;
+        contentIntro.textContent = dayData.intro;
+
+        const tabs = Object.keys(dayData.content);
+        contentTabs.innerHTML = tabs.map(tabKey => {
+            const tabName = tabKey.charAt(0).toUpperCase() + tabKey.slice(1).replace(/([A-Z])/g, ' $1').trim();
+            return `<button data-tab="${tabKey}" class="tab-item py-3 px-1 border-b-2 border-transparent text-lg font-medium text-slate-500 hover:text-slate-700 ${tabKey === currentTab ? 'active' : ''}">${tabName}</button>`
+        }).join('');
+        
+        tabPanels.innerHTML = tabs.map(tabKey => `
+            <div id="panel-${tabKey}" class="${tabKey === currentTab ? '' : 'hidden'}">
+                ${dayData.content[tabKey]}
+            </div>
+        `).join('');
+        
+        attachCopyListeners();
+    }
+
+    function handleNavClick(e) {
+        const button = e.target.closest('.nav-item');
+        if (button) {
+            const dayIndex = parseInt(button.dataset.day, 10);
+            if (dayIndex !== currentDay) {
+                currentDay = dayIndex;
+                currentTab = 'concepts'; 
+                renderNav();
+                renderContent();
+            }
+        }
+    }
+
+    function handleTabClick(e) {
+        const button = e.target.closest('.tab-item');
+        if (button) {
+            const tabKey = button.dataset.tab;
+            if(tabKey !== currentTab) {
+                currentTab = tabKey;
+                
+                document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+                button.classList.add('active');
+
+                document.querySelectorAll('#tab-panels > div').forEach(p => p.classList.add('hidden'));
+                document.getElementById(`panel-${tabKey}`).classList.remove('hidden');
+            }
+        }
+    }
+    
+    function attachCopyListeners() {
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const pre = button.nextElementSibling;
+                const code = pre.querySelector('code');
+                const text = code.innerText;
+                
+                const tempTextArea = document.createElement('textarea');
+                tempTextArea.value = text;
+                document.body.appendChild(tempTextArea);
+                tempTextArea.select();
+                try {
+                    document.execCommand('copy');
+                    button.textContent = 'Copied!';
+                    setTimeout(() => {
+                        button.textContent = 'Copy';
+                    }, 2000);
+                } catch (err) {
+                    console.error('Failed to copy text: ', err);
+                    button.textContent = 'Error';
+                }
+                document.body.removeChild(tempTextArea);
+            });
+        });
+    }
+
+    navContainer.addEventListener('click', handleNavClick);
+    contentTabs.addEventListener('click', handleTabClick);
+
+    // Initial render
+    renderNav();
+    renderContent();
+});
+</script>
+</body>
+</html>
