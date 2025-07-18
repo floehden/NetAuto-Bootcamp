@@ -14,6 +14,10 @@ try:
     response.raise_for_status()  # Raises an HTTPError for bad responses
 except requests.exceptions.RequestException as e:
     print(f"An error occurred: {e}")
+else: 
+    pass
+finally:
+    pass
 ```
 Session Management:
 ```Python
