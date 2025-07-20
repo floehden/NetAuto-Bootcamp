@@ -1,15 +1,17 @@
 ### **Day 16: Configuration Management - Replacing Configurations**
 
-**Objective:** Understand how to completely replace the device's configuration using `load_replace_candidate()`. This is a more drastic change, so use with caution in production.
+## **Objective:** 
+Understand how to completely replace the device's configuration using `load_replace_candidate()`. This is a more drastic change, so use with caution in production.
 
-**Concepts:**
+## **Concepts:**
 
   * `load_replace_candidate()`: Replaces the entire running configuration with the provided configuration.
   * **Caution:** This can be destructive if not used carefully, as it removes any configuration not explicitly defined in the candidate.
 
-**Challenge:** Create a minimal configuration for `arista1` that only includes a hostname and the management interface configuration, and apply it using `load_replace_candidate()`. Then, add back the loopback interface from Day 3.
+## **Challenge:** 
+Create a minimal configuration for `arista1` that only includes a hostname and the management interface configuration, and apply it using `load_replace_candidate()`. Then, add back the loopback interface from Day 3.
 
-**Code Examples:**
+## **Code Examples:**
 
 1.  **`day4_replace_config.py`:**
 ```python

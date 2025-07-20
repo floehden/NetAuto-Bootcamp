@@ -27,7 +27,7 @@ Send a GET request to an API that requires basic authentication.
 ### Challenge 2: Custom Headers
 Write a script to send a GET request with custom headers and print the response.
 ### Challenge 3: API Key Authentication
-Use an API key to authenticate and retrieve data from a public API. For example at demo.nautobot.com
+Use an API key to authenticate and retrieve data from a public API. For example at demo.nautobot.com.
 
 
 ## Final ToDo

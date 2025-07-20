@@ -1,16 +1,16 @@
 
 # **Day 17: Understanding Configuration Rollback**
 
-**Objective:** Learn how to use NAPALM's rollback feature in case of problematic configuration changes.
+## **Objective:** Learn how to use NAPALM's rollback feature in case of problematic configuration changes.
 
-**Concepts:**
+## **Concepts:**
 
   * `commit_config(revert_in=SECONDS)`: Commits changes, but automatically rolls back if a `commit_config()` with `confirmed=True` is not issued within `SECONDS`.
   * `rollback_config()`: Reverts the last committed configuration.
 
-**Challenge:** Apply a configuration that would break connectivity (e.g., changing the management IP or shutting down an interface), use `revert_in` to automatically roll back, and then manually trigger a rollback for a different change.
+## **Challenge:** Apply a configuration that would break connectivity (e.g., changing the management IP or shutting down an interface), use `revert_in` to automatically roll back, and then manually trigger a rollback for a different change.
 
-**Code Examples:**
+## **Code Examples:**
 
 1.  **`day5_rollback.py`:**
     ```python
@@ -109,3 +109,8 @@
         if device.is_opened:
             device.close()
     ```
+
+## Final ToDo
+
+Post about your journey, what you learned on different platforms like [LinkedIn](https://www.linkedin.com/feed/), [Twitter](https://x.com/intent/post?url=https%3A%2F%2Fgithub.com%2FNetAuto-RheinMain%2FNetAuto-Bootcamp&text=I%20just%20completed%20Day%2017%20of%20the%20NetAuto%20Bootcamp%20on%20Python%20Programming!&hashtags=NetAutoBootcamp%2CNetworkAutomation) or any other of your favourite platforms. Follow up on your journey and share it with others! Use the Hashtags #NetAutoBootcamp #NetworkAutomation </br>
+You can also tag us on LinkedIn with @netauto-group-rheinmain

@@ -1,6 +1,6 @@
 # Day 13 Setting up the Lab and First Connection**
 
-**Prerequisites:**
+## **Prerequisites:**
 
   * **Linux Environment:** A Linux machine (VM or bare metal) with Docker installed. Ubuntu 22.04 LTS or later is recommended.
   * **Docker:** Ensure Docker is installed and your user can run Docker commands without `sudo`. Refer to Docker's official documentation for installation.
@@ -10,21 +10,23 @@
     docker import cEOS-lab-<VERSION>.tar.xz ceos:latest 
     # Or specify the exact version, e.g., docker import cEOS-lab-4.30.6M.tar.xz ceos:4.30.6M
     ```
-  * **Python 3.8+:** Ensure you have Python 3.8 or higher installed.
+  * **Python 3.9+:** Ensure you have Python 3.9 or higher installed.
   * **NAPALM:** Install NAPALM: `pip install napalm`
   * **Basic Python Knowledge:** Familiarity with Python syntax, data structures (dictionaries, lists), and functions.
 
 ## Tasks
 
-**Objective:** Get your Containerlab environment running with an Arista cEOS router and establish a basic NAPALM connection.
+## **Objective:** 
+Get your Containerlab environment running with an Arista cEOS router and establish a basic NAPALM connection.
 
-**Concepts:**
+## **Concepts:**
 
   * Containerlab topology definition (`.clab.yml`)
   * Arista cEOS basic configuration (eAPI, SSH)
   * NAPALM `get_network_driver` and `open()` method
 
-**Challenge:** Deploy a single cEOS router, configure its management interface, and verify SSH/eAPI access.
+## **Challenge:** 
+Deploy a single cEOS router, configure its management interface, and verify SSH/eAPI access.
 
 **Code Examples:**
 
@@ -95,3 +97,8 @@
             print("Connection closed.")
 
     ```
+
+## Final ToDo
+
+Post about your journey, what you learned on different platforms like [LinkedIn](https://www.linkedin.com/feed/), [Twitter](https://x.com/intent/post?url=https%3A%2F%2Fgithub.com%2FNetAuto-RheinMain%2FNetAuto-Bootcamp&text=I%20just%20completed%20Day%2013%20of%20the%20NetAuto%20Bootcamp%20on%20Python%20Programming!&hashtags=NetAutoBootcamp%2CNetworkAutomation) or any other of your favourite platforms. Follow up on your journey and share it with others! Use the Hashtags #NetAutoBootcamp #NetworkAutomation </br>
+You can also tag us on LinkedIn with @netauto-group-rheinmain

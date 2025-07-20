@@ -33,7 +33,7 @@ print(response.json())
 Send a GET request with query parameters to a public API and print the response.
 
 ### Challenge 2: POST Request
-Write a script to send a POST request with JSON data to a public API (e.g., JSONPlaceholder) and print the response.
+Write a script to send a POST request with JSON data to a public API (e.g., [JSONPlaceholder](https://jsonplaceholder.typicode.com/)) and print the response.
 
 ### Challenge 3: Data Submission
 Create a script that submits form data to a server using a POST request.

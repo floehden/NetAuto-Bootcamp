@@ -2,12 +2,12 @@
 
 **Objective:** Combine the learned concepts into a practical script and properly clean up your Containerlab environment.
 
-**Concepts:**
+## **Concepts:**
 
   * Scripting multiple NAPALM operations.
   * Containerlab lab destruction.
 
-**Challenge:**
+## **Challenge:**
 
 1.  Create a Python script that:
       * Connects to `arista1`.
@@ -19,7 +19,7 @@
       * Closes the connection.
 2.  Destroy your Containerlab lab.
 
-**Code Examples:**
+## **Code Examples:**
 
 1.  **`day7_automation_script.py`:**
 
@@ -122,4 +122,9 @@
   * **Multiple Devices:** Expand your Containerlab topology to include multiple cEOS routers and practice automating configurations across them.
   * **Custom Getters/Setters:** For very specific, vendor-unique data or configurations not covered by NAPALM's standard getters/setters, you can extend the driver.
   * **NAPALM-CLI:** Experiment with the `napalm` command-line tool for quick checks.
+
+  ## Final ToDo
+
+Post about your journey, what you learned on different platforms like [LinkedIn](https://www.linkedin.com/feed/), [Twitter](https://x.com/intent/post?url=https%3A%2F%2Fgithub.com%2FNetAuto-RheinMain%2FNetAuto-Bootcamp&text=I%20just%20completed%20Day%2019%20of%20the%20NetAuto%20Bootcamp%20on%20Python%20Programming!&hashtags=NetAutoBootcamp%2CNetworkAutomation) or any other of your favourite platforms. Follow up on your journey and share it with others! Use the Hashtags #NetAutoBootcamp #NetworkAutomation </br>
+You can also tag us on LinkedIn with @netauto-group-rheinmain
 

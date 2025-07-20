@@ -21,5 +21,4 @@
 * [Day 18](/Topics/Programming/Python/Challenges/Day-18/readme.md): Using Napalm: Advanced Operations & Error Handling
 * [Day 19](/Topics/Programming/Python/Challenges/Day-19/readme.md): Using Napalm: Building a Simple Automation Script & Cleanup
 * For Nornir take a Look at: [Automation / Nornir](/Topics/Automation/Day-3.md)
-* 
-# * using pygnmi # advanced topics
+* Challenges for [pygnmi](/Topics/Programming/Python/Challenges/pygnmi/readme.md).

@@ -1,11 +1,12 @@
-# \#\# Day 12: Final Project - Simple Deployment Script 🚀
+# Day 12: Final Project - Simple Deployment Script 🚀
 
-**Concept:** Let's combine everything we've learned to create a practical automation script. The goal is to deploy a simple application by creating a directory, uploading files, installing dependencies, and running the app. This demonstrates a realistic use case for Paramiko.
+## **Concept:** 
+Let's combine everything we've learned to create a practical automation script. The goal is to deploy a simple application by creating a directory, uploading files, installing dependencies, and running the app. This demonstrates a realistic use case for Paramiko.
 
-**Code Example & Final Challenge:**
+## **Code Example & Final Challenge:**
 Your final task is to write a single Python script that performs the following steps. This *is* the challenge. Use the concepts and code from the previous days as your building blocks.
 
-**Project Requirements:**
+## **Project Requirements:**
 
 1.  **Local Setup:**
 
@@ -27,3 +28,8 @@ Your final task is to write a single Python script that performs the following s
       * Wrap your logic in `try...finally` to ensure the connection is always closed.
 
 Good luck\! This final challenge will solidify your understanding of Paramiko's core workflow.
+
+## Final ToDo
+
+Post about your journey, what you learned on different platforms like [LinkedIn](https://www.linkedin.com/feed/), [Twitter](https://x.com/intent/post?url=https%3A%2F%2Fgithub.com%2FNetAuto-RheinMain%2FNetAuto-Bootcamp&text=I%20just%20completed%20Day%2012%20of%20the%20NetAuto%20Bootcamp%20on%20Python%20Programming!&hashtags=NetAutoBootcamp%2CNetworkAutomation) or any other of your favourite platforms. Follow up on your journey and share it with others! Use the Hashtags #NetAutoBootcamp #NetworkAutomation </br>
+You can also tag us on LinkedIn with @netauto-group-rheinmain

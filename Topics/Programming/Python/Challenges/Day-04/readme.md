@@ -38,7 +38,7 @@ else:
 ```
 ## Challenges
 ### Challenge 1: Basic GET Request
-Write a script to send a GET request to a public API (e.g., JSONPlaceholder) and print the response.
+Write a script to send a GET request to a public API (e.g., [No as a Service](https://github.com/hotheadhacker/no-as-a-service/tree/main), [JSONPlaceholder](https://jsonplaceholder.typicode.com/)) and print the response.
 
 ### Challenge 2: Status Code Check
 Modify the script to check the status code and print a success or failure message.
