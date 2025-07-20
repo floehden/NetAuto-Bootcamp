@@ -43,12 +43,12 @@ topology:
       # or configure it manually after the container starts.
       # For simplicity, we'll assume default cEOS enables SSH with admin/admin.
       # For eAPI, you might need to add:
-      #startup-config: |
-      #  management api http-commands
-      #    no shutdown
-      #    protocol https port 443
-      #    protocol http port 80
-      #  username admin secret admin
+      startup-config: |
+        management api http-commands
+          no shutdown
+          protocol https port 443
+          protocol http port 80
+        username admin secret admin
 ```
 
 2.  **Deploy Containerlab lab:**
