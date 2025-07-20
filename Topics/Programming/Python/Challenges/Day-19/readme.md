@@ -23,92 +23,92 @@
 
 1.  **`day7_automation_script.py`:**
 
-    ```python
-    from napalm import get_network_driver
-    import json
-    import time
+```python
+from napalm import get_network_driver
+import json
+import time
 
-    DEVICE_IP = "YOUR_ARISTA1_IP"
-    USERNAME = "admin"
-    PASSWORD = "admin"
+DEVICE_IP = "YOUR_ARISTA1_IP"
+USERNAME = "admin"
+PASSWORD = "admin"
 
-    driver = get_network_driver("eos")
-    device = driver(
-        hostname=DEVICE_IP,
-        username=USERNAME,
-        password=PASSWORD,
-        optional_args={"secret": PASSWORD}
-    )
+driver = get_network_driver("eos")
+device = driver(
+    hostname=DEVICE_IP,
+    username=USERNAME,
+    password=PASSWORD,
+    optional_args={"secret": PASSWORD}
+)
 
-    def print_section_header(title):
-        print(f"\n{'='*5} {title} {'='*5}")
+def print_section_header(title):
+    print(f"\n{'='*5} {title} {'='*5}")
 
-    try:
-        device.open()
-        print("Connected to Arista cEOS.")
+try:
+    device.open()
+    print("Connected to Arista cEOS.")
 
-        print_section_header("Current Running Configuration")
-        initial_config = device.get_config()['running']
-        print(initial_config)
+    print_section_header("Current Running Configuration")
+    initial_config = device.get_config()['running']
+    print(initial_config)
 
-        # --- Add VLAN ---
-        print_section_header("Adding VLAN 100")
-        add_vlan_config = """
-        vlan 100
-          name AUTOMATION_VLAN
-        """
-        device.load_merge_candidate(config=add_vlan_config)
-        diff_add_vlan = device.compare_config()
-        print(diff_add_vlan)
-        if diff_add_vlan:
-            device.commit_config()
-            print("VLAN 100 added. Verifying...")
-            time.sleep(2) # Give device time to update state
-            current_config_after_add = device.get_config()['running']
-            if "vlan 100" in current_config_after_add and "name AUTOMATION_VLAN" in current_config_after_add:
-                print("VLAN 100 successfully created.")
-            else:
-                print("VLAN 100 not found in config after add, potential issue.")
+    # --- Add VLAN ---
+    print_section_header("Adding VLAN 100")
+    add_vlan_config = """
+    vlan 100
+        name AUTOMATION_VLAN
+    """
+    device.load_merge_candidate(config=add_vlan_config)
+    diff_add_vlan = device.compare_config()
+    print(diff_add_vlan)
+    if diff_add_vlan:
+        device.commit_config()
+        print("VLAN 100 added. Verifying...")
+        time.sleep(2) # Give device time to update state
+        current_config_after_add = device.get_config()['running']
+        if "vlan 100" in current_config_after_add and "name AUTOMATION_VLAN" in current_config_after_add:
+            print("VLAN 100 successfully created.")
         else:
-            print("No changes for VLAN 100, might already exist.")
+            print("VLAN 100 not found in config after add, potential issue.")
+    else:
+        print("No changes for VLAN 100, might already exist.")
 
-        # --- Remove VLAN ---
-        print_section_header("Removing VLAN 100")
-        remove_vlan_config = """
-        no vlan 100
-        """
-        device.load_merge_candidate(config=remove_vlan_config)
-        diff_remove_vlan = device.compare_config()
-        print(diff_remove_vlan)
-        if diff_remove_vlan:
-            device.commit_config()
-            print("VLAN 100 removed. Verifying...")
-            time.sleep(2) # Give device time to update state
-            current_config_after_remove = device.get_config()['running']
-            if "vlan 100" not in current_config_after_remove:
-                print("VLAN 100 successfully removed.")
-            else:
-                print("VLAN 100 still found in config after remove, potential issue.")
+    # --- Remove VLAN ---
+    print_section_header("Removing VLAN 100")
+    remove_vlan_config = """
+    no vlan 100
+    """
+    device.load_merge_candidate(config=remove_vlan_config)
+    diff_remove_vlan = device.compare_config()
+    print(diff_remove_vlan)
+    if diff_remove_vlan:
+        device.commit_config()
+        print("VLAN 100 removed. Verifying...")
+        time.sleep(2) # Give device time to update state
+        current_config_after_remove = device.get_config()['running']
+        if "vlan 100" not in current_config_after_remove:
+            print("VLAN 100 successfully removed.")
         else:
-            print("No changes for VLAN 100 removal, might not exist.")
+            print("VLAN 100 still found in config after remove, potential issue.")
+    else:
+        print("No changes for VLAN 100 removal, might not exist.")
 
-    except Exception as e:
-        print(f"An error occurred during automation: {e}")
-        if device.is_opened:
-            device.discard_config() # Always good to discard if an error occurs during config changes
-            print("Discarding candidate configuration due to error.")
-    finally:
-        if device.is_opened:
-            device.close()
-            print("\nConnection closed.")
+except Exception as e:
+    print(f"An error occurred during automation: {e}")
+    if device.is_opened:
+        device.discard_config() # Always good to discard if an error occurs during config changes
+        print("Discarding candidate configuration due to error.")
+finally:
+    if device.is_alive():
+        device.close()
+        print("\nConnection closed.")
 
-    ```
+```
 
 2.  **Destroy Containerlab lab:**
 
-    ```bash
-    containerlab destroy -t day1_topology.clab.yml
-    ```
+```bash
+sudo containerlab destroy -t day1_topology.clab.yml --cleanup
+```
 
     This will shut down and remove the Docker containers, cleaning up your lab environment.
 

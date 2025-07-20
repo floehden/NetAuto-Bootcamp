@@ -15,73 +15,73 @@ Create a minimal configuration for `arista1` that only includes a hostname and t
 
 1.  **`day4_replace_config.py`:**
 ```python
-    from napalm import get_network_driver
-    import json
-    import time
+from napalm import get_network_driver
+import json
+import time
 
-    DEVICE_IP = "YOUR_ARISTA1_IP"
-    USERNAME = "admin"
-    PASSWORD = "admin"
+DEVICE_IP = "YOUR_ARISTA1_IP"
+USERNAME = "admin"
+PASSWORD = "admin"
 
-    driver = get_network_driver("eos")
-    device = driver(
-        hostname=DEVICE_IP,
-        username=USERNAME,
-        password=PASSWORD,
-        optional_args={"secret": PASSWORD}
-    )
+driver = get_network_driver("eos")
+device = driver(
+    hostname=DEVICE_IP,
+    username=USERNAME,
+    password=PASSWORD,
+    optional_args={"secret": PASSWORD}
+)
 
-    # Minimal replacement configuration
-    replace_config_initial = """
-    hostname arista-replaced
-    interface Management0
-      ip address YOUR_ARISTA1_IP/24 # Adjust subnet as per your Containerlab setup
-      no shutdown
-    """
+# Minimal replacement configuration
+replace_config_initial = """
+hostname arista-replaced
+interface Management0
+    ip address YOUR_ARISTA1_IP/24 # Adjust subnet as per your Containerlab setup
+    no shutdown
+"""
 
-    # Configuration to add back the loopback
-    add_loopback_config = """
-    interface Loopback1
-      description "Managed by NAPALM - Added back"
-      ip address 10.0.0.1/32
-    """
+# Configuration to add back the loopback
+add_loopback_config = """
+interface Loopback1
+    description "Managed by NAPALM - Added back"
+    ip address 10.0.0.1/32
+"""
 
-    try:
-        device.open()
+try:
+    device.open()
 
-        print("\n--- Replacing configuration with minimal config ---")
-        device.load_replace_candidate(config=replace_config_initial)
-        diff_initial = device.compare_config()
-        print(diff_initial)
+    print("\n--- Replacing configuration with minimal config ---")
+    device.load_replace_candidate(config=replace_config_initial)
+    diff_initial = device.compare_config()
+    print(diff_initial)
 
-        if diff_initial:
-            print("\nCommitting initial replacement configuration...")
+    if diff_initial:
+        print("\nCommitting initial replacement configuration...")
+        device.commit_config()
+        print("Initial replacement committed. Waiting a moment...")
+        time.sleep(5) # Give the device time to apply
+
+        print("\n--- Adding back Loopback1 ---")
+        device.load_merge_candidate(config=add_loopback_config)
+        diff_loopback = device.compare_config()
+        print(diff_loopback)
+
+        if diff_loopback:
+            print("\nCommitting loopback configuration...")
             device.commit_config()
-            print("Initial replacement committed. Waiting a moment...")
-            time.sleep(5) # Give the device time to apply
-
-            print("\n--- Adding back Loopback1 ---")
-            device.load_merge_candidate(config=add_loopback_config)
-            diff_loopback = device.compare_config()
-            print(diff_loopback)
-
-            if diff_loopback:
-                print("\nCommitting loopback configuration...")
-                device.commit_config()
-                print("Loopback configuration committed.")
-            else:
-                print("No loopback changes, discarding.")
-                device.discard_config()
+            print("Loopback configuration committed.")
         else:
-            print("No changes for initial replacement, discarding.")
+            print("No loopback changes, discarding.")
             device.discard_config()
+    else:
+        print("No changes for initial replacement, discarding.")
+        device.discard_config()
 
-    except Exception as e:
-        print(f"Error: {e}")
-        if device.is_opened:
-            device.discard_config()
-            print("Discarding candidate configuration due to error.")
-    finally:
-        if device.is_opened:
-            device.close()
+except Exception as e:
+    print(f"Error: {e}")
+    if device.is_alive():
+        device.discard_config()
+        print("Discarding candidate configuration due to error.")
+finally:
+    if device.is_alive():
+        device.close()
 ```

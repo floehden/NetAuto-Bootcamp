@@ -32,71 +32,74 @@ Deploy a single cEOS router, configure its management interface, and verify SSH/
 
 1.  **`day1_topology.clab.yml`:**
 
-    ```yaml
-    name: arista-napalm-lab
-    topology:
-      nodes:
-        arista1:
-          kind: ceos
-          image: ceos:latest # Use the tag you imported your cEOS image with
-          # You might need to add startup-config to enable eAPI and SSH, 
-          # or configure it manually after the container starts.
-          # For simplicity, we'll assume default cEOS enables SSH with admin/admin.
-          # For eAPI, you might need to add:
-          # startup-config: |
-          #   management api http-https
-          #     no shutdown
-    ```
+```yaml
+name: arista-napalm-lab
+topology:
+  nodes:
+    arista1:
+      kind: ceos
+      image: ceos:4.32.0F # Use the tag you imported your cEOS image with
+      # You might need to add startup-config to enable eAPI and SSH, 
+      # or configure it manually after the container starts.
+      # For simplicity, we'll assume default cEOS enables SSH with admin/admin.
+      # For eAPI, you might need to add:
+      #startup-config: |
+      #  management api http-commands
+      #    no shutdown
+      #    protocol https port 443
+      #    protocol http port 80
+      #  username admin secret admin
+```
 
 2.  **Deploy Containerlab lab:**
 
-    ```bash
-    containerlab deploy -t day1_topology.clab.yml
-    ```
+```bash
+sudo containerlab deploy -t day1_topology.clab.yml --reconfigure
+```
 
       * **Note:** Containerlab automatically assigns IP addresses to the management interface (`eth0`) of cEOS containers within its `clab` Docker network. You'll need to find this IP.
       * To find the IP: `docker inspect -f '{{ .NetworkSettings.Networks.clab.IPAddress }}' clab-arista-napalm-lab-arista1` (replace `clab-arista-napalm-lab-arista1` with your container's full name if it's different).
 
 3.  **`day1_connect.py`:**
 
-    ```python
-    from napalm import get_network_driver
-    import json
+```python
+from napalm import get_network_driver
+import json
 
-    # Replace with the actual IP address of your arista1 cEOS container
-    # You can get this by running: 
-    # docker inspect -f '{{ .NetworkSettings.Networks.clab.IPAddress }}' clab-arista-napalm-lab-arista1
-    DEVICE_IP = "YOUR_ARISTA1_IP" 
-    USERNAME = "admin"
-    PASSWORD = "admin" # Default password for cEOS lab
+# Replace with the actual IP address of your arista1 cEOS container
+# You can get this by running: 
+# docker inspect -f '{{ .NetworkSettings.Networks.clab.IPAddress }}' clab-arista-napalm-lab-arista1
+DEVICE_IP = "YOUR_ARISTA1_IP" 
+USERNAME = "admin"
+PASSWORD = "admin" # Default password for cEOS lab
 
-    # Arista EOS uses 'eos' driver
-    driver = get_network_driver("eos")
-    device = driver(
-        hostname=DEVICE_IP,
-        username=USERNAME,
-        password=PASSWORD,
-        optional_args={"secret": PASSWORD} # Required for Arista eAPI
-    )
+# Arista EOS uses 'eos' driver
+driver = get_network_driver("eos")
+device = driver(
+    hostname=DEVICE_IP,
+    username=USERNAME,
+    password=PASSWORD,
+    optional_args={"secret": PASSWORD} # Required for Arista eAPI
+)
 
-    print(f"Connecting to device {DEVICE_IP}...")
-    try:
-        device.open()
-        print("Connection successful!")
+print(f"Connecting to device {DEVICE_IP}...")
+try:
+    device.open()
+    print("Connection successful!")
 
-        # Example: Get device facts
-        facts = device.get_facts()
-        print("\n--- Device Facts ---")
-        print(json.dumps(facts, indent=2))
+    # Example: Get device facts
+    facts = device.get_facts()
+    print("\n--- Device Facts ---")
+    print(json.dumps(facts, indent=2))
 
-    except Exception as e:
-        print(f"Error connecting or retrieving facts: {e}")
-    finally:
-        if device.is_opened:
-            device.close()
-            print("Connection closed.")
+except Exception as e:
+    print(f"Error connecting or retrieving facts: {e}")
+finally:
+    if device.is_alive():
+        device.close()
+        print("Connection closed.")
 
-    ```
+```
 
 ## Final ToDo
 
