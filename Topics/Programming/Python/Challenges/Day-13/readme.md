@@ -57,8 +57,8 @@ topology:
 sudo containerlab deploy -t day1_topology.clab.yml --reconfigure
 ```
 
-      * **Note:** Containerlab automatically assigns IP addresses to the management interface (`eth0`) of cEOS containers within its `clab` Docker network. You'll need to find this IP.
-      * To find the IP: `docker inspect -f '{{ .NetworkSettings.Networks.clab.IPAddress }}' clab-arista-napalm-lab-arista1` (replace `clab-arista-napalm-lab-arista1` with your container's full name if it's different).
+* **Note:** Containerlab automatically assigns IP addresses to the management interface (`eth0`) of cEOS containers within its `clab` Docker network. You'll need to find this IP.
+* To find the IP: `docker inspect -f '{{ .NetworkSettings.Networks.clab.IPAddress }}' clab-arista-napalm-lab-arista1` (replace `clab-arista-napalm-lab-arista1` with your container's full name if it's different).
 
 3.  **`day1_connect.py`:**
 
