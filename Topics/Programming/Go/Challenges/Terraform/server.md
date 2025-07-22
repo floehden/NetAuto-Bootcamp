@@ -318,3 +318,4 @@ func resourceGreetingMessageCreate(ctx context.Context, d *schema.ResourceData, 
 // You'll need similar modifications for resourceGreetingMessageRead, Update, and Delete,
 // as well as dataSourceGreetingMessageRead.
 ```
+1

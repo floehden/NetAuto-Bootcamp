@@ -29,3 +29,16 @@ We'll build a "HelloWorld" Operator. This operator will manage a custom resource
   * Docker or Podman
   * A Kubernetes cluster (minikube, kind, or a cloud-based cluster)
   * Kubebuilder (install instructions will be provided on Day 1)
+
+## Overview
+
+| Day | Description |
+| ------ | ----- |
+| Day 1 | [Setting up the Environment and Project Scaffolding](/Topics/Programming/Go/Challenges/Kubernetes-Operator/Day-01.md)  |
+| Day 2 | [Defining the Custom Resource (CRD)](/Topics/Programming/Go/Challenges/Kubernetes-Operator/Day-02.md)  |
+| Day 3 | [Implementing the Controller Logic (Part 1 - Reconciliation)](/Topics/Programming/Go/Challenges/Kubernetes-Operator/Day-03.md)  |
+| Day 4 | [Implementing the Controller Logic (Part 2 - Services and ConfigMaps)](/Topics/Programming/Go/Challenges/Kubernetes-Operator/Day-04.md)  |
+| Day 5 | [Testing the Operator Locally](/Topics/Programming/Go/Challenges/Kubernetes-Operator/Day-05.md)  |
+| Day 6 | [Advanced Topics: Webhooks (Optional but Recommended)](/Topics/Programming/Go/Challenges/Kubernetes-Operator/Day-06.md)  |
+| Day 7 | [Deploying the Operator to a Cluster](/Topics/Programming/Go/Challenges/Kubernetes-Operator/Day-07.md)  |
+| Day 8 | [Cleanup and Further Exploration](/Topics/Programming/Go/Challenges/Kubernetes-Operator/Day-08.md)  |

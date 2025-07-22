@@ -25,7 +25,7 @@ By the end of this tutorial, you will be able to:
   * **Go Installed:** Download and install Go from [https://golang.org/doc/install](https://golang.org/doc/install).
 
 
-## **Module 1: GoLang Fundamentals **
+## **Module 1: GoLang Fundamentals**
 | Day | Arista | Nokia |
 | -------- | ------- | ------- |
 | 1 | [Getting Started with GoLang](/Topics/Programming/Go/Challenges/Arista/Day-01.md) | [GoLang Basics & Setup](/Topics/Programming/Go/Challenges/Nokia/Day-01.md) |
@@ -63,7 +63,7 @@ By the end of this tutorial, you will be able to:
 | 19 | [Building a Network Discovery and Reporting Tool](/Topics/Programming/Go/Challenges/Arista/Day-19.md) |  [Concurrency with GoRoutines for Automation](/Topics/Programming/Go/Challenges/Nokia/Day-19.md) |
 | 20 | [Putting It All Together: Automated Lab Deployment & Configuration](/Topics/Programming/Go/Challenges/Arista/Day-20.md) |  [Building a Simple Automation Tool](/Topics/Programming/Go/Challenges/Nokia/Day-20.md) |
 
-## **Module 5: GoLang and gNMI for Streaming Telemetry & Configuration (Days 21-26)**
+## **Module 5 (Arista only): GoLang and gNMI for Streaming Telemetry & Configuration (Days 21-26)**
 | Description | Arista | 
 | -------- | ------- | 
 | 21 | [Introduction to gNMI and Basic Connection](/Topics/Programming/Go/Challenges/Arista/Day-21.md) |  
@@ -99,4 +99,8 @@ gnmi
     * `go get github.com/openconfig/ygot/ygot` (useful for path building)
     * `go get github.com/aristanetworks/glog` (used by some Arista examples, though standard log is fine)
 
+## Create a Terraform provider
+If you are interested in creating a Terraform Provider go to [Creating a Terraform-Provider](/Topics/Programming/Go/Challenges/Terraform/readme.md)
 
+## Create a Kubernetes Operator
+If you are interested in creating a Kubernetes Operator go to [Creating a Kubernetes Operator](/Topics/Programming/Go/Challenges/Kubernetes-Operator/readme.md)

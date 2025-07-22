@@ -1,4 +1,3 @@
-
 # Day 8: Cleanup and Further Exploration
 
 ## **Learning Objectives:**
