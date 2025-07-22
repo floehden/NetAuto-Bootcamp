@@ -104,3 +104,6 @@ If you are interested in creating a Terraform Provider go to [Creating a Terrafo
 
 ## Create a Kubernetes Operator
 If you are interested in creating a Kubernetes Operator go to [Creating a Kubernetes Operator](/Topics/Programming/Go/Challenges/Kubernetes-Operator/readme.md)
+
+## Create a CLI
+If you are interested in creating a CLI with Cobra go to [Creating a CLI](/Topics/Programming/Go/Challenges/CLI/readme.md)
