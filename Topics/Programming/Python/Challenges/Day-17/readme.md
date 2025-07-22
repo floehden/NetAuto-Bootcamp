@@ -8,7 +8,8 @@
   * `commit_config(revert_in=SECONDS)`: Commits changes, but automatically rolls back if a `commit_config()` with `confirmed=True` is not issued within `SECONDS`.
   * `rollback_config()`: Reverts the last committed configuration.
 
-## **Challenge:** Apply a configuration that would break connectivity (e.g., changing the management IP or shutting down an interface), use `revert_in` to automatically roll back, and then manually trigger a rollback for a different change.
+## **Challenge:**
+Apply a configuration that would break connectivity (e.g., changing the management IP or shutting down an interface), use `revert_in` to automatically roll back, and then manually trigger a rollback for a different change.
 
 ## **Code Examples:**
 
