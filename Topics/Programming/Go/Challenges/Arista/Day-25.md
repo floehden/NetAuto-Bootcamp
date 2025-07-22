@@ -1,241 +1,126 @@
-# **Day 25: Configuration Backup and Restore with gNMI**
 
-  * **Introduction:** The critical role of configuration backup and restore in network operations. How gNMI's `Get` with `CONFIG` type and `Set` with `REPLACE` operation enable declarative full-configuration management.
+**Day 25: Advanced gNMI Use Cases & Best Practices**
 
-  * **Key Concepts:**
+  * **Introduction:** Authentication with gNMI (TLS, username/password metadata). Error handling for gRPC streams. Using libraries like `ygot` for robust path and data modeling. Combining gNMI with eAPI for hybrid automation.
 
-      * **Backup:** Fetching the entire running configuration as structured data (JSON\_IETF).
-      * **Restore:** Applying a full configuration, effectively overwriting the current state (`REPLACE` operation). This is powerful and must be used with caution.
-      * **Root Path (`/`):** When backing up or restoring the *entire* configuration, you typically use a root path (`/`) to specify the whole config tree.
-
-  * **Code Example: Backup and Restore Configuration**
+  * **Code Example: Authentication and Generic Path Building**
 
     ```go
-    // gnmi_config_b_r.go
+    // gnmi_advanced.go
     package main
 
     import (
         "context"
         "fmt"
-        "io/ioutil"
         "log"
         "time"
 
         "google.golang.org/grpc"
         "google.golang.org/grpc/credentials/insecure"
-        "google.golang.org/grpc/metadata"
+        "google.golang.org/grpc/metadata" // For authentication metadata
         gpb "github.com/openconfig/gnmi/proto/gnmi"
-        "google.golang.org/protobuf/proto" // For potential debug printing of protobuf messages
+        "github.com/openconfig/ygot/ygot" // For building gNMI paths more easily
     )
 
     const (
-        targetAddress  = "10.0.0.10:6030" // Replace with your cEOS container IP
-        username       = "admin"
-        password       = "admin"
-        backupFile     = "ceos_config_backup.json"
-        restoreFile    = "ceos_config_to_restore.json" // Could be the same as backupFile
+        targetAddress = "10.0.0.10:6030" // Replace with your cEOS container IP
+        username      = "admin"
+        password      = "admin"
     )
 
-    func getGNMIClient(ctx context.Context, addr, user, pass string) (gpb.gNMIClient, *grpc.ClientConn, error) {
+    func main() {
+        ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+        defer cancel()
+
+        // Add username and password to context metadata for authentication
+        ctx = metadata.AppendToOutgoingContext(ctx, "username", username, "password", password)
+
         opts := []grpc.DialOption{
-            grpc.WithTransportCredentials(insecure.NewCredentials()),
+            grpc.WithTransportCredentials(insecure.NewCredentials()), // Use insecure for lab
             grpc.WithBlock(),
         }
 
-        // Add authentication metadata to the context
-        authCtx := metadata.AppendToOutgoingContext(ctx, "username", user, "password", pass)
-
-        fmt.Printf("Attempting to connect to gNMI server at %s...\n", addr)
-        conn, err := grpc.DialContext(authCtx, addr, opts...)
+        fmt.Printf("Attempting to connect to gNMI server at %s with credentials...\n", targetAddress)
+        conn, err := grpc.DialContext(ctx, targetAddress, opts...)
         if err != nil {
-            return nil, nil, fmt.Errorf("failed to dial gNMI server: %w", err)
+            log.Fatalf("Failed to dial gNMI server: %v", err)
         }
+        defer conn.Close()
         fmt.Println("Successfully connected to gNMI server.")
-        return gpb.NewgNMIClient(conn), conn, nil
-    }
 
-    // backupConfig fetches the full configuration and saves it to a file
-    func backupConfig(ctx context.Context, client gpb.gNMIClient, filePath string) error {
-        fmt.Printf("\n--- Starting Configuration Backup to %s ---\n", filePath)
+        client := gpb.NewgNMIClient(conn)
 
-        // Request the entire configuration tree from the root path
-        configPath := &gpb.Path{
-            Elem: []*gpb.PathElem{}, // Empty path represents the root
+        // Example: Get hostname using ygot path building
+        // You'll need the OpenConfig paths for this to work correctly
+        // Arista EOS typically supports OpenConfig models
+        hostnamePath, err := ygot.StringToPath("System/Hostname", ygot.New)))
+        if err != nil {
+            log.Fatalf("Error building path: %v", err)
         }
 
         req := &gpb.GetRequest{
-            Path: []*gpb.Path{configPath},
-            Type: gpb.GetRequest_CONFIG, // Crucial: Request configuration data
-            Encoding: gpb.Encoding_JSON_IETF, // Request JSON_IETF encoding
+            Path: []*gpb.Path{hostnamePath},
+            Type: gpb.GetRequest_STATE,
         }
 
+        fmt.Println("Getting system hostname...")
         resp, err := client.Get(ctx, req)
         if err != nil {
-            return fmt.Errorf("failed to get configuration: %w", err)
+            log.Fatalf("Failed to get hostname via gNMI: %v", err)
         }
 
-        if resp == nil || len(resp.GetNotification()) == 0 {
-            return fmt.Errorf("no configuration data received")
-        }
-
-        var configBytes []byte
-        // Iterate through notifications and updates to find the config data
-        for _, notif := range resp.GetNotification() {
-            for _, update := range notif.GetUpdate() {
-                if update.GetPath().String() == "/" { // Check for the root path update
-                    if jsonVal := update.GetVal().GetJsonIetfVal(); jsonVal != nil {
-                        configBytes = jsonVal
-                        break
-                    }
-                }
-            }
-            if configBytes != nil {
-                break
-            }
-        }
-
-        if configBytes == nil {
-            return fmt.Errorf("could not find root configuration JSON_IETF in response")
-        }
-
-        if err := ioutil.WriteFile(filePath, configBytes, 0644); err != nil {
-            return fmt.Errorf("failed to write backup to file: %w", err)
-        }
-
-        fmt.Printf("Configuration successfully backed up to %s\n", filePath)
-        return nil
-    }
-
-    // restoreConfig reads configuration from a file and applies it to the device
-    func restoreConfig(ctx context.Context, client gpb.gNMIClient, filePath string) error {
-        fmt.Printf("\n--- Starting Configuration Restore from %s ---\n", filePath)
-
-        configData, err := ioutil.ReadFile(filePath)
-        if err != nil {
-            return fmt.Errorf("failed to read configuration file: %w", err)
-        }
-
-        // The path for a full restore (replace) is the root
-        configPath := &gpb.Path{
-            Elem: []*gpb.PathElem{}, // Empty path for root
-        }
-
-        // Create a TypedValue for the JSON configuration
-        val := &gpb.TypedValue{
-            Value: &gpb.TypedValue_JsonIetfVal{
-                JsonIetfVal: configData,
-            },
-        }
-
-        // Create the SetRequest with a REPLACE operation at the root
-        // This will replace the entire configuration of the device with the provided data.
-        req := &gpb.SetRequest{
-            Replace: []*gpb.Update{
-                {
-                    Path: configPath,
-                    Val:  val,
-                },
-            },
-        }
-
-        fmt.Println("Sending SetRequest (REPLACE operation) to restore configuration...")
-        resp, err := client.Set(ctx, req)
-        if err != nil {
-            return fmt.Errorf("failed to restore configuration: %w", err)
-        }
-
-        fmt.Println("Configuration restore successful. Response:")
-        for _, result := range resp.GetResults() {
-            fmt.Printf("  Path: %s, Op: %s\n", result.GetPath(), result.GetOp())
-        }
-
-        fmt.Printf("Configuration restored from %s\n", filePath)
-        return nil
-    }
-
-    func main() {
-        ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second) // Increased timeout
-        defer cancel()
-
-        client, conn, err := getGNMIClient(ctx, targetAddress, username, password)
-        if err != nil {
-            log.Fatalf("Error getting gNMI client: %v", err)
-        }
-        defer conn.Close()
-
-        // --- Step 1: Backup Current Configuration ---
-        if err := backupConfig(ctx, client, backupFile); err != nil {
-            log.Fatalf("Backup failed: %v", err)
-        }
-        fmt.Println("Waiting a moment after backup...")
-        time.Sleep(2 * time.Second)
-
-        // --- Step 2: Make a "disruptive" change to the device config ---
-        fmt.Println("\n--- Making a disruptive change to the device (e.g., remove Loopback0) ---")
-        deletePath := &gpb.Path{
-            Elem: []*gpb.PathElem{
-                {Name: "interfaces"},
-                {Name: "interface", Key: map[string]string{"name": "Loopback0"}},
-            },
-        }
-        deleteReq := &gpb.SetRequest{
-            Delete: []*gpb.Path{deletePath},
-        }
-        _, err = client.Set(ctx, deleteReq)
-        if err != nil {
-            fmt.Printf("Warning: Failed to delete Loopback0 (may not exist): %v\n", err)
-        } else {
-            fmt.Println("Loopback0 interface deleted (or attempt made).")
-        }
-        fmt.Println("Waiting a moment after disruptive change...")
-        time.Sleep(2 * time.Second)
-
-        // --- Step 3: Restore Configuration ---
-        // For demonstration, we'll restore from the same backup file.
-        // In a real scenario, you might have a specific known-good config file.
-        if err := restoreConfig(ctx, client, backupFile); err != nil {
-            log.Fatalf("Restore failed: %v", err)
-        }
-
-        // --- Step 4: Verify Restoration (Optional but Recommended) ---
-        fmt.Println("\n--- Verifying Restoration (e.g., check Loopback0 again) ---")
-        // You would typically use a gNMI Get or eAPI call here to confirm the state.
-        // For this example, let's get the Loopback0 config again to see if it's back.
-        loopback0Path := &gpb.Path{
-            Elem: []*gpb.PathElem{
-                {Name: "interfaces"},
-                {Name: "interface", Key: map[string]string{"name": "Loopback0"}},
-            },
-        }
-        verifyReq := &gpb.GetRequest{
-            Path: []*gpb.Path{loopback0Path},
-            Type: gpb.GetRequest_CONFIG,
-            Encoding: gpb.Encoding_JSON_IETF,
-        }
-        verifyResp, err := client.Get(ctx, verifyReq)
-        if err != nil {
-            fmt.Printf("Error during verification Get: %v\n", err)
-        } else if verifyResp != nil && len(verifyResp.GetNotification()) > 0 {
-            fmt.Println("Loopback0 configuration after restore:")
-            for _, notif := range verifyResp.GetNotification() {
+        if resp != nil && len(resp.GetNotification()) > 0 {
+            for _, notif := range resp.GetNotification() {
                 for _, update := range notif.GetUpdate() {
-                    if jsonVal := update.GetVal().GetJsonIetfVal(); jsonVal != nil {
-                        fmt.Println(string(jsonVal))
+                    if strVal := update.GetVal().GetStringVal(); strVal != "" {
+                        fmt.Printf("Hostname: %s\n", strVal)
                     }
                 }
             }
         } else {
-            fmt.Println("Loopback0 not found after restore. Restoration might have failed or config was empty.")
+            fmt.Println("No hostname found.")
         }
 
-        fmt.Println("\nAutomation for backup/restore completed.")
+        // --- Example: Using gNMI for a 'health check' via Get multiple paths ---
+        // Get CPU utilization (OpenConfig path)
+        cpuPath, err := ygot.StringToPath("System/Cpu/Utilization/Avergae", ygot.NewNode()) // Simplified, actual path might differ
+        if err != nil {
+            log.Fatalf("Error building CPU path: %v", err)
+        }
+
+        healthReq := &gpb.GetRequest{
+            Path: []*gpb.Path{hostnamePath, cpuPath}, // Request multiple paths
+            Type: gpb.GetRequest_STATE,
+        }
+
+        fmt.Println("Performing health check (hostname and CPU)...")
+        healthResp, err := client.Get(ctx, healthReq)
+        if err != nil {
+            log.Fatalf("Failed health check via gNMI: %v", err)
+        }
+
+        if healthResp != nil && len(healthResp.GetNotification()) > 0 {
+            fmt.Println("Health Check Results:")
+            for _, notif := range healthResp.GetNotification() {
+                for _, update := range notif.GetUpdate() {
+                    fmt.Printf("  Path: %s, Value: %+v\n", ygot.PathToString(update.GetPath()), update.GetVal())
+                }
+            }
+        }
     }
     ```
 
-  * **Challenge 25:**
+## **Challenge 25: Full Network Health Check and Configuration Rollback**
 
-    1.  Ensure your Containerlab with one cEOS node (gNMI enabled) is deployed and has a simple base configuration (e.g., hostname, a Loopback0 interface with an IP).
-    2.  Run the `gnmi_config_b_r.go` program.
-    3.  Verify that a `ceos_config_backup.json` file is created and contains the full configuration.
-    4.  Observe the deletion of `Loopback0` (or the attempt) and then its re-appearance after the restore.
-    5.  **Bonus:** Try to modify the `ceos_config_backup.json` file manually (e.g., change the Loopback0 IP address or description), save it as `ceos_config_to_restore.json`, and then run the script using `ceos_config_to_restore.json` for the restore operation. Confirm the new configuration is applied.
+1.  **Comprehensive Health Check:** Extend the `gnmi_advanced.go` program.
+        * Connect to one cEOS node using gNMI with username/password authentication.
+        * Use `Get` RPCs to retrieve the following operational state:
+            * Hostname
+            * CPU Utilization (e.g., `/system/cpu/utilization/state/average` or similar path supported by cEOS)
+            * Memory Utilization (e.g., `/system/memory/state/usage` or similar)
+            * Status of a specific interface (e.g., `Ethernet1` - `admin-status`, `oper-status`, `last-change`).
+        * Print a concise health report for the device.
+2.  **Configuration and Rollback (Conceptual/Simulated):**
+        * After the health check, use a `Set` RPC to change the description of `Loopback0` to "Configured by Go GNMI Test".
+        * Immediately follow this with another `Set` RPC using a `Delete` operation on the Loopback0 interface to effectively remove its configuration.
+        * **Self-reflection:** Discuss (mentally or in comments) how you would implement a robust *actual* rollback mechanism (e.g., saving config before changes, committing, and reverting if issues occur). Note that gNMI Set is powerful but doesn't inherently have transactional capabilities like a full NMS.
