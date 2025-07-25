@@ -44,7 +44,7 @@ name: day1_gnmi_lab
 topology:
   nodes:
     ceos1:
-      kind: ceos
+      kind: arista_ceos
       image: ceos:4.34.0F # specify your downloaded version, e.g., arista/ceos:4.30.6M
       # Arista cEOS enables gNMI by default on port 6030 in the MGMT VRF
       # with admin/admin credentials.
