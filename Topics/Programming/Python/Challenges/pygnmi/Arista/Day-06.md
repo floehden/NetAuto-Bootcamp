@@ -13,11 +13,11 @@ name: day6_gnmi_lab
 topology:
   nodes:
     ceos1:
-      kind: ceos
-      image: arista/ceos:latest
+      kind: arista_ceos
+      image: ceos:4.34.0F
     ceos2:
-      kind: ceos
-      image: arista/ceos:latest
+      kind: arista_ceos
+      image: ceos:4.34.0F
   links:
     - endpoints: ["ceos1:eth1", "ceos2:eth1"]
 ```
