@@ -114,8 +114,7 @@ def configure_interface_ip(gc, device_name, interface_name, ip_address, prefix_l
         print(f"Successfully enabled {interface_name} on {device_name}.")
 
         # 3. Configure the IP address and IPv4 enabled status
-        #    This now uses json_ietf consistently by providing dictionaries for config containers.
-        print(f"Attempting to configure IP address {ip_address}/{prefix_length} on {interface_name} using json_ietf...")
+        print(f"Attempting to configure IP address {ip_address}/{prefix_length} on {interface_name}.")
         response_ip_config = gc.set(update=update_path_ip, encoding="json_ietf")
         print(f"IP configuration response: {json.dumps(response_ip_config, indent=2)}")
         print(f"Successfully configured IP on {interface_name} on {device_name}.")
