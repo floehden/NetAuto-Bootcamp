@@ -161,4 +161,3 @@ if __name__ == "__main__":
   * Implement robust error handling in `day6_robust_config_and_status.py` to catch specific gRPC errors (e.g., `grpc.RpcError`) and provide more informative messages to the user.
   * Extend `day6_robust_config_and_status.py` to also configure an OSPF process on both `ceos1` and `ceos2` using `pygnmi` and OpenConfig paths (if supported by cEOS for OSPF config via gNMI). Verify the OSPF neighbor state.
 
-
