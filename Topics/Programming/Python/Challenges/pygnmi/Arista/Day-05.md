@@ -16,7 +16,7 @@ name: day5_gnmi_lab
 topology:
   nodes:
     ceos1:
-      kind: ceos
+      kind: arista_ceos
       image: ceos:ceos:4.34.0F
       # No special configuration needed for subscribe, as gNMI is enabled by default.
       # We'll use the management interface (eth0) for gNMI.
