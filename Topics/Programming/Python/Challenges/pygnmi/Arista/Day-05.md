@@ -17,7 +17,7 @@ topology:
   nodes:
     ceos1:
       kind: ceos
-      image: arista/ceos:latest
+      image: ceos:ceos:4.34.0F
       # No special configuration needed for subscribe, as gNMI is enabled by default.
       # We'll use the management interface (eth0) for gNMI.
 ```
@@ -55,7 +55,7 @@ if __name__ == "__main__":
                 "subscription": [
                     {
                         "path": path[0],
-                        "mode": "sample", # Use the enum value here
+                        "mode": "sample", 
                         "sample_interval": 1000000000 # 1 second in nanoseconds
                     }
                 ]
