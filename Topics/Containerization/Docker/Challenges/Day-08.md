@@ -16,28 +16,28 @@ Let's modify the `docker-compose.yml` from Day 7 to explicitly define the networ
 version: '3.8'
 
 services:
-    web:
+  web:
     build: .
     ports:
-        - "8000:5000"
+      - "8000:5000"
     environment:
-        REDIS_HOST: redis
+      REDIS_HOST: redis
     networks: # Connect 'web' service to 'app_network'
-        - app_network 
+      - app_network 
     depends_on:
-        - redis 
-    redis:
+      - redis # Ensure 'redis' service starts before 'web' (does not wait for readiness)  
+  redis:
     image: "redis:alpine"
     volumes:
-        - redis_data:/data # Attach the named volume 'redis_data'
+      - redis_data:/data # Attach the named volume 'redis_data'
     networks: # Connect 'redis' service to 'app_network'
-        - app_network
+      - app_network
 
 volumes: # Define the named volume (managed by Docker)
-    redis_data:
+  redis_data:
 
 networks: # Define the custom network (managed by Compose within this project)
-    app_network:
+  app_network:
     driver: bridge # Explicitly set driver (default is bridge)
 ```
 Bring it up (`docker-compose up -d`). `docker network ls` will show a network like `my-first-compose-app_app_network`. `docker network inspect` will show both containers connected.
@@ -47,12 +47,12 @@ If you had your Flask app in a `backend/` subdirectory:
 ```yaml
 version: '3.8'
 services:
-    web:
+  web:
     build: ./backend # Build from backend directory
     ports:
-        - "8000:5000"
+      - "8000:5000"
     volumes:
-        - ./backend:/app # Mount host's backend directory to container's /app
+      - ./backend:/app # Mount host's backend directory to container's /app
 ```
 This allows live code changes during development without rebuilding the image.
 
@@ -60,8 +60,8 @@ This allows live code changes during development without rebuilding the image.
 ```yaml
 services:
     temp_processor:
-    image: alpine
-    tmpfs: /tmp/data:size=100m # Mount a tmpfs at /tmp/data with 100MB limit
+        image: alpine
+        tmpfs: /tmp/data:size=100m # Mount a tmpfs at /tmp/data with 100MB limit
 ```
 
 ## **Challenge 8: Multi-Tiered Application with Explicit Networking and Persistence**

@@ -68,7 +68,7 @@ CMD [ "npm", "start" ]
 
 3.  **Build the Docker image:**
 ```bash
-docker build -t my-node-app:1.0 .
+sudo docker build -t my-node-app:1.0 .
 ```
 (The `-t` flag tags the image with a name and optional version, and `.` specifies the build context.)
 

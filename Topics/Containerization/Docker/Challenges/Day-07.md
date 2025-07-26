@@ -44,11 +44,17 @@ redis
 4.  **`Dockerfile` (for the Flask app - placed in `my-first-compose-app`):**
 ```dockerfile
 FROM python:3.9-slim-buster
+
 WORKDIR /app
+
 COPY requirements.txt .
+
 RUN pip install -r requirements.txt
+
 COPY . .
+
 EXPOSE 5000
+
 CMD ["python", "app.py"]
 ```
 
@@ -57,22 +63,22 @@ CMD ["python", "app.py"]
 version: '3.8' # Specify Compose file format version
 
 services:
-    web: # Define a service named 'web'
+  web: # Define a service named 'web'
     build: . # Build the image from the Dockerfile in the current directory
     ports:
-        - "8000:5000" # Map host port 8000 to container port 5000
+      - "8000:5000" # Map host port 8000 to container port 5000
     environment:
-        REDIS_HOST: redis # Pass environment variable to the container
+      REDIS_HOST: redis # Pass environment variable to the container
     depends_on: # Ensure redis service starts before web (does not wait for readiness)
-        - redis 
-    redis: # Define a service named 'redis'
+      - redis 
+  redis: # Define a service named 'redis'
     image: "redis:alpine" # Use the official Redis Alpine image from Docker Hub
 ```
 
 6.  **Start the application:**
 Navigate to the `my-first-compose-app` directory in your terminal.
 ```bash
-docker-compose up -d
+sudo docker-compose up -d
 ```
 (The `-d` flag runs containers in detached mode.)
 

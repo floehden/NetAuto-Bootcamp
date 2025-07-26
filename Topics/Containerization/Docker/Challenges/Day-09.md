@@ -16,22 +16,18 @@
 ```yaml
 version: '3.8'
 services:
-    web:
-    build: .
-    ports:
-        - "8000:5000"
+  web:
+    build: ./backend # Build from backend directory
+    # Removed ports mapping here, as Nginx will handle external exposure
+    volumes:
+      - ./backend:/app # Mount host's backend directory to container's /app
     environment:
-        REDIS_HOST: redis
+      REDIS_HOST: redis
+    networks: # Connect 'web' service to 'app_network'
+      - app_network
     depends_on:
-        redis:
+      redis: # Ensure 'redis' service starts before 'web' (does not wait for readiness)
         condition: service_healthy # Wait for redis to be healthy
-    redis:
-    image: "redis:alpine"
-    healthcheck: # Define a healthcheck for redis
-        test: ["CMD", "redis-cli", "ping"]
-        interval: 1s
-        timeout: 3s
-        retries: 5
 ```
 
 2.  **Using `.env` files for environment variables:**
@@ -44,19 +40,65 @@ Then, in `docker-compose.yml`:
 ```yaml
 version: '3.8'
 services:
-    db:
+  db:
     image: postgres:13
     environment:
-        POSTGRES_USER: ${DB_USER} # Uses variable from .env
-        POSTGRES_PASSWORD: ${DB_PASSWORD} # Uses variable from .env
+      POSTGRES_USER: ${DB_USER} # Uses variable from .env
+      POSTGRES_PASSWORD: ${DB_PASSWORD} # Uses variable from .env
 ```
 Docker Compose will automatically load variables from a `.env` file.
 
 3.  **Scaling a service:**
+
+Adding nginx to `docker-compose.yaml`
+```yaml
+services:
+  nginx: # New Nginx service to act as a reverse proxy/load balancer
+    image: nginx:alpine # Use a lightweight Nginx image
+    volumes:
+      - ./nginx:/etc/nginx/conf.d # Mount custom Nginx configuration
+    ports:
+      - "8080:80" # Expose Nginx's port 80 to host's port 8080
+    networks:
+      - app_network
+    depends_on:
+      web: # Nginx depends on the 'web' service to be running
+        condition: service_started # Nginx can start as soon as web containers are started
+```
+
+```sh
+mkdir nginx
+cd nginx
+```
+
+```conf
+# default.conf
+upstream web_app {
+    # This tells Nginx to load balance requests across all instances
+    # of the 'web' service. Docker Compose's internal DNS handles resolution.
+    server web:5000;
+}
+
+server {
+    listen 80; # Nginx listens on port 80 internally
+
+    location / {
+        # Proxy all requests to the 'web_app' upstream group
+        proxy_pass http://web_app;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+
 ```bash
 docker-compose up -d --scale web=3 # Runs 3 instances of the 'web' service
 docker-compose ps # Observe multiple web containers
 ```
+
 Then scale back down:
 ```bash
 docker-compose up -d --scale web=1
@@ -67,16 +109,16 @@ docker-compose up -d --scale web=1
 version: '3.8'
 services:
     app:
-    build: .
-    profiles: ["app"] # Only starts with 'app' profile
+        build: .
+        profiles: ["app"] # Only starts with 'app' profile
     db:
-    image: postgres
-    profiles: ["app"]
+        image: postgres
+        profiles: ["app"]
     test_runner:
-    image: my-test-image
-    profiles: ["test"] # Only starts with 'test' profile
+        image: my-test-image
+        profiles: ["test"] # Only starts with 'test' profile
 ```
-Run with specific profile: `docker-compose --profile app up -d`
+Run with specific profile: `ddocker-compose --profile app up -docker-compose --profile app up -d`
 
 ## **Challenge 9: Robust Application with Healthchecks and Secrets**
 
