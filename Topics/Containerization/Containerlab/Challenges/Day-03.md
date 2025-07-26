@@ -9,6 +9,7 @@ Create `ceos1-config.cfg`:
 !
 interface Ethernet1
     no shutdown
+    no switchport
     ip address 192.168.1.1/24
 !
 router bgp 65001
@@ -36,13 +37,13 @@ set / system network-instance default protocols bgp neighbor 192.168.1.1 peer-as
 name: day3-custom-config-lab
 topology:
     nodes:
-    ceos1:
-        kind: ceos
-        image: arista/ceos:latest
-        startup-config: ./ceos1-config.cfg # Path to your config file
-    srl1:
-        kind: nokia_srlinux
-        image: srlabs/srlinux:latest
+        ceos1:
+            kind: arista_ceos
+            image: ceos:4.34.0F
+            startup-config: ./ceos1-config.cfg # Path to your config file
+        srl1:
+            kind: nokia_srlinux
+            image: ghcr.io/nokia/srlinux:latest
         startup-config: ./srl1-config.cli # Path to your config file
     links:
     - endpoints: ["ceos1:eth1", "srl1:e1-1"]

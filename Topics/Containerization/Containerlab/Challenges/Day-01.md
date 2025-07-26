@@ -28,11 +28,11 @@ name: day1-ceos-lab
 topology:
   nodes:
     ceos1:
-      kind: ceos
-      image: arista/ceos:latest # Or specify your downloaded version, e.g., arista/ceos:4.34.1F
+      kind: arista_ceos
+      image: ceos:4.34.0F # Or specify your downloaded version, e.g., ceos:4.34.1F
     ceos2:
-      kind: ceos
-      image: arista/ceos:latest # Or specify your downloaded version
+      kind: arista_ceos
+      image: ceos:4.34.0F # Or specify your downloaded version
   links:
     - endpoints: ["ceos1:eth1", "ceos2:eth1"]
 ```
@@ -67,8 +67,10 @@ enable
 configure terminal
 interface ethernet 1
   no shutdown
+  no switchport
   ip address 10.0.0.1/24
 exit
+write
 show ip interface brief
 ```
 
@@ -79,8 +81,10 @@ enable
 configure terminal
 interface ethernet 1
   no shutdown
+  no switchport
   ip address 10.0.0.2/24
 exit
+write
 show ip interface brief
 ```
 

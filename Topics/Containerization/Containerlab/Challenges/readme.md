@@ -23,26 +23,20 @@ While Containerlab offers significant advantages, it also presents some challeng
 
 ## **Prerequisites:**
 
-  * A Linux host (Ubuntu 20.04/22.04 or similar distribution recommended) or WSL2 on Windows.
+* A Linux host (Ubuntu 20.04/22.04 or similar distribution recommended) or WSL2 on Windows.
 
-  * `sudo` privileges.
+* `sudo` privileges.
 
-  * Docker (Containerlab's setup script can install it).
+* Docker (Containerlab's setup script can install it).
 
-  * Arista cEOS and Nokia SR Linux container images. You will need to download these from their respective vendor portals.
+* Arista cEOS container images. You will need to download these from their respective vendor portals.
 
-      * **Arista cEOS:** Typically available as a `.tar.xz` file from Arista's support portal. After downloading, import it into Docker:
-        ```bash
-        docker import cEOS-lab-<version>.tar.xz arista/ceos:<version>
-        ```
-        (Replace `<version>` with your downloaded image version, e.g., `4.34.1F`)
-      * **Nokia SR Linux:** Usually available as a `.tgz` file. Import similarly:
-        ```bash
-        docker import srlinux-<version>.tgz srlabs/srlinux:<version>
-        ```
-        (Replace `<version>` with your downloaded image version, e.g., `23.10.1`)
-
-
+* **Arista cEOS:** Typically available as a `.tar.xz` file from Arista's support portal. After downloading, import it into Docker:
+  ```bash
+  docker import cEOS-lab-<version>.tar.xz arista/ceos:<version>
+  ```
+  (Replace `<version>` with your downloaded image version, e.g., `4.34.1F`)
+  
 ## **Simple Example Use Case: Verifying BGP Peering and Route Exchange**
 
 Throughout this tutorial, we've implicitly used a simple use case:

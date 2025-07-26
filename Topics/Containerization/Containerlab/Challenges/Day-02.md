@@ -9,15 +9,15 @@ Create `day2-srl-lab.yaml`:
 ```yaml
 name: day2-srl-lab
 topology:
-    nodes:
+  nodes:
     srl1:
-        kind: nokia_srlinux
-        image: srlabs/srlinux:latest # Or specify your downloaded version, e.g., srlabs/srlinux:23.10.1
+      kind: nokia_srlinux
+      image: ghcr.io/nokia/srlinux:latest # Or specify your downloaded version, e.g., srlabs/srlinux:23.10.1
     srl2:
-        kind: nokia_srlinux
-        image: srlabs/srlinux:latest # Or specify your downloaded version
-    links:
-    - endpoints: ["srl1:e1-1", "srl2:e1-1"]
+      kind: nokia_srlinux
+      image: ghcr.io/nokia/srlinux:latest # Or specify your downloaded version
+  links:
+  - endpoints: ["srl1:e1-1", "srl2:e1-1"]
 ```
 
 *Note: SR Linux interfaces are typically `e1-X` or `ethernet-1/X`.*
@@ -55,6 +55,7 @@ set interface ethernet-1/1 subinterface 0 admin-state enable
 set interface ethernet-1/1 subinterface 0 ipv4 address 10.0.0.1/24
 commit now
 show interface ethernet-1/1
+quit
 ```
 
 5.  **Basic Configuration (inside srl2 CLI):**
@@ -66,6 +67,7 @@ set interface ethernet-1/1 subinterface 0 admin-state enable
 set interface ethernet-1/1 subinterface 0 ipv4 address 10.0.0.2/24
 commit now
 show interface ethernet-1/1
+quit
 ```
 
 6.  **Test Connectivity (from srl1 CLI):**
@@ -83,14 +85,14 @@ Create `day2-mixed-lab.yaml`:
 name: day2-mixed-lab
 topology:
     nodes:
-    ceos1:
-        kind: ceos
-        image: arista/ceos:latest
-    srl1:
-        kind: nokia_srlinux
-        image: srlabs/srlinux:latest
+        ceos1:
+            kind: arista_ceos
+            image: ceos:4.34.0F
+        srl1:
+            kind: nokia_srlinux
+            image: ghcr.io/nokia/srlinux:latest
     links:
-    - endpoints: ["ceos1:eth2", "srl1:e1-2"] # Note: Interface numbers can differ
+        - endpoints: ["ceos1:eth2", "srl1:e1-2"] # Note: Interface numbers can differ
 ```
 
 Deploy and configure IPs on the connected interfaces (e.g., `ceos1:eth2` and `srl1:e1-2`) in the same subnet to test connectivity.

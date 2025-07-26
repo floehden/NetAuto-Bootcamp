@@ -43,8 +43,8 @@ name: host-net-lab
 topology:
     nodes:
     ceos1:
-        kind: ceos
-        image: arista/ceos:latest
+        kind: arista_ceos
+        image: ceos:4.34.0F
         network-mode: host # This configures host networking for the management interface
     links:
     # Data plane links still work as usual

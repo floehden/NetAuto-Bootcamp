@@ -11,22 +11,22 @@ Create `day5-advanced-links-lab.yaml`:
 name: day5-advanced-links-lab
 topology:
     nodes:
-    ceos1:
-        kind: ceos
-        image: arista/ceos:latest
-    srl1:
-        kind: nokia_srlinux
-        image: srlabs/srlinux:latest
-    ceos2:
-        kind: ceos
-        image: arista/ceos:latest
+        ceos1:
+            kind: arista_ceos
+            image: ceos:4.34.0F
+        srl1:
+            kind: nokia_srlinux
+            image: ghcr.io/nokia/srlinux:latest
+        ceos2:
+            kind: arista_ceos
+            image: ceos:4.34.0F
     links:
-    - endpoints: ["ceos1:eth1", "srl1:e1-1"]
-        labels:
-        link-type: "point-to-point" # Custom label
-    - endpoints: ["srl1:e1-2", "ceos2:eth1"]
-        mtu: 9000 # Set custom MTU for the link
-    - endpoints: ["ceos1:eth2", "ceos2:eth2"] # Direct link between ceos nodes
+        - endpoints: ["ceos1:eth1", "srl1:e1-1"]
+            labels:
+                link-type: "point-to-point" # Custom label
+        - endpoints: ["srl1:e1-2", "ceos2:eth1"]
+            mtu: 9000 # Set custom MTU for the link
+        - endpoints: ["ceos1:eth2", "ceos2:eth2"] # Direct link between ceos nodes
 ```
 
 Deploy, configure IPs, and verify connectivity and link properties (e.g., `show interface ethernet 1/2 mtu` on SR Linux).
@@ -39,11 +39,11 @@ Create `day5-host-link-lab.yaml`:
 name: day5-host-link-lab
 topology:
     nodes:
-    ceos1:
-        kind: ceos
-        image: arista/ceos:latest
+        ceos1:
+            kind: arista_ceos
+            image: ceos:4.34.0F
     links:
-    - endpoints: ["ceos1:eth1", "host:ceos1-to-host"] # Creates a veth pair on the host
+        - endpoints: ["ceos1:eth1", "host:ceos1-to-host"] # Creates a veth pair on the host
 ```
 
 Deploy the lab:
@@ -69,22 +69,22 @@ Update `day3-custom-config-lab.yaml` (or create a new one):
 name: day5-mounted-config-lab
 topology:
     nodes:
-    ceos1:
-        kind: ceos
-        image: arista/ceos:latest
-        startup-config: ./ceos1-config.cfg
-        extra-hosts: # Add custom host entries (optional)
-        - "myhost:172.20.20.1"
-        binds: # Mount host directories
-        - "./scripts:/opt/scripts" # Mount local 'scripts' folder to '/opt/scripts' in container
-    srl1:
-        kind: nokia_srlinux
-        image: srlabs/srlinux:latest
-        startup-config: ./srl1-config.cli
-        binds:
-        - "./logs:/var/log/custom-logs" # Mount local 'logs' folder to '/var/log/custom-logs' in container
+        ceos1:
+            kind: arista_ceos
+            image: ceos:4.34.0F
+            startup-config: ./ceos1-config.cfg
+            extra-hosts: # Add custom host entries (optional)
+                - "myhost:172.20.20.1"
+            binds: # Mount host directories
+                - "./scripts:/opt/scripts" # Mount local 'scripts' folder to '/opt/scripts' in container
+        srl1:
+            kind: nokia_srlinux
+            image: ghcr.io/nokia/srlinux:latest
+            startup-config: ./srl1-config.cli
+            binds:
+                - "./logs:/var/log/custom-logs" # Mount local 'logs' folder to '/var/log/custom-logs' in container
     links:
-    - endpoints: ["ceos1:eth1", "srl1:e1-1"]
+        - endpoints: ["ceos1:eth1", "srl1:e1-1"]
 ```
 
 Create `scripts` and `logs` directories in your lab folder. Place a dummy script in `scripts`. After deployment, you can `docker exec -it` into the containers and verify the mounted directories.
