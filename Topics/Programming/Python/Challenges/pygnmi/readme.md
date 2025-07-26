@@ -8,8 +8,6 @@ We have multiple challenges for pygnmi for [Arista ceos](/Topics/Programming/Pyt
 * [Day 04](/Topics/Programming/Python/Challenges/pygnmi/Arista/Day-04.md): Deleting Configuration with gNMI Set (Delete)
 * [Day 05](/Topics/Programming/Python/Challenges/pygnmi/Arista/Day-05.md): Streaming Telemetry with gNMI Subscribe
 * [Day 06](/Topics/Programming/Python/Challenges/pygnmi/Arista/Day-06.md): Advanced Topics - Error Handling and Custom YANG Paths
-* [Day 07](/Topics/Programming/Python/Challenges/pygnmi/Arista/Day-07.md): Comprehensive Automation Scenario and Cleanup
-* [Day 08](/Topics/Programming/Python/Challenges/pygnmi/Arista/Day-08.md): Configuration Backup and Restore
 
 ## Nokia SR Linux
 * [Day 01](/Topics/Programming/Python/Challenges/pygnmi/Nokia/Day-01.md): Getting Started with Containerlab and `pygnmi` Capabilities
