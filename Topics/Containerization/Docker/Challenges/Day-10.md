@@ -12,30 +12,46 @@
 
 1.  **Multi-stage build for a Node.js app (revisit and optimize `my-node-app`):**
 ```dockerfile
-# Stage 1: Build dependencies and potentially a frontend build
+# Stage 1: Cache Node.js dependencies
 FROM node:18-alpine as builder
+
 WORKDIR /usr/src/app
+
+# Copy package.json and package-lock.json to leverage Docker's build cache
+# This layer will only be rebuilt if package*.json changes.
 COPY package*.json ./
-RUN npm install --production # Install only production dependencies
-# If you had a build step for a frontend framework like React/Vue:
-# COPY frontend ./frontend
-# RUN npm run build
 
-# Stage 2: Create the final lean image
+# Install all dependencies (including devDependencies) in this caching stage.
+# This ensures that if you had a build step (e.g., for a frontend),
+# all necessary tools would be available.
+RUN npm install
+
+# Stage 2: Create the final lean production image
 FROM node:18-alpine
-WORKDIR /usr/src/app
-# Copy only the necessary files from the builder stage
-COPY --from=builder /usr/src/app/node_modules ./node_modules
-COPY --from=builder /usr/src/app/app.js .
-COPY --from=builder /usr/src/app/package.json . # Needed for `npm start`
-# If you had a build step:
-# COPY --from=builder /usr/src/app/build ./build
 
-# Best practice: Run as a non-root user
+WORKDIR /usr/src/app
+
+# Copy package.json and package-lock.json from the build context (your local directory).
+# This is crucial for `npm ci` in the next step, as it strictly requires a lockfile.
+COPY package*.json ./
+
+# Copy the rest of your application code from the build context.
+# This includes app.js and any other source files.
+COPY . .
+
+# Install only production dependencies using `npm ci`.
+# This command is designed for clean installs in CI/CD environments
+# and will create the node_modules directory directly in this stage.
+# `--omit=dev` is preferred over `--production` for newer npm versions.
+RUN npm install --production 
+
+# Best practice: Run as a non-root user for security
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 USER appuser
 
 EXPOSE 3000
+
+# Define the command to run the application when the container starts
 CMD [ "npm", "start" ]
 ```
 Build and run:
