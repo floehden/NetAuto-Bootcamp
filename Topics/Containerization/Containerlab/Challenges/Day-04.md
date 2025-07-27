@@ -24,40 +24,18 @@ docker ps -a --filter label=containerlab
 
 This shows all Docker containers managed by Containerlab.
 
-4.  **Stopping and Starting a lab:**
+4.  **Saving the current running configuration as inital configuration**
 
 ```bash
-sudo clab stop -t day3-custom-config-lab.yaml # Stops containers but keeps state
-sudo clab start -t day3-custom-config-lab.yaml # Starts stopped containers
+containerlab save -t day3-custom-config-lab.yaml
 ```
 
-*Note: `clab stop` will not remove the containers, allowing you to resume later. `clab destroy` removes everything.*
-
-5.  **Different Network Modes:**
-Containerlab defaults to creating a Docker bridge network for management interfaces. You can also leverage:
-
-* **Host Networking:** For advanced scenarios where you need direct access to host network interfaces.
-```yaml
-# Example for host networking (careful, can conflict with host IPs)
-name: host-net-lab
-topology:
-    nodes:
-    ceos1:
-        kind: arista_ceos
-        image: ceos:4.34.0F
-        network-mode: host # This configures host networking for the management interface
-    links:
-    # Data plane links still work as usual
-    - endpoints: ["ceos1:eth1", "ceos2:eth1"]
-```
-*Note: `network-mode: host` affects the management interface. Data plane links (`endpoints`) still create virtual Ethernet pairs.*
-
-6.  **Removing unused images and containers:**
+5.  **Removing unused images and containers:**
 After destroying labs, it's good practice to clean up Docker:
 
 ```bash
 docker system prune -f
 ```
 
-    This removes stopped containers, networks not used by at least one container, dangling images, and build cache.
+This removes stopped containers, networks not used by at least one container, dangling images, and build cache.
 

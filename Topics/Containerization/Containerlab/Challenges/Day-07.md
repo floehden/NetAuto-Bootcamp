@@ -8,8 +8,7 @@ Generate a visual representation of your topology.
 ```bash
 sudo clab graph -t day6-bgp-fabric.yaml
 ```
-
-This will generate a `.dot` file. You can then use Graphviz to convert it to an image (e.g., `dot -Tpng output.dot -o topology.png`).
+<!-- ToDO : Add right decription here!-->
 
 2.  **Monitoring and Telemetry Integration (Conceptual):**
 Containerlab environments are perfect for testing monitoring solutions. You can deploy Prometheus, Grafana, and exporters as additional containers within your lab or on the host and configure your cEOS/SR Linux nodes to send telemetry data (e.g., via gNMI, NetFlow, or SNMP).

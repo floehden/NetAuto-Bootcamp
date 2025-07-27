@@ -25,10 +25,10 @@ Create `srl1-config.cli`:
 set / interface ethernet-1/1 admin-state enable
 set / interface ethernet-1/1 subinterface 0 admin-state enable
 set / interface ethernet-1/1 subinterface 0 ipv4 address 192.168.1.2/24
-set / system network-instance default protocols bgp admin-state enable
-set / system network-instance default protocols bgp autonomous-system 65002
-set / system network-instance default protocols bgp router-id 2.2.2.2
-set / system network-instance default protocols bgp neighbor 192.168.1.1 peer-as 65001
+set / network-instance default protocols bgp admin-state enable
+set / network-instance default protocols bgp autonomous-system 65002
+set / network-instance default protocols bgp router-id 2.2.2.2
+set / network-instance default protocols bgp neighbor 192.168.1.1 peer-as 65001
 ```
 
 3.  **Update `day2-mixed-lab.yaml` to use custom configs:**
@@ -36,17 +36,17 @@ set / system network-instance default protocols bgp neighbor 192.168.1.1 peer-as
 ```yaml
 name: day3-custom-config-lab
 topology:
-    nodes:
-        ceos1:
-            kind: arista_ceos
-            image: ceos:4.34.0F
-            startup-config: ./ceos1-config.cfg # Path to your config file
-        srl1:
-            kind: nokia_srlinux
-            image: ghcr.io/nokia/srlinux:latest
-        startup-config: ./srl1-config.cli # Path to your config file
-    links:
-    - endpoints: ["ceos1:eth1", "srl1:e1-1"]
+  nodes:
+    ceos1:
+      kind: arista_ceos
+      image: ceos:4.34.0F
+      startup-config: ./ceos1-config.cfg # Path to your config file
+    srl1:
+      kind: nokia_srlinux
+      image: ghcr.io/nokia/srlinux:latest
+      startup-config: ./srl1-config.cli # Path to your config file
+  links:
+      - endpoints: ["ceos1:eth1", "srl1:e1-1"]
 ```
 
 4.  **Deploy and verify:**

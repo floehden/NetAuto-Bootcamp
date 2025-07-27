@@ -17,9 +17,11 @@ topology:
                 hostname leaf1
                 interface Ethernet1
                     no shutdown
+                    no switchport
                     ip address 10.0.0.1/31
                 interface Ethernet2
                     no shutdown
+                    no switchport
                     ip address 10.0.0.3/31
                 router bgp 65000
                     router-id 1.1.1.1
