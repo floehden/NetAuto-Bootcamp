@@ -17,11 +17,11 @@ To test and use the proposed Terraform Provider go to [Server](/Topics/Programmi
 
 ## Overview
 
-| Day | Description |
-| ------ | ----- |
-| Day 1 | [Understanding Terraform Providers & Setup](/Topics/Programming/Go/Challenges/Terraform/Day-01.md)  |
-| Day 2 | [Defining Resources & Schema](/Topics/Programming/Go/Challenges/Terraform/Day-02.md)  |
-| Day 3 | [Implementing CRUD Operations (Create & Read)](/Topics/Programming/Go/Challenges/Terraform/Day-03.md)  |
-| Day 4 | [Implementing CRUD Operations (Update & Delete) & Testing](/Topics/Programming/Go/Challenges/Terraform/Day-04.md)  |
-| Day 5 | [Data Sources & Advanced Schema Concepts](/Topics/Programming/Go/Challenges/Terraform/Day-05.md)  |
-| Day 6 | [Provider Configuration, State Management & Best Practices](/Topics/Programming/Go/Challenges/Terraform/Day-06.md)  |
+| Day | Description | State |
+| ------ | ----- | ----- |
+| Day 1 | [Understanding Terraform Providers & Setup](/Topics/Programming/Go/Challenges/Terraform/Day-01.md)  | not tested |
+| Day 2 | [Defining Resources & Schema](/Topics/Programming/Go/Challenges/Terraform/Day-02.md)  | not tested |
+| Day 3 | [Implementing CRUD Operations (Create & Read)](/Topics/Programming/Go/Challenges/Terraform/Day-03.md)  | not tested |
+| Day 4 | [Implementing CRUD Operations (Update & Delete) & Testing](/Topics/Programming/Go/Challenges/Terraform/Day-04.md)  | not tested |
+| Day 5 | [Data Sources & Advanced Schema Concepts](/Topics/Programming/Go/Challenges/Terraform/Day-05.md)  | not tested |
+| Day 6 | [Provider Configuration, State Management & Best Practices](/Topics/Programming/Go/Challenges/Terraform/Day-06.md)  | not tested |

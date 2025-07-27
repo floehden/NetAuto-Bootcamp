@@ -29,15 +29,15 @@ We will build a simple CLI that can:
 
   ## Overview
 
-| Day | Description |
-| ------ | ----- |
-| Day 1 | [Getting Started with Go and Cobra](/Topics/Programming/Go/Challenges/CLI/Day-01.md) |
-| Day 2 | [Adding a `ping` Command](/Topics/Programming/Go/Challenges/CLI/Day-02.md) |
-| Day 3 | [Adding Flags and Persistent Flags](/Topics/Programming/Go/Challenges/CLI/Day-03.md) |
-| Day 4 | [Handling Multiple Targets with a Subcommand](/Topics/Programming/Go/Challenges/CLI/Day-04.md) |
-| Day 5 | [Error Handling and Exit Codes](/Topics/Programming/Go/Challenges/CLI/Day-05.md) |
-| Day 6 | [Advanced Network Interaction (Placeholder for a Real-World Scenario)](/Topics/Programming/Go/Challenges/CLI/Day-06.md) |
-| Day 7 | [Configuration Management with Viper](/Topics/Programming/Go/Challenges/CLI/Day-07.md) |
-| Day 8 | [Understanding Terraform Providers & Setup](/Topics/Programming/Go/Challenges/CLI/Day-08.md) |
+| Day | Description | State |
+| ------ | ----- | ----- |
+| Day 1 | [Getting Started with Go and Cobra](/Topics/Programming/Go/Challenges/CLI/Day-01.md) | not tested |
+| Day 2 | [Adding a `ping` Command](/Topics/Programming/Go/Challenges/CLI/Day-02.md) | not tested |
+| Day 3 | [Adding Flags and Persistent Flags](/Topics/Programming/Go/Challenges/CLI/Day-03.md) | not tested |
+| Day 4 | [Handling Multiple Targets with a Subcommand](/Topics/Programming/Go/Challenges/CLI/Day-04.md) | not tested |
+| Day 5 | [Error Handling and Exit Codes](/Topics/Programming/Go/Challenges/CLI/Day-05.md) | not tested |
+| Day 6 | [Advanced Network Interaction (Placeholder for a Real-World Scenario)](/Topics/Programming/Go/Challenges/CLI/Day-06.md) | not tested |
+| Day 7 | [Configuration Management with Viper](/Topics/Programming/Go/Challenges/CLI/Day-07.md) | not tested |
+| Day 8 | [Building and Best Practices](/Topics/Programming/Go/Challenges/CLI/Day-08.md) | not tested |
 
 
