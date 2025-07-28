@@ -21,37 +21,37 @@ By the end of this tutorial, you will be able to:
   * **Basic programming concepts** variables, loops, functions
   * **Docker Installed:** Containerlab relies on Docker. Ensure it's installed and running on your Linux machine (or WSL2 on Windows, or OrbStack/Docker Desktop on macOS with a Linux VM).
   * **Containerlab Installed:** Follow the official Containerlab installation guide: [https://containerlab.dev/install/](https://containerlab.dev/install/)
-  * **Arista cEOS-lab Image:** You'll need to download the cEOS-lab image from the Arista support portal (requires an Arista account, free lab versions are available). Import it into Docker: `docker import cEOS-lab-<version>.tar.xz arista/ceos:<version>` (e.g., `arista/ceos:4.30.6M`).
+  * **Arista cEOS-lab Image:** You'll need to download the cEOS-lab image from the [Arista support portal](https://www.arista.com/en/support/software-download) (requires an Arista account, free lab versions are available). Import it into Docker: `docker import cEOS-lab-<version>.tar.xz ceos:<version>` (e.g., `ceos:4.30.6M`).
   * **Go Installed:** Download and install Go from [https://golang.org/doc/install](https://golang.org/doc/install).
 
 
 ## **Module 1: GoLang Fundamentals**
 | Day | Arista | Nokia | State |
 | -------- | ------- | ------- | ------- |
-| 1 | [Getting Started with GoLang](/Topics/Programming/Go/Challenges/Arista/Day-01.md) | [GoLang Basics & Setup](/Topics/Programming/Go/Challenges/Nokia/Day-01.md) | not tested |
-| 2 | [Variables, Data Types, and Operators](/Topics/Programming/Go/Challenges/Arista/Day-02.md) |  [Variables, Data Types, and Control Flow](/Topics/Programming/Go/Challenges/Nokia/Day-02.md) | not tested |
-| 3 | [Control Flow (If/Else, For Loops, Switch)](/Topics/Programming/Go/Challenges/Arista/Day-03.md) |  [Functions, Packages, and Error Handling](/Topics/Programming/Go/Challenges/Nokia/Day-03.md) | not tested |
-| 4 | [Functions and Error Handling](/Topics/Programming/Go/Challenges/Arista/Day-04.md) |  [Structs, Slices, and Maps](/Topics/Programming/Go/Challenges/Nokia/Day-04.md) | not tested |
-| 5 | [Slices, Maps, and Structs](/Topics/Programming/Go/Challenges/Arista/Day-05.md) |  [JSON and YAML Serialization/Deserialization](/Topics/Programming/Go/Challenges/Nokia/Day-05.md) | not tested |
+| 1 | [Getting Started with GoLang](/Topics/Programming/Go/Challenges/Arista/Day-01.md) | [GoLang Basics & Setup](/Topics/Programming/Go/Challenges/Nokia/Day-01.md) | works / not tested |
+| 2 | [Variables, Data Types, and Operators](/Topics/Programming/Go/Challenges/Arista/Day-02.md) |  [Variables, Data Types, and Control Flow](/Topics/Programming/Go/Challenges/Nokia/Day-02.md) | works / not tested |
+| 3 | [Control Flow (If/Else, For Loops, Switch)](/Topics/Programming/Go/Challenges/Arista/Day-03.md) |  [Functions, Packages, and Error Handling](/Topics/Programming/Go/Challenges/Nokia/Day-03.md) | works / not tested |
+| 4 | [Functions and Error Handling](/Topics/Programming/Go/Challenges/Arista/Day-04.md) |  [Structs, Slices, and Maps](/Topics/Programming/Go/Challenges/Nokia/Day-04.md) | works / not tested |
+| 5 | [Slices, Maps, and Structs](/Topics/Programming/Go/Challenges/Arista/Day-05.md) |  [JSON and YAML Serialization/Deserialization](/Topics/Programming/Go/Challenges/Nokia/Day-05.md) | works / not tested |
 
 ## **Module 2: Containerlab Setup & Basic Router Interaction (Days 6-10)**
 | Day | Arista | Nokia | State |
 | -------- | ------- | ------- | ------- |
-| 6 | [Introduction to Containerlab](/Topics/Programming/Go/Challenges/Arista/Day-06.md) |  [Introduction to Containerlab](/Topics/Programming/Go/Challenges/Nokia/Day-06.md) | not tested |
-| 7 | [Initial cEOS Configuration with Containerlab](/Topics/Programming/Go/Challenges/Arista/Day-07.md) |  [SSH/CLI Automation with Go](/Topics/Programming/Go/Challenges/Nokia/Day-07.md) | not tested |
-| 8 | [GoLang Basic File I/O for Config Files](/Topics/Programming/Go/Challenges/Arista/Day-08.md) |  [Building a More Robust SSH Client](/Topics/Programming/Go/Challenges/Nokia/Day-08.md) | not tested |
-| 9 | [Structuring Go Projects and Modules](/Topics/Programming/Go/Challenges/Arista/Day-09.md) |  [Containerlab Multi-Node Topology](/Topics/Programming/Go/Challenges/Nokia/Day-09.md) | not tested |
-| 10 | [Basic Interaction with cEOS (Manual SSH/eAPI prep)](/Topics/Programming/Go/Challenges/Arista/Day-10.md) |  [ Inventory Management in Go for Containerlab](/Topics/Programming/Go/Challenges/Nokia/Day-10.md) | not tested |
+| 6 | [Introduction to Containerlab](/Topics/Programming/Go/Challenges/Arista/Day-06.md) |  [Introduction to Containerlab](/Topics/Programming/Go/Challenges/Nokia/Day-06.md) | works/ not tested |
+| 7 | [Initial cEOS Configuration with Containerlab](/Topics/Programming/Go/Challenges/Arista/Day-07.md) |  [SSH/CLI Automation with Go](/Topics/Programming/Go/Challenges/Nokia/Day-07.md) | works / not tested |
+| 8 | [GoLang Basic File I/O for Config Files](/Topics/Programming/Go/Challenges/Arista/Day-08.md) |  [Building a More Robust SSH Client](/Topics/Programming/Go/Challenges/Nokia/Day-08.md) | works / not tested |
+| 9 | [Structuring Go Projects and Modules](/Topics/Programming/Go/Challenges/Arista/Day-09.md) |  [Containerlab Multi-Node Topology](/Topics/Programming/Go/Challenges/Nokia/Day-09.md) | works / not tested |
+| 10 | [Basic Interaction with cEOS (Manual SSH/eAPI prep)](/Topics/Programming/Go/Challenges/Arista/Day-10.md) |  [ Inventory Management in Go for Containerlab](/Topics/Programming/Go/Challenges/Nokia/Day-10.md) | need further testing / not tested |
 
-## **Module 3: GoLang and Arista eAPI / Model-Driven Automation with Go (Days 11-15)**
+## **Module 3: Arista: GoLang and Arista eAPI / Nokia Model-Driven Automation with Go (Days 11-15)**
 
 | Day | Arista | Nokia | State |
 | -------- | ------- | ------- | ------- |
-| 11 | [Introduction to Arista eAPI and GoeAPI Library](/Topics/Programming/Go/Challenges/Arista/Day-11.md) |  [Introduction to NETCONF and YANG](/Topics/Programming/Go/Challenges/Nokia/Day-11.md) | not tested |
-| 12 | [Parsing eAPI Responses with Go Structs](/Topics/Programming/Go/Challenges/Arista/Day-12.md) |  [NETCONF with Go - Basic Get Operations](/Topics/Programming/Go/Challenges/Nokia/Day-12.md) | not tested |
-| 13 | [Sending Configuration Commands via eAPI](/Topics/Programming/Go/Challenges/Arista/Day-13.md) |  [NETCONF with Go - Edit Operations](/Topics/Programming/Go/Challenges/Nokia/Day-13.md) | not tested |
-| 14 | [Advanced eAPI Operations: Multiple Commands & Error Handling ](/Topics/Programming/Go/Challenges/Arista/Day-14.md) |  [Introduction to gNMI and Protocol Buffers](/Topics/Programming/Go/Challenges/Nokia/Day-14.md) | not tested |
-| 15 | [Templating Configurations with Go's `text/template`](/Topics/Programming/Go/Challenges/Arista/Day-15.md) |  [gNMI with Go - Capabilities and Get Operations](/Topics/Programming/Go/Challenges/Nokia/Day-15.md) | not tested |
+| 11 | [Introduction to Arista eAPI and GoeAPI Library](/Topics/Programming/Go/Challenges/Arista/Day-11.md) |  [Introduction to NETCONF and YANG](/Topics/Programming/Go/Challenges/Nokia/Day-11.md) | works / not tested |
+| 12 | [Parsing eAPI Responses with Go Structs](/Topics/Programming/Go/Challenges/Arista/Day-12.md) |  [NETCONF with Go - Basic Get Operations](/Topics/Programming/Go/Challenges/Nokia/Day-12.md) | works / not tested |
+| 13 | [Sending Configuration Commands via eAPI](/Topics/Programming/Go/Challenges/Arista/Day-13.md) |  [NETCONF with Go - Edit Operations](/Topics/Programming/Go/Challenges/Nokia/Day-13.md) | works / not tested |
+| 14 | [Advanced eAPI Operations: Multiple Commands & Error Handling ](/Topics/Programming/Go/Challenges/Arista/Day-14.md) |  [Introduction to gNMI and Protocol Buffers](/Topics/Programming/Go/Challenges/Nokia/Day-14.md) | partially works / not tested |
+| 15 | [Templating Configurations with Go's `text/template`](/Topics/Programming/Go/Challenges/Arista/Day-15.md) |  [gNMI with Go - Capabilities and Get Operations](/Topics/Programming/Go/Challenges/Nokia/Day-15.md) | works / not tested |
 
 ## **Module 4: Advanced GoLang for Network Automation (Days 16-20)**
 
@@ -71,7 +71,6 @@ By the end of this tutorial, you will be able to:
 | 23 | [gNMI `Set` RPC for Configuration](/Topics/Programming/Go/Challenges/Arista/Day-23.md) |  not tested |
 | 24 | [gNMI `Subscribe` for Streaming Telemetry](/Topics/Programming/Go/Challenges/Arista/Day-24.md) |  not tested |
 | 25 | [Advanced gNMI Use Cases & Best Practices](/Topics/Programming/Go/Challenges/Arista/Day-25.md) |  not tested |
-| 26 | [Configuration Backup and Restore with gNMI](/Topics/Programming/Go/Challenges/Arista/Day-26.md) | not tested |
 
 **Prerequisites for Module 5:**
 

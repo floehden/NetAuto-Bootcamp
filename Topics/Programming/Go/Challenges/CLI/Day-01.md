@@ -5,21 +5,27 @@
 ## **Steps:**
 
 1.  **Install Go:** If you don't have Go installed, follow the official instructions: `https://golang.org/doc/install`
+
 2.  **Install Cobra CLI Generator:**
-    ```bash
-    go install github.com/spf13/cobra-cli@latest
-    ```
+```bash
+go install github.com/spf13/cobra-cli@latest
+```
+
 3.  **Create a new Go module:**
-    ```bash
-    mkdir netcli
-    cd netcli
-    go mod init github.com/yourusername/netcli # Replace with your GitHub username
-    ```
+```bash
+mkdir netcli
+cd netcli
+go mod init github.com/yourusername/netcli # Replace with your GitHub username
+```
+
 4.  **Initialize Cobra project:**
-    ```bash
-    cobra-cli init
-    ```
-    This will create a `cmd` directory with `root.go` and `main.go`.
+
+In some cases it's necessary to install cobra-cli: https://formulae.brew.sh/formula/cobra-cli
+
+```bash
+cobra-cli init
+```
+This will create a `cmd` directory with `root.go` and `main.go`.
 
 ## **Code Example (`main.go`):**
 
@@ -82,5 +88,4 @@ func init() {
 
 ```bash
 go run main.go
-./netcli --help
 ```

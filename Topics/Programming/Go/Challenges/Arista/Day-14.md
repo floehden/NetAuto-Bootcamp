@@ -10,40 +10,42 @@ Sending multiple commands in a single eAPI call. Robust error checking for each 
 package main
 
 import (
-    "fmt"
-    "os"
+	"fmt"
+	"os"
 
-    "github.com/aristanetworks/goeapi"
+	"github.com/aristanetworks/goeapi"
 )
 
 func main() {
-    node, err := goeapi.Connect("ceos1")
-    if err != nil {
-        fmt.Printf("Error connecting to node: %v\n", err)
-        os.Exit(1)
-    }
+	node, err := goeapi.ConnectTo("ceos1")
+	if err != nil {
+		fmt.Printf("Error connecting to node: %v\n", err)
+		os.Exit(1)
+	}
 
-    configCmds := []string{
-        "interface Loopback1",
-        "ip address 2.2.2.2/32",
-        "description \"Another Loopback\"",
-        "interface Ethernet99", // This interface likely doesn't exist
-        "ip address 3.3.3.3/24",
-    }
+	configCmds := []string{
+		"enable",
+		"configure terminal",
+		"interface Loopback1",
+		"ip address 2.2.2.2/32",
+		"description \"Another Loopback\"",
+		"interface Ethernet99", // This interface likely doesn't exist
+		"ip address 3.3.3.3/24",
+	}
 
-    response, err := node.Configure(configCmds)
-    if err != nil {
-        fmt.Printf("Error during batch configuration: %v\n", err)
-        // You might need to inspect the 'response' object if available
-        // to see which specific command failed if the underlying eAPI
-        // library provides that granularity in the error.
-    } else {
-        fmt.Printf("Batch configuration results: %+v\n", response)
-    }
+	response, err := node.RunCommands(configCmds, "text")
+	if err != nil {
+		fmt.Printf("Error during batch configuration: %v\n", err)
+		// You might need to inspect the 'response' object if available
+		// to see which specific command failed if the underlying eAPI
+		// library provides that granularity in the error.
+	} else {
+		fmt.Printf("Batch configuration results: %+v\n", response)
+	}
 
-    // For more granular error checking, you might need to send commands one by one
-    // or check the "errors" field in the raw JSON response if the API returns it.
-    // goeapi often abstracts this, returning an error for the whole batch on first failure.
+	// For more granular error checking, you might need to send commands one by one
+	// or check the "errors" field in the raw JSON response if the API returns it.
+	// goeapi often abstracts this, returning an error for the whole batch on first failure.
 }
 ```
 

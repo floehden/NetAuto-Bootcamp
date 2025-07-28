@@ -10,36 +10,36 @@ Providing startup configurations to cEOS nodes in Containerlab. Using `startup-c
 ```yaml
 name: ceos-configured-lab
 topology:
-    nodes:
+  nodes:
     ceos1:
-        kind: ceos
-        image: arista/ceos:<your_ceos_version>
-        startup-config: |
+      kind: arista_ceos
+      image: ceos:4.34.0F # e.g., ceos:4.30.6M
+      startup-config: |
         hostname ceos1
         no aaa root
         username admin privilege 15 role network-admin secret sha512 $6$RxQ5ae0GOW6SAiCU$7qzQNGX2pSIWBYGF8Xh30lo/s418/diYEEZj9rPrTJiAkYv0s6AvjpTfUHMGz.a58Hg29Yy/nV0Zvplux0
         interface Ethernet1
-            no switchport
-            ip address 10.0.0.1/30
-            description "Link to ceos2"
+          no switchport
+          ip address 10.0.0.1/30
+          description "Link to ceos2"
         management api http-commands
-            no shutdown
-            protocol http
+          no shutdown
+          protocol http
     ceos2:
-        kind: ceos
-        image: arista/ceos:<your_ceos_version>
-        startup-config: |
+      kind: arista_ceos
+      image: ceos:4.34.0F
+      startup-config: |
         hostname ceos2
         no aaa root
         username admin privilege 15 role network-admin secret sha512 $6$RxQ5ae0GOW6SAiCU$7qzQNGX2pSIWBYGF8Xh30lo/s418/diYEEZj9rPrTJiAkYv0s6AvjpTfUHMGz.a58Hg29Yy/nV0Zvplux0
         interface Ethernet1
-            no switchport
-            ip address 10.0.0.2/30
-            description "Link to ceos1"
+          no switchport
+          ip address 10.0.0.2/30
+          description "Link to ceos1"
         management api http-commands
-            no shutdown
-            protocol http
-    links:
+          no shutdown
+          protocol http
+  links:
     - endpoints: ["ceos1:eth1", "ceos2:eth1"]
 ```
 

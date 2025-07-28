@@ -10,6 +10,7 @@ Create `interface_template.txt`:
 ```
 interface {{.InterfaceName}}
     description "{{.Description}}"
+    no switchport
     ip address {{.IPAddress}}/{{.PrefixLength}}
     no shutdown
 ```

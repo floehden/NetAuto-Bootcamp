@@ -1,4 +1,3 @@
-
 **Day 25: Advanced gNMI Use Cases & Best Practices**
 
   * **Introduction:** Authentication with gNMI (TLS, username/password metadata). Error handling for gRPC streams. Using libraries like `ygot` for robust path and data modeling. Combining gNMI with eAPI for hybrid automation.

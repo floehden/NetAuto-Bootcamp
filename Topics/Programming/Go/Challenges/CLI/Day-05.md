@@ -142,6 +142,7 @@ or specify a file containing one target per line using the --file flag.`,
 func init() {
 	pingCmd.AddCommand(multiCmd)
 	multiCmd.Flags().StringVarP(&targetsFile, "file", "f", "", "File containing network targets (one per line)")
+	multiCmd.Flags().IntVarP(&timeout, "timeout", "t", 5, "Timeout for the ping operation in seconds")
 }
 ```
 

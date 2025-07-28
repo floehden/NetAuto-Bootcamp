@@ -1,4 +1,3 @@
-
 # **Day 6: Introduction to Containerlab**
 
 ## **Introduction:** 
@@ -10,24 +9,24 @@
 
 ## **Code Example: Simple Containerlab Topology (YAML)**
 
-* Create `simple_lab.yaml`:
+* Create `simple_lab.clab.yaml`:
 
 ```yaml
 name: simple-arista-lab
 topology:
-    nodes:
+  nodes:
     ceos1:
-        kind: ceos
-        image: arista/ceos:<your_ceos_version> # e.g., arista/ceos:4.30.6M
+      kind: arista_ceos
+      image: ceos:4.34.0F # e.g., ceos:4.30.6M
     ceos2:
-        kind: ceos
-        image: arista/ceos:<your_ceos_version>
-    links:
+      kind: arista_ceos
+      image: ceos:4.34.0F
+  links:
     - endpoints: ["ceos1:eth1", "ceos2:eth1"]
 ```
 
-* Deploy: `sudo containerlab deploy -t simple_lab.yaml --reconfigure` 
-* Destroy: `sudo containerlab destroy -t simple_lab.yaml --cleanup`
+* Deploy: `sudo containerlab deploy -t simple_lab.clab.yaml --reconfigure` 
+* Destroy: `sudo containerlab destroy -t simple_lab.clab.yaml --cleanup`
 
 ## **Challenge 6:** 
-Deploy the `simple_lab.yaml`. Use `sudo containerlab graph -t simple_lab.yaml` to visualize the lab. Log into `ceos1` via `docker exec -it clab-simple-arista-lab-ceos1 Cli` and verify interfaces. Then destroy the lab.
+Deploy the `simple_lab.yaml`. Use `sudo containerlab graph -t simple_lab.clab.yaml` to visualize the lab. Log into `ceos1` via `docker exec -it clab-simple-arista-lab-ceos1 Cli` and verify interfaces. Then destroy the lab.

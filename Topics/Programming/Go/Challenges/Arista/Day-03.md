@@ -9,7 +9,10 @@ Conditional statements (`if`, `else if`, `else`), looping constructs (`for` loop
 // status_check.go
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 func main() {
     cpuUsage := 85
@@ -40,6 +43,7 @@ func main() {
     fmt.Println("Counting from 1 to 5:")
     for i := 1; i <= 5; i++ {
         fmt.Println(i)
+        time.Sleep(500 * time.Millisecond)
     }
 }
 ```

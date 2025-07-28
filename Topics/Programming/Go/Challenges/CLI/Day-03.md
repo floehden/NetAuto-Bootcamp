@@ -76,6 +76,6 @@ func init() {
 **Run your app:**
 
 ```bash
-go run main.go ping 8.8.8.8 --timeout 2
-go run main.go ping google.com -t 10
+go run main.go ping 8.8.8.8 --timeout 20
+go run main.go ping google.com -t 30
 ```

@@ -6,47 +6,51 @@ Using `goeapi` to send configuration commands to cEOS. The `Configure` method. U
 ## **Code Example: Configuring a Loopback Interface**
 
 ```go
-// configure_loopback.go
 package main
 
-import (
-    "fmt"
-    "os"
+// configure_loopback.go
 
-    "github.com/aristanetworks/goeapi"
+import (
+	"fmt"
+	"os"
+
+	"github.com/aristanetworks/goeapi"
 )
 
 func main() {
-    node, err := goeapi.Connect("ceos1")
-    if err != nil {
-        fmt.Printf("Error connecting to node: %v\n", err)
-        os.Exit(1)
-    }
+	node, err := goeapi.ConnectTo("ceos1")
+	if err != nil {
+		fmt.Printf("Error connecting to node: %v\n", err)
+		os.Exit(1)
+	}
 
-    configCmds := []string{
-        "interface Loopback0",
-        "ip address 1.1.1.1/32",
-        "description \"Configured by GoLang\"",
-    }
+	configCmds := []string{
+		"enable",
+		"configure",
+		"interface Loopback0",
+		"ip address 1.1.1.1/32",
+		"description \"Configured by GoLang\"",
+	}
 
-    response, err := node.Configure(configCmds)
-    if err != nil {
-        fmt.Printf("Error configuring device: %v\n", err)
-        os.Exit(1)
-    }
+	response, err := node.RunCommands(configCmds, "text")
+	if err != nil {
+		fmt.Printf("Error configuring device: %v\n", err)
+		os.Exit(1)
+	}
 
-    fmt.Printf("Configuration successful: %+v\n", response)
-
-    // Verify configuration
-    showCmds := []string{"show running-config interface Loopback0"}
-    showResponse, err := node.RunCommands(showCmds)
-    if err != nil {
-        fmt.Printf("Error verifying config: %v\n", err)
-        os.Exit(1)
-    }
-    fmt.Println("\n--- Verified Loopback0 Configuration ---")
-    fmt.Println(showResponse[0].(map[string]interface{})["result"].(map[string]interface{})["output"])
+	fmt.Printf("Configuration successful: %+v\n", response)
 }
+```
+
+For verification go the the router via the Cli
+```bash
+docker exec -it clab-ceos-configured-lab-ceos1 Cli
+ceos1>en
+ceos1#show running-config interface Loopback0
+interface Loopback0
+   description "Configured by GoLang"
+   ip address 1.1.1.1/32
+ceos1#exit
 ```
 
 ## **Challenge 13:** 

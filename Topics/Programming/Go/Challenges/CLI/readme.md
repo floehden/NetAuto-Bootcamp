@@ -31,13 +31,13 @@ We will build a simple CLI that can:
 
 | Day | Description | State |
 | ------ | ----- | ----- |
-| Day 1 | [Getting Started with Go and Cobra](/Topics/Programming/Go/Challenges/CLI/Day-01.md) | not tested |
-| Day 2 | [Adding a `ping` Command](/Topics/Programming/Go/Challenges/CLI/Day-02.md) | not tested |
-| Day 3 | [Adding Flags and Persistent Flags](/Topics/Programming/Go/Challenges/CLI/Day-03.md) | not tested |
-| Day 4 | [Handling Multiple Targets with a Subcommand](/Topics/Programming/Go/Challenges/CLI/Day-04.md) | not tested |
-| Day 5 | [Error Handling and Exit Codes](/Topics/Programming/Go/Challenges/CLI/Day-05.md) | not tested |
-| Day 6 | [Advanced Network Interaction (Placeholder for a Real-World Scenario)](/Topics/Programming/Go/Challenges/CLI/Day-06.md) | not tested |
-| Day 7 | [Configuration Management with Viper](/Topics/Programming/Go/Challenges/CLI/Day-07.md) | not tested |
-| Day 8 | [Building and Best Practices](/Topics/Programming/Go/Challenges/CLI/Day-08.md) | not tested |
+| Day 1 | [Getting Started with Go and Cobra](/Topics/Programming/Go/Challenges/CLI/Day-01.md) | works  |
+| Day 2 | [Adding a `ping` Command](/Topics/Programming/Go/Challenges/CLI/Day-02.md) | works |
+| Day 3 | [Adding Flags and Persistent Flags](/Topics/Programming/Go/Challenges/CLI/Day-03.md) | works |
+| Day 4 | [Handling Multiple Targets with a Subcommand](/Topics/Programming/Go/Challenges/CLI/Day-04.md) | works |
+| Day 5 | [Error Handling and Exit Codes](/Topics/Programming/Go/Challenges/CLI/Day-05.md) | works |
+| Day 6 | [Advanced Network Interaction (Placeholder for a Real-World Scenario)](/Topics/Programming/Go/Challenges/CLI/Day-06.md) | works |
+| Day 7 | [Configuration Management with Viper](/Topics/Programming/Go/Challenges/CLI/Day-07.md) | works |
+| Day 8 | [Building and Best Practices](/Topics/Programming/Go/Challenges/CLI/Day-08.md) | works |
 
-
+For more informations go to: [Corba CLI](https://github.com/spf13/cobra-cli) and the [User Guide](https://github.com/spf13/cobra/blob/main/site/content/user_guide.md#using-the-cobra-library)

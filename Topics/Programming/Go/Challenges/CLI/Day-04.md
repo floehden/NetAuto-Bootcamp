@@ -101,6 +101,7 @@ func init() {
 
 	// Define the --file flag for multi command
 	multiCmd.Flags().StringVarP(&targetsFile, "file", "f", "", "File containing network targets (one per line)")
+	multiCmd.Flags().IntVarP(&timeout, "timeout", "t", 5, "Timeout for the ping operation in seconds")
 }
 
 // Helper function to encapsulate ping logic
@@ -131,5 +132,5 @@ func pingHost(target string, timeout int) error {
 go run main.go ping multi 192.168.1.1 8.8.8.8
 echo "192.168.1.1" > targets.txt
 echo "google.com" >> targets.txt
-go run main.go ping multi --file targets.txt -t 3
+go run main.go ping multi --file targets.txt -t 30
 ```

@@ -16,7 +16,7 @@ func main() {
 }
 ```
 
-    * To run: `go run hello.go`
+* To run: `go run hello.go`
 
 ## **Challenge 1:** 
 Write a Go program that prints your name and a simple network-related phrase (e.g., "Automating networks with Go\!").
