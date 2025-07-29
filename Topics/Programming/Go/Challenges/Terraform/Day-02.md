@@ -1,29 +1,28 @@
-# **Day 2: Defining Resources & Schema**
+# **Day 2: Defining Resource Schema**
 
 ## **Objective:** 
-Learn to define a resource, its schema, and basic CRUD operations.
+Learn to define a resource's schema using Go structs and `tfsdk.Attribute` tags.
 
 ## **Resource Definition:**
-* A resource is represented by a `plugin.Resource` struct.
-* It contains methods for `Create`, `Read`, `Update`, and `Delete` operations.
-* Each operation receives a `*schema.ResourceData` object, which holds the current state of the resource in Terraform.
+  * A resource is represented by a struct that implements `framework.Resource`.
+  * You'll define a `Model` struct that represents the Terraform state and configuration for your resource. This struct will use `types.String`, `types.Int64`, etc.
+  * The `Schema` method of your resource type will define the attributes.
 
-## **Schema Definition:**
-* The `Schema` map within a resource defines the arguments (attributes) that users can configure.
-* Each argument has a `Type`, `Required`/`Optional`, `Computed`, `Description`, etc.
-* **Types:** `schema.TypeString`, `schema.TypeInt`, `schema.TypeBool`, `schema.TypeList`, `schema.TypeSet`, `schema.TypeMap`.
+## **Schema Definition with `tfsdk.Attribute`:**
+  * Attributes are defined directly within your `Model` struct using `tfsdk.Attribute` tags.
+  * `tfsdk.StringAttribute`, `tfsdk.Int64Attribute`, `tfsdk.BoolAttribute`, `tfsdk.ListAttribute`, `tfsdk.SetAttribute`, `tfsdk.MapAttribute`.
+  * Properties like `Required`, `Optional`, `Computed`, `Description`, `Sensitive`, `RequiresReplace` (similar to `ForceNew` in SDKv2) are set directly on the attribute.
 
 ## **Implementing the "Greeting" Resource Schema:**
 
-  * `message` (TypeString, Required, Computed): The greeting message itself.
-  * `author` (TypeString, Optional, Computed): Who created the greeting.
-  * `id` (TypeString, Computed): A unique identifier for the greeting (simulating an API ID).
+  * `ID` (Computed, String): Unique identifier.
+  * `Message` (Required, String): The greeting message.
+  * `Author` (Optional, Computed, String): Who created the greeting.
 
 ## **Challenges:**
 
-  * Understanding the different schema types and their implications.
-  * Distinguishing between `Required`, `Optional`, and `Computed` attributes.
-  * Handling computed values that might come from the API after creation.
+  * Getting used to the `tfsdk.Attribute` syntax and the different `types` (e.g., `types.String` vs `string`).
+  * Understanding how `tfsdk.State.Get` and `tfsdk.Plan.Get` work with the `Model` struct.
 
 ## **Code Example (Day 2 - `resource_greeting_message.go`):**
 
@@ -32,61 +31,93 @@ package main
 
 import (
 	"context"
-	"fmt"
-	"strconv"
-	"time"
 
-	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/hashicorp/terraform-plugin-framework/diag" // For diagnostics
+	"github.com/hashicorp/terraform-plugin-framework/tfsdk"
+	"github.com/hashicorp/terraform-plugin-framework/types" // For framework types
 )
 
-// In-memory "database" to simulate our API
-var greetings = make(map[string]map[string]string)
-var nextID = 1
+// Ensure the implementation satisfies the tfsdk.ResourceTypeWith
+// and tfsdk.Resource interfaces.
+var _ tfsdk.ResourceTypeWith
+var _ tfsdk.Resource = &greetingResource{}
 
-func resourceGreetingMessage() *schema.Resource {
-	return &schema.Resource{
-		CreateContext: resourceGreetingMessageCreate,
-		ReadContext:   resourceGreetingMessageRead,
-		UpdateContext: resourceGreetingMessageUpdate,
-		DeleteContext: resourceGreetingMessageDelete,
-		Schema: map[string]*schema.Schema{
+// greetingResourceType defines the resource type.
+type greetingResourceType struct{}
+
+// GetSchema defines the schema for the greeting_message resource.
+func (r greetingResourceType) GetSchema(ctx context.Context) (tfsdk.Schema, diag.Diagnostics) {
+	return tfsdk.Schema{
+		// This description is visible to users in Terraform documentation.
+		Description: "Manages a greeting message.",
+		Attributes: map[string]tfsdk.Attribute{
+			"id": {
+				// ID is a computed attribute, meaning it's set by the provider after creation.
+				Description: "Unique ID of the greeting.",
+				Type:        types.StringType,
+				Computed:    true,
+			},
 			"message": {
-				Type:        schema.TypeString,
-				Required:    true,
+				// Message is a required attribute, meaning users must provide it.
 				Description: "The greeting message.",
+				Type:        types.StringType,
+				Required:    true,
 			},
 			"author": {
-				Type:        schema.TypeString,
-				Optional:    true,
-				Computed:    true, // If not provided, it will be computed (e.g., by the API)
+				// Author is optional, but can also be computed (e.g., if the API sets a default).
 				Description: "The author of the greeting.",
-			},
-			"id": {
-				Type:        schema.TypeString,
+				Type:        types.StringType,
+				Optional:    true,
 				Computed:    true,
-				Description: "Unique ID of the greeting.",
 			},
 		},
-	}
+	}, nil // No diagnostics on schema definition errors for now
 }
 
-// Placeholder CRUD functions (will be implemented on Day 3)
-func resourceGreetingMessageCreate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	return diag.Errorf("Create not implemented yet")
+// NewResource creates a new resource instance.
+// This function is part of the tfsdk.ResourceTypeWith interface.
+func (r greetingResourceType) NewResource(ctx context.Context, p tfsdk.Provider) (tfsdk.Resource, diag.Diagnostics) {
+	// We'll pass the provider's configured client to the resource instance.
+	// This allows the resource to make API calls using the configured client.
+	return &greetingResource{
+		provider: (*p.(*greetingProvider)), // Cast the provider interface to our specific provider type
+	}, nil
 }
 
-func resourceGreetingMessageRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	return diag.Errorf("Read not implemented yet")
+// greetingResource implements the tfsdk.Resource interface.
+type greetingResource struct {
+	provider greetingProvider // Store the provider instance to access its client
 }
 
-func resourceGreetingMessageUpdate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	return diag.Errorf("Update not implemented yet")
+// GreetingModel defines the Go model for the greeting_message resource.
+// This struct maps directly to the schema attributes.
+type GreetingModel struct {
+	ID      types.String `tfsdk:"id"`
+	Message types.String `tfsdk:"message"`
+	Author  types.String `tfsdk:"author"`
 }
 
-func resourceGreetingMessageDelete(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	return diag.Errorf("Delete not implemented yet")
+// Placeholder CRUD functions (will be implemented on Day 3 & 4)
+func (r *greetingResource) Create(ctx context.Context, req tfsdk.CreateResourceRequest, resp *tfsdk.CreateResourceResponse) {
+	resp.Diagnostics.AddError("Create not implemented", "The Create function for greeting_message is not yet implemented.")
+}
+
+func (r *greetingResource) Read(ctx context.Context, req tfsdk.ReadResourceRequest, resp *tfsdk.ReadResourceResponse) {
+	resp.Diagnostics.AddError("Read not implemented", "The Read function for greeting_message is not yet implemented.")
+}
+
+func (r *greetingResource) Update(ctx context.Context, req tfsdk.UpdateResourceRequest, resp *tfsdk.UpdateResourceResponse) {
+	resp.Diagnostics.AddError("Update not implemented", "The Update function for greeting_message is not yet implemented.")
+}
+
+func (r *greetingResource) Delete(ctx context.Context, req tfsdk.DeleteResourceRequest, resp *tfsdk.DeleteResourceResponse) {
+	resp.Diagnostics.AddError("Delete not implemented", "The Delete function for greeting_message is not yet implemented.")
+}
+
+// ImportState is used to import existing resources into Terraform state.
+func (r *greetingResource) ImportState(ctx context.Context, req tfsdk.ImportResourceStateRequest, resp *tfsdk.ImportResourceStateResponse) {
+	// For simple resources, setting the ID is often enough.
+	tfsdk.State{}.SetAttribute(ctx, resp.State, "id", req.ID)
 }
 
 ```
-
