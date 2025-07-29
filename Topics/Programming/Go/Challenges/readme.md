@@ -7,8 +7,6 @@
 By the end of this tutorial, you will be able to:
 
   * Understand Go fundamentals relevant to network automation.
-  * Set up and manage Nokia SR Linux labs using Containerlab.
-  * Interact with Nokia SR Linux via SSH/CLI using Go.
   * Automate configuration and state retrieval using NETCONF with Go.
   * Leverage gNMI for configuration, operational state, and streaming telemetry with Go.
   * Work with JSON and YAML data formats in Go for network configurations.
