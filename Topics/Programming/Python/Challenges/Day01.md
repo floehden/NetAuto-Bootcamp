@@ -42,7 +42,7 @@ File Modes:
 * 'r+' for both reading and writing.
 
 
-### Challenges
+## Challenges
 ### Challenge 1: Read a File
 Write a script to open a text file and print its contents to the console.
 ### Challenge 2: Count Lines
