@@ -51,7 +51,7 @@ By the end of this tutorial, you will be able to:
 | 14 | [Advanced eAPI Operations: Multiple Commands & Error Handling ](/Topics/Programming/Go/Challenges/Arista/Day-14.md) | 
 | 15 | [Templating Configurations with Go's `text/template`](/Topics/Programming/Go/Challenges/Arista/Day-15.md) |
 
-## **Module 4: Advanced GoLang for Network Automation (Days 16-20)**
+## **Module 4: Advanced GoLang for Network Automation (Days 16-20)(Untested)**
 
 | Day | Description | 
 | -------- | ------- | 
