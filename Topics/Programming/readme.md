@@ -5,7 +5,7 @@ Computer architecture has strongly influenced the design of programming language
 
 ## Languages
 * Go
-* [Python](/Topic/Programming/Python/readme.md) 
+* [Python](/Topics/Programming/Python/readme.md) 
 
 
 ## Sources
