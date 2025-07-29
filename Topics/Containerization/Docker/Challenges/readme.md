@@ -4,9 +4,6 @@
 
 This tutorial is designed for developers, operations professionals, and anyone interested in mastering Docker. It starts from the absolute basics and gradually moves to more advanced concepts, with a particular emphasis on how containers communicate. A basic understanding of the command line is helpful.
 
-## ## What is Docker?
-
-Docker is an open-source platform that automates the deployment, scaling, and management of applications using containerization. Containers package an application and all its dependencies (libraries, system tools, code, runtime) into a single, standardized unit. This ensures that the application runs consistently across different environments, from a developer's laptop to production servers.
 
 ## **Why use Docker?**
 
