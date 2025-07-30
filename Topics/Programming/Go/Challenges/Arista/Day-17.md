@@ -1,5 +1,5 @@
 
-# **Day 17: Building a Simple CLI Tool with `cobra` or `flag`**
+# **Day 17: Building a Simple CLI Tool with `flag`**
 
 ## **Introduction:** 
 Creating command-line interface (CLI) tools in Go. Using the `flag` package for simple arguments or the `cobra` library for more complex CLIs.
