@@ -56,7 +56,7 @@ By the end of this tutorial, you will be able to:
 | Day | Description | 
 | -------- | ------- | 
 | 16 | [Concurrency with Goroutines and Channels](/Topics/Programming/Go/Challenges/Arista/Day-16.md) | 
-| 17 | [Building a Simple CLI Tool with `cobra` or `flag`](/Topics/Programming/Go/Challenges/Arista/Day-17.md) |
+| 17 | [Building a Simple CLI Tool with `flag`](/Topics/Programming/Go/Challenges/Arista/Day-17.md) |
 | 18 | [Working with JSON Configuration Files (External Data)](/Topics/Programming/Go/Challenges/Arista/Day-18.md) | 
 | 19 | [Building a Network Discovery and Reporting Tool](/Topics/Programming/Go/Challenges/Arista/Day-19.md) | 
 | 20 | [Putting It All Together: Automated Lab Deployment & Configuration](/Topics/Programming/Go/Challenges/Arista/Day-20.md) | 
