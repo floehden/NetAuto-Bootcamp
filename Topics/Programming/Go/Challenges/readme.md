@@ -41,12 +41,12 @@ By the end of this tutorial, you will be able to:
 | 9 | [Structuring Go Projects and Modules](/Topics/Programming/Go/Challenges/Day-09.md) | 
 | 10 | [Basic Interaction with cEOS (Manual SSH/eAPI prep)](/Topics/Programming/Go/Challenges/Day-10.md)  |
 
-### Extras (with Nokia SRL)
+### Extras (with Nokia SRL) 
 | Extra | Description | 
 | -------- | ------- | 
 | M2.E 1 | [SSH/CLI Automation with Go](/Topics/Programming/Go/Challenges/M2-E-01.md) | 
-| M2.E 2 | [Containerlab Multi-Node Topology (SRL)](/Topics/Programming/Go/Challenges/M2-E-02.md) | 
-| M2.E 3 | [Inventory Management in Go for Containerlab](/Topics/Programming/Go/Challenges/M2-E-03.md) | 
+| M2.E 2 | [ToDO: Test, Containerlab Multi-Node Topology (SRL)](/Topics/Programming/Go/Challenges/M2-E-02.md) | 
+| M2.E 3 | [ToDo: Test, Inventory Management in Go for Containerlab](/Topics/Programming/Go/Challenges/M2-E-03.md) | 
 
 ## **Module 3: GoLang and Arista eAPI (Days 11-15)**
 
@@ -58,13 +58,13 @@ By the end of this tutorial, you will be able to:
 | 14 | [Advanced eAPI Operations: Multiple Commands & Error Handling ](/Topics/Programming/Go/Challenges/Day-14.md) | 
 | 15 | [Templating Configurations with Go's `text/template`](/Topics/Programming/Go/Challenges/Day-15.md) |
 
-### Extras (with Nokia SRL and NETCONF)
+### Extras (with Nokia SRL and NETCONF) (TEST IT)
 | Extra | Description | 
 | -------- | ------- | 
 | M3.E 01 | [NETCONF with Go - Basic Get Operations](/Topics/Programming/Go/Challenges/M3-E-01.md) | 
 | M3.E 02 | [NETCONF with Go - Edit Operations](/Topics/Programming/Go/Challenges/M3-E-01.md) | 
 
-## **Module 4: Advanced GoLang for Network Automation (Days 16-20)(Untested)**
+## **Module 4: Advanced GoLang for Network Automation (Days 16-20)**
 
 | Day | Description | 
 | -------- | ------- | 
@@ -89,7 +89,8 @@ For further informations on using Golang with gNMI look at the [documentation](h
 ## Project
 | Project | Description | 
 | -------- | ------- | 
-| Final | [Building a Generic Network Client in Go](/Topics/Programming/Go/Challenges/final-project.md) | 
+| Final 01 | [Building a Generic Network Client in Go](/Topics/Programming/Go/Challenges/final-project-02.md) | 
+| Final 02 | [Building a Simple Automation Tool & Next Steps](/Topics/Programming/Go/Challenges/final-project-02.md) | 
 
 
 ## Create a CLI
