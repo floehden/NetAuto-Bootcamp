@@ -61,40 +61,15 @@ By the end of this tutorial, you will be able to:
 | 19 | [Building a Network Discovery and Reporting Tool](/Topics/Programming/Go/Challenges/Arista/Day-19.md) | 
 | 20 | [Putting It All Together: Automated Lab Deployment & Configuration](/Topics/Programming/Go/Challenges/Arista/Day-20.md) | 
 
-## **Module 5 (Arista only): GoLang and gNMI for Streaming Telemetry & Configuration (Days 21-26)**
-| Day | Description | State |
-| -------- | ------- | ------- | 
-| 21 | [Introduction to gNMI and Basic Connection](/Topics/Programming/Go/Challenges/Arista/Day-21.md) |   not tested |
-| 22 | [gNMI `Get` RPC for Operational State](/Topics/Programming/Go/Challenges/Arista/Day-22.md) |  not tested |
-| 23 | [gNMI `Set` RPC for Configuration](/Topics/Programming/Go/Challenges/Arista/Day-23.md) |  not tested |
-| 24 | [gNMI `Subscribe` for Streaming Telemetry](/Topics/Programming/Go/Challenges/Arista/Day-24.md) |  not tested |
-| 25 | [Advanced gNMI Use Cases & Best Practices](/Topics/Programming/Go/Challenges/Arista/Day-25.md) |  not tested |
+## **Module 5 (Arista only): GoLang and gNMI for Streaming Telemetry & Configuration (Days 21-24)**
+| Day | Description | 
+| -------- | ------- | 
+| 21 | [Introduction to gNMI and Basic Connection](/Topics/Programming/Go/Challenges/Arista/Day-21.md) | 
+| 22 | [gNMI `Get` RPC for Operational State](/Topics/Programming/Go/Challenges/Arista/Day-22.md) |
+| 23 | [gNMI `Set` RPC for Configuration](/Topics/Programming/Go/Challenges/Arista/Day-23.md) |
+| 24 | [gNMI `Subscribe` for Streaming Telemetry](/Topics/Programming/Go/Challenges/Arista/Day-24.md) | 
 
-**Prerequisites for Module 5:**
-
-* **Arista cEOS with gNMI enabled:** In your Containerlab YAML, you need to enable the gNMI server. Add the following to your cEOS node's `startup-config`:
-
-```yaml
-# ... inside ceos node startup-config ...
-gnmi
-    no shutdown
-    transport grpc
-    no shutdown
-    port 6030
-    vrf management
-    !
-```
-
-*Note: gNMI typically runs on port 50051, but Arista EOS uses 6030 by default for gRPC. Ensure your firewall/security groups allow access to this port if running on a cloud VM.*
-
-* **Go gNMI Client Libraries:** You'll need `go get` these:
-
-    * `go get github.com/openconfig/gnmi/proto/gnmi`
-    * `go get google.golang.org/grpc`
-    * `go get google.golang.org/grpc/credentials/insecure` (for unencrypted connections)
-    * `go get google.golang.org/protobuf/proto`
-    * `go get github.com/openconfig/ygot/ygot` (useful for path building)
-    * `go get github.com/aristanetworks/glog` (used by some Arista examples, though standard log is fine)
+For further informations on using Golang with gNMI look at the [documentation](https://gnmic.openconfig.net/user_guide/golang_package/intro/) and especially in the example of [CAPABILITIES](https://gnmic.openconfig.net/user_guide/golang_package/examples/capabilities/), [GET](https://gnmic.openconfig.net/user_guide/golang_package/examples/get/), [SET](https://gnmic.openconfig.net/user_guide/golang_package/examples/set/) AND [SUBSCRIBE](https://gnmic.openconfig.net/user_guide/golang_package/examples/subscribe/).
 
 
 ## Create a CLI

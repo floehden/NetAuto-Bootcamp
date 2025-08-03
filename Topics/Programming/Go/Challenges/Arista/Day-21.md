@@ -7,65 +7,82 @@ What is gNMI? Why use it over eAPI? (Streaming Telemetry, Declarative Configurat
 
 ## **Code Example: Connecting to a gNMI Server**
 
+```yaml
+gnmi-lab.clab.yaml
+name: gnmi-lab
+topology:
+  nodes:
+    ceos1:
+      kind: arista_ceos
+      image: ceos:4.34.0F
+
+    ceos2:
+      kind: arista_ceos
+      image: ceos:4.34.0F
+      
+  links:
+    - endpoints: ["ceos1:eth1", "ceos2:eth1"]
+```
+
+
 ```go
 // gnmi_connect.go
 package main
 
 import (
-    "context"
-    "fmt"
-    "log"
-    "time"
+	"context"
+	"fmt"
+	"os"
 
-    "google.golang.org/grpc"
-    "google.golang.org/grpc/credentials/insecure"
-    gpb "github.com/openconfig/gnmi/proto/gnmi" // Alias to avoid conflicts
+	"github.com/openconfig/gnmic/pkg/api"
 )
 
 const (
-    targetAddress = "10.0.0.10:6030" // Replace with your cEOS container IP and gNMI port
-    username      = "admin"
-    password      = "admin"
+	targetAddress = "172.20.20.2:6030" // Replace with your cEOS container IP and gNMI port
+	username      = "admin"
+	password      = "admin"
 )
 
 func main() {
-    ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-    defer cancel()
+	target, err := api.NewTarget(
+		api.Address(targetAddress),
+		api.Username(username),
+		api.Password(password),
+		api.SkipVerify(false),
+		api.Insecure(true),
+	)
+	if err != nil {
+		fmt.Println(err, "failed to create gnmi client")
+		os.Exit(1)
+	}
 
-    // Set up gRPC dial options
-    opts := []grpc.DialOption{
-        grpc.WithTransportCredentials(insecure.NewCredentials()), // Use insecure for lab environment
-        grpc.WithBlock(), // Block until the connection is established
-    }
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 
-    fmt.Printf("Attempting to connect to gNMI server at %s...\n", targetAddress)
-    conn, err := grpc.DialContext(ctx, targetAddress, opts...)
-    if err != nil {
-        log.Fatalf("Failed to dial gNMI server: %v", err)
-    }
-    defer conn.Close()
-    fmt.Println("Successfully connected to gNMI server.")
+	// create a gNMI client
+	err = target.CreateGNMIClient(ctx)
+	if err != nil {
+		fmt.Println(err, "failed to create gnmi client")
+		os.Exit(1)
+	}
+	defer target.Close()
 
-    // Create a gNMI client
-    client := gpb.NewgNMIClient(conn)
+	// send the created gNMI GetRequest to the created target
+	capResp, err := target.Capabilities(ctx)
+	if err != nil {
+		fmt.Println(err, "failed to execute get request")
+		os.Exit(1)
+	}
 
-    // Perform a simple Capabilities request to verify connection
-    fmt.Println("Requesting gNMI capabilities...")
-    capResp, err := client.Capabilities(ctx, &gpb.CapabilityRequest{})
-    if err != nil {
-        log.Fatalf("Failed to get gNMI capabilities: %v", err)
-    }
-
-    fmt.Println("gNMI Capabilities:")
-    fmt.Printf("  Supported Models: %+v\n", capResp.GetSupportedModels())
-    fmt.Printf("  Supported Versions: %+v\n", capResp.GetSupportedGnmiVersions())
-    fmt.Printf("  Supported Encodings: %+v\n", capResp.GetSupportedEncodings())
+	fmt.Println("gNMI Capabilities:")
+	fmt.Printf("  Supported Models: %+v\n", capResp.GetSupportedModels())
+	fmt.Printf("  Supported Versions: %+v\n", capResp.GetGNMIVersion())
+	fmt.Printf("  Supported Encodings: %+v\n", capResp.GetSupportedEncodings())
 }
 ```
 
 ## **Challenge 21:**
 
-1.  Update your `automation_lab.clab.yaml` (from Day 20) to enable gNMI on both `ceos1` and `ceos2`.
-2.  Deploy the lab.
-3.  Find the IP address of `clab-automation-lab-ceos1`.
-4.  Update `gnmi_connect.go` with the correct IP and run the program. Verify that it connects and prints capabilities.
+1.  Deploy the `gnmi-lab.clab.yaml`.
+2.  Find the IP address of `clab-automation-lab-ceos1`.
+3.  Update `gnmi_connect.go` with the correct IP and run the program. Verify that it connects and prints capabilities.

@@ -11,82 +11,70 @@ Using the `Get` RPC to fetch specific operational state or configuration. Unders
 package main
 
 import (
-    "context"
-    "fmt"
-    "log"
-    "time"
+	"context"
+	"fmt"
+	"os"
 
-    "google.golang.org/grpc"
-    "google.golang.org/grpc/credentials/insecure"
-    gpb "github.com/openconfig/gnmi/proto/gnmi"
-    "google.golang.org/protobuf/proto" // For unmarshalling typed data
+	"github.com/openconfig/gnmic/pkg/api"
 )
 
 const (
-    targetAddress = "10.0.0.10:6030" // Replace with your cEOS container IP
-    username      = "admin"
-    password      = "admin"
+	targetAddress = "172.20.20.2:6030" // Replace with your cEOS container IP and gNMI port
+	username      = "admin"
+	password      = "admin"
 )
 
 func main() {
-    ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-    defer cancel()
+	target, err := api.NewTarget(
+		api.Address(targetAddress),
+		api.Username(username),
+		api.Password(password),
+		api.SkipVerify(false),
+		api.Insecure(true),
+	)
+	if err != nil {
+		fmt.Println(err, "failed to create gnmi client")
+		os.Exit(1)
+	}
 
-    opts := []grpc.DialOption{
-        grpc.WithTransportCredentials(insecure.NewCredentials()),
-        grpc.WithBlock(),
-    }
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 
-    conn, err := grpc.DialContext(ctx, targetAddress, opts...)
-    if err != nil {
-        log.Fatalf("Failed to dial gNMI server: %v", err)
-    }
-    defer conn.Close()
-    client := gpb.NewgNMIClient(conn)
+	// create a gNMI client
+	err = target.CreateGNMIClient(ctx)
+	if err != nil {
+		fmt.Println(err, "failed to create gnmi client")
+		os.Exit(1)
+	}
+	defer target.Close()
 
-    // Define the gNMI path for interface state
-    // Paths are relative to a root. For OpenConfig, usually "/interfaces/interface[name=<iface_name>]/state"
-    // Arista EOS supports OpenConfig paths.
-    // Let's get the state for Ethernet1
-    path := &gpb.Path{
-        Elem: []*gpb.PathElem{
-            {Name: "interfaces"},
-            {Name: "interface", Key: map[string]string{"name": "Ethernet1"}},
-            {Name: "state"},
-        },
-    }
+	// send the created gNMI GetRequest to the created target
+	// create a GetRequest
+	getReq, err := api.NewGetRequest(
+		api.Path("/interfaces/interface[name=Ethernet1]/state"),
+		api.Encoding("json_ietf"),
+	)
+	if err != nil {
+		fmt.Println(err, "failed to execute get request")
+		os.Exit(1)
+	}
 
-    req := &gpb.GetRequest{
-        Path: []*gpb.Path{path},
-        Type: gpb.GetRequest_STATE, // Request operational state
-    }
+	// send the created gNMI GetRequest to the created target
+	getResp, err := target.Get(ctx, getReq)
+	if err != nil {
+		fmt.Println(err, "failed to execute get request")
+		os.Exit(1)
+	}
 
-    fmt.Printf("Getting state for Ethernet1...\n")
-    resp, err := client.Get(ctx, req)
-    if err != nil {
-        log.Fatalf("Failed to get gNMI data: %v", err)
-    }
+	for _, notif := range getResp.Notification {
+		for _, update := range notif.Update {
+			fmt.Printf("Path: %s\n", update.Path)
 
-    // Process the response
-    if resp != nil && len(resp.GetNotification()) > 0 {
-        for _, notif := range resp.GetNotification() {
-            for _, update := range notif.GetUpdate() {
-                fmt.Printf("Path: %s\n", update.GetPath())
-                fmt.Printf("Val: %s\n", update.GetVal().GetStringVal()) // Value might be JSON_IETF or others
-                // For complex data, you'd need to unmarshal the TypedValue
-                // For example, if it's JSON_IETF:
-                if jsonVal := update.GetVal().GetJsonIetfVal(); jsonVal != nil {
-                    fmt.Println("JSON Value:", string(jsonVal))
-                    // You'd typically unmarshal this JSON into a Go struct
-                } else if stringVal := update.GetVal().GetStringVal(); stringVal != "" {
-                    fmt.Println("String Value:", stringVal)
-                }
-            }
-        }
-    } else {
-        fmt.Println("No data received for Ethernet1 state.")
-    }
+			fmt.Printf("Return value: %s", update.Val.GetJsonIetfVal())
+		}
+	}
 }
+
 ```
 
 ## **Challenge 22:**

@@ -10,121 +10,68 @@ Using the `Set` RPC to configure devices. Understanding `Update`, `Replace`, and
 package main
 
 import (
-    "context"
-    "fmt"
-    "log"
-    "time"
+	"context"
+	"fmt"
+	"os"
 
-    "google.golang.org/grpc"
-    "google.golang.org/grpc/credentials/insecure"
-    gpb "github.com/openconfig/gnmi/proto/gnmi"
-    "google.golang.org/protobuf/proto"
-    "google.golang.org/protobuf/encoding/prototext" // For debugging Protobuf messages
+	"github.com/openconfig/gnmic/pkg/api"
+	"google.golang.org/protobuf/encoding/prototext"
 )
 
 const (
-    targetAddress = "10.0.0.10:6030" // Replace with your cEOS container IP
-    username      = "admin"
-    password      = "admin"
+	targetAddress = "172.20.20.2:6030" // Replace with your cEOS container IP and gNMI port
+	username      = "admin"
+	password      = "admin"
 )
 
 func main() {
-    ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-    defer cancel()
+	target, err := api.NewTarget(
+		api.Address(targetAddress),
+		api.Username(username),
+		api.Password(password),
+		api.SkipVerify(false),
+		api.Insecure(true),
+	)
+	if err != nil {
+		fmt.Println(err, "failed to create gnmi client")
+		os.Exit(1)
+	}
 
-    opts := []grpc.DialOption{
-        grpc.WithTransportCredentials(insecure.NewCredentials()),
-        grpc.WithBlock(),
-    }
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 
-    conn, err := grpc.DialContext(ctx, targetAddress, opts...)
-    if err != nil {
-        log.Fatalf("Failed to dial gNMI server: %v", err)
-    }
-    defer conn.Close()
-    client := gpb.NewgNMIClient(conn)
+	// create a gNMI client
+	err = target.CreateGNMIClient(ctx)
+	if err != nil {
+		fmt.Println(err, "failed to create gnmi client")
+		os.Exit(1)
+	}
+	defer target.Close()
 
-    // Define the gNMI path for the configuration
-    // This configures Loopback1 with IP 192.168.100.1/32
-    // Data format is typically JSON_IETF
-    configPath := &gpb.Path{
-        Elem: []*gpb.PathElem{
-            {Name: "interfaces"},
-            {Name: "interface", Key: map[string]string{"name": "Loopback1"}},
-        },
-    }
+	// create a gNMI SetRequest
+	var updates []api.GNMIOption
 
-    // Construct the configuration data as JSON_IETF bytes
-    // This JSON corresponds to the OpenConfig 'interface' model.
-    // Ensure you match the schema expected by the device.
-    configJSON := `
-    {
-        "name": "Loopback1",
-        "config": {
-            "name": "Loopback1",
-            "type": "OTHER",
-            "enabled": true
-        },
-        "subinterfaces": {
-            "subinterface": [
-                {
-                    "index": 0,
-                    "config": {
-                        "index": 0
-                    },
-                    "ipv4": {
-                        "addresses": {
-                            "address": [
-                                {
-                                    "ip": "192.168.100.1",
-                                    "config": {
-                                        "ip": "192.168.100.1",
-                                        "prefix-length": 32
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            ]
-        }
-    }`
+	updates = append(updates, api.Update(
+		api.Path("/system/config/hostname"),
+		api.Value("ceos0000001", "json_ietf"),
+	))
 
-    // Create a TypedValue for the JSON configuration
-    val := &gpb.TypedValue{
-        Value: &gpb.TypedValue_JsonIetfVal{
-            JsonIetfVal: []byte(configJSON),
-        },
-    }
+	setReq, err := api.NewSetRequest(updates...)
 
-    // Create the Update notification
-    update := &gpb.Update{
-        Path: configPath,
-        Val:  val,
-    }
+	if err != nil {
+		fmt.Println(err, "failed to create Set request")
+		os.Exit(1)
+	}
 
-    // Create the SetRequest with the Update operation
-    req := &gpb.SetRequest{
-        Update: []*gpb.Update{update}, // Use Update to merge/add config
-        // You could use Replace to overwrite, or Delete to remove
-    }
+	// send the created gNMI SetRequest to the created target
+	setResp, err := target.Set(ctx, setReq)
+	if err != nil {
+		fmt.Println(err, "failed to send Set request")
+		fmt.Println(prototext.Format(setResp))
+		os.Exit(1)
+	}
 
-    fmt.Println("Sending SetRequest to configure Loopback1...")
-    // For debugging the request message itself:
-    // fmt.Println("SetRequest:\n", prototext.Format(req))
-
-    resp, err := client.Set(ctx, req)
-    if err != nil {
-        log.Fatalf("Failed to set gNMI data: %v", err)
-    }
-
-    fmt.Println("SetRequest successful. Response:")
-    for _, result := range resp.GetResults() {
-        fmt.Printf("  Path: %s, Op: %s\n", result.GetPath(), result.GetOp())
-    }
-
-    // Verify configuration using eAPI or another gNMI Get
-    // (Not shown here, but crucial in a real scenario)
+	fmt.Printf("gNMI Set Response: %s", prototext.Format(setResp))
 }
 ```
 
