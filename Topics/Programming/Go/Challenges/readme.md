@@ -17,7 +17,7 @@ By the end of this tutorial, you will be able to:
   * **Basic Linux Command Line Knowledge:** Familiarity with `cd`, `ls`, `mkdir`, `docker`, `ssh`.
   * **Fundamental Networking Concepts:** Understanding of IP addressing, routing, interfaces, VLANs.
   * **Basic programming concepts** variables, loops, functions
-  * **Docker Installed:** Containerlab relies on Docker. Ensure it's installed and running on your Linux machine (or WSL2 on Windows, or OrbStack/Docker Desktop on macOS with a Linux VM).
+  * **Docker Installed:** Containerlab relies on Docker. Ensure it's installed and running on your Linux machine (or WSL2 on Windows, or OrbStack on macOS with a Linux VM).
   * **Containerlab Installed:** Follow the official Containerlab installation guide: [https://containerlab.dev/install/](https://containerlab.dev/install/)
   * **Arista cEOS-lab Image:** You'll need to download the cEOS-lab image from the [Arista support portal](https://www.arista.com/en/support/software-download) (requires an Arista account, free lab versions are available). Import it into Docker: `docker import cEOS-lab-<version>.tar.xz ceos:<version>` (e.g., `ceos:4.30.6M`).
   * **Go Installed:** Download and install Go from [https://golang.org/doc/install](https://golang.org/doc/install).
@@ -69,7 +69,7 @@ By the end of this tutorial, you will be able to:
 | 23 | [gNMI `Set` RPC for Configuration](/Topics/Programming/Go/Challenges/Arista/Day-23.md) |
 | 24 | [gNMI `Subscribe` for Streaming Telemetry](/Topics/Programming/Go/Challenges/Arista/Day-24.md) | 
 
-For further informations on using Golang with gNMI look at the [documentation](https://gnmic.openconfig.net/user_guide/golang_package/intro/) and especially in the example of [CAPABILITIES](https://gnmic.openconfig.net/user_guide/golang_package/examples/capabilities/), [GET](https://gnmic.openconfig.net/user_guide/golang_package/examples/get/), [SET](https://gnmic.openconfig.net/user_guide/golang_package/examples/set/) AND [SUBSCRIBE](https://gnmic.openconfig.net/user_guide/golang_package/examples/subscribe/).
+For further informations on using Golang with gNMI look at the [documentation](https://gnmic.openconfig.net/user_guide/golang_package/intro/) and especially in the example of [CAPABILITIES](https://gnmic.openconfig.net/user_guide/golang_package/examples/capabilities/), [GET](https://gnmic.openconfig.net/user_guide/golang_package/examples/get/), [SET](https://gnmic.openconfig.net/user_guide/golang_package/examples/set/) and [SUBSCRIBE](https://gnmic.openconfig.net/user_guide/golang_package/examples/subscribe/).
 
 
 ## Create a CLI
