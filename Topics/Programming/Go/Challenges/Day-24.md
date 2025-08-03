@@ -93,9 +93,13 @@ func main() {
 }
 ```
 
-## **Challenge 24:**
+## **Challenge 24 A:**
 
 1.  Deploy your cEOS lab.
 2.  Run the `gnmi_subscribe_counters.go` program.
 3.  While it's running, SSH into `ceos1` and generate some traffic on `Ethernet1` (e.g., `ping 10.0.0.2` if `ceos2` is connected, or send some packets with `sudo tcpdump -i eth1 -w /dev/null`).
 
+## **Challenge 24 B:**
+
+1.  eploy the `srl-2-nodes.clab.yaml`
+2.  Edit the script working with SRLinux Nodes

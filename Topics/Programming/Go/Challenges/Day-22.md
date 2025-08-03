@@ -4,7 +4,80 @@
 ## **Introduction:** 
 Using the `Get` RPC to fetch specific operational state or configuration. Understanding gNMI Paths. Retrieving interface status.
 
-## **Code Example: Get Interface State**
+## **Code Example: Get System Name (Nokia SRL)**
+
+```go
+// gnmi_get_name.go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+
+	"github.com/openconfig/gnmic/pkg/api"
+)
+
+const (
+	targetAddress = "172.20.20.2:57400" // Replace with your cEOS container IP and gNMI port
+	username      = "admin"
+	password      = "NokiaSrl1!"
+)
+
+func main() {
+	target, err := api.NewTarget(
+		api.Address(targetAddress),
+		api.Username(username),
+		api.Password(password),
+		api.SkipVerify(true),
+		api.Insecure(false),
+	)
+	if err != nil {
+		fmt.Println(err, "failed to create gnmi client")
+		os.Exit(1)
+	}
+
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	// create a gNMI client
+	err = target.CreateGNMIClient(ctx)
+	if err != nil {
+		fmt.Println(err, "failed to create gnmi client")
+		os.Exit(1)
+	}
+	defer target.Close()
+
+	// send the created gNMI GetRequest to the created target
+	// create a GetRequest
+	getReq, err := api.NewGetRequest(
+		api.Path("/system/name/host-name"),
+		api.Encoding("json_ietf"),
+	)
+	if err != nil {
+		fmt.Println(err, "failed to execute get request")
+		os.Exit(1)
+	}
+
+	// send the created gNMI GetRequest to the created target
+	getResp, err := target.Get(ctx, getReq)
+	if err != nil {
+		fmt.Println(err, "failed to execute get request")
+		os.Exit(1)
+	}
+
+	for _, notif := range getResp.Notification {
+		for _, update := range notif.Update {
+			fmt.Printf("Path: %s\n", update.Path)
+			fmt.Printf("Return value: %s\n", update.Val.GetJsonIetfVal())
+		}
+	}
+}
+
+```
+
+
+## **Code Example: Get Interface State (Arista ceos)**
 
 ```go
 // gnmi_get_interface.go
@@ -69,8 +142,7 @@ func main() {
 	for _, notif := range getResp.Notification {
 		for _, update := range notif.Update {
 			fmt.Printf("Path: %s\n", update.Path)
-
-			fmt.Printf("Return value: %s", update.Val.GetJsonIetfVal())
+			fmt.Printf("Return value: %s\n", update.Val.GetJsonIetfVal())
 		}
 	}
 }

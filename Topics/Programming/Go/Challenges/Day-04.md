@@ -1,13 +1,56 @@
-
-# **Day 4: Functions and Error Handling**
+# **Day 4: Functions, Packages and Error Handling**
 
 ## **Introduction** 
 * Defining functions, parameters, return values. 
 * Multiple return values (common for error handling).
 * Basic error handling using `if err != nil`. The `defer` keyword.
 
-## **Code Example: Ping Function**
+## **Code Example **
 
+```go
+// networkutils/networkutils.go
+package networkutils
+
+import (
+    "fmt"
+    "strings"
+)
+
+// ConfigureInterface simulates configuring an interface.
+// It returns a success message or an error if the IP is malformed.
+func ConfigureInterface(name, ipAddress string) (string, error) {
+    if strings.Count(ipAddress, ".") != 3 {
+        return "", fmt.Errorf("invalid IPv4 address format for %s: %s", name, ipAddress)
+    }
+    return fmt.Sprintf("Interface %s configured with %s", name, ipAddress), nil
+}
+
+// main.go
+package main
+import (
+    "fmt"
+    "log"
+    "day3/networkutils" // Assuming your module name is day3
+)
+
+func main() {
+    msg, err := networkutils.ConfigureInterface("ethernet-1/1", "10.0.0.1/24")
+    if err != nil {
+        log.Printf("Error configuring interface: %v", err)
+    } else {
+        fmt.Println(msg)
+    }
+
+    msg, err = networkutils.ConfigureInterface("loopback0", "invalid-ip")
+    if err != nil {
+        log.Printf("Error configuring interface: %v", err)
+    } else {
+        fmt.Println(msg)
+    }
+}
+```
+
+## **Code Example 2: Ping Function**
 ```go
 // ping.go
 package main

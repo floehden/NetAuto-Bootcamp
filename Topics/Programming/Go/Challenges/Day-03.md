@@ -3,6 +3,40 @@
 ## **Introduction** 
 Conditional statements (`if`, `else if`, `else`), looping constructs (`for` loop variations), `switch` statements for multiple conditions.
 
+## **Code Example:**
+
+```go
+// main.go
+package main
+
+import (
+    "fmt"
+    "strings"
+)
+
+func main() {
+    ipAddress := "192.168.1.1"
+    if isValidIPv4(ipAddress) {
+        fmt.Printf("%s is a valid IPv4 address (basic check).\n", ipAddress)
+    } else {
+        fmt.Printf("%s is not a valid IPv4 address (basic check).\n", ipAddress)
+    }
+
+    ipAddress = "2001:db8::1"
+    if isValidIPv4(ipAddress) {
+        fmt.Printf("%s is a valid IPv4 address (basic check).\n", ipAddress)
+    } else {
+        fmt.Printf("%s is not a valid IPv4 address (basic check).\n", ipAddress)
+    }
+}
+
+func isValidIPv4(ip string) bool {
+    // A very basic check: does it contain three dots?
+    // In a real-world scenario, you'd use net.ParseIP
+    return strings.Count(ip, ".") == 3
+}
+```
+
 ## **Code Example: Device Status Check**
 
 ```go

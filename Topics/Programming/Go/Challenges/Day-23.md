@@ -75,7 +75,14 @@ func main() {
 }
 ```
 
-## **Challenge 23:**
+## **Challenge 23 A:**
 1.  Deploy a fresh cEOS lab instance.
 2.  Write a Go program using gNMI `Set` to configure an `Ethernet2` interface with an IP address (e.g., `10.20.0.1/24`) and enable it.
 3.  After the `Set` operation, use `goeapi` (from Module 3) or a gNMI `Get` request (from Day 22) to verify that the `Ethernet2` interface has been configured correctly on the cEOS device.
+
+
+## **Challenge 23 B:**
+
+1.	Deploy the `srl-2-nodes.clab.yaml`
+2.	Set the description of Interface `Ethernet-0/0` to `Written via GNMI`
+3.	Check with a gnmi GET or manually via SSH/CLI

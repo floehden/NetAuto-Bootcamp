@@ -81,8 +81,12 @@ func main() {
 }
 ```
 
-## **Challenge 21:**
+### **Instructions**
 
 1.  Deploy the `gnmi-lab.clab.yaml`.
 2.  Find the IP address of `clab-automation-lab-ceos1`.
 3.  Update `gnmi_connect.go` with the correct IP and run the program. Verify that it connects and prints capabilities.
+
+## Challanges
+* Update the Code, that it works for a SR Linux Topology
+* Hints: look at the differences btween the connections in the documentation on gnmi of [SRLinux](https://containerlab.dev/manual/kinds/srl/#__tabbed_1_3) and [ceos](https://containerlab.dev/manual/kinds/ceos/#__tabbed_1_4) at the containerlab documentatation 
