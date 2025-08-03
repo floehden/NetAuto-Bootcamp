@@ -33,13 +33,13 @@ By the end of this tutorial, you will be able to:
 | 5 | [Slices, Maps, and Structs](/Topics/Programming/Go/Challenges/Arista/Day-05.md) | 
 
 ## **Module 2: Containerlab Setup & Basic Router Interaction (Days 6-10)**
-| Day | Description | State |
-| -------- | ------- | ------- |
-| 6 | [Introduction to Containerlab](/Topics/Programming/Go/Challenges/Arista/Day-06.md) | works |
-| 7 | [Initial cEOS Configuration with Containerlab](/Topics/Programming/Go/Challenges/Arista/Day-07.md) | works |
-| 8 | [GoLang Basic File I/O for Config Files](/Topics/Programming/Go/Challenges/Arista/Day-08.md) | works |
-| 9 | [Structuring Go Projects and Modules](/Topics/Programming/Go/Challenges/Arista/Day-09.md) | works |
-| 10 | [Basic Interaction with cEOS (Manual SSH/eAPI prep)](/Topics/Programming/Go/Challenges/Arista/Day-10.md)  | need further testing |
+| Day | Description | 
+| -------- | ------- | 
+| 6 | [Introduction to Containerlab](/Topics/Programming/Go/Challenges/Arista/Day-06.md) | 
+| 7 | [Initial cEOS Configuration with Containerlab](/Topics/Programming/Go/Challenges/Arista/Day-07.md) | 
+| 8 | [GoLang Basic File I/O for Config Files](/Topics/Programming/Go/Challenges/Arista/Day-08.md) | 
+| 9 | [Structuring Go Projects and Modules](/Topics/Programming/Go/Challenges/Arista/Day-09.md) | 
+| 10 | [Basic Interaction with cEOS (Manual SSH/eAPI prep)](/Topics/Programming/Go/Challenges/Arista/Day-10.md)  |
 
 ## **Module 3: GoLang and Arista eAPI (Days 11-15)**
 
