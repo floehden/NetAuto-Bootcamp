@@ -41,12 +41,12 @@ By the end of this tutorial, you will be able to:
 | 9 | [Structuring Go Projects and Modules](/Topics/Programming/Go/Challenges/Day-09.md) | 
 | 10 | [Basic Interaction with cEOS (Manual SSH/eAPI prep)](/Topics/Programming/Go/Challenges/Day-10.md)  |
 
-### Extras (with Nokia SRL) 
+### Extras (SSH with Nokia SRL) 
 | Extra | Description | 
 | -------- | ------- | 
 | M2.E 1 | [SSH/CLI Automation with Go](/Topics/Programming/Go/Challenges/M2-E-01.md) | 
-| M2.E 2 | [ToDO: Test, Containerlab Multi-Node Topology (SRL)](/Topics/Programming/Go/Challenges/M2-E-02.md) | 
-| M2.E 3 | [ToDo: Test, Inventory Management in Go for Containerlab](/Topics/Programming/Go/Challenges/M2-E-03.md) | 
+| M2.E 2 | [Containerlab Multi-Node Topology (SRL)](/Topics/Programming/Go/Challenges/M2-E-02.md) | 
+| M2.E 3 | [Inventory Management in Go for Containerlab](/Topics/Programming/Go/Challenges/M2-E-03.md) | 
 
 ## **Module 3: GoLang and Arista eAPI (Days 11-15)**
 
