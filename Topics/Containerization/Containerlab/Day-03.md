@@ -2,7 +2,7 @@
 
 ## **Objective:** Learn how to apply custom configurations to your nodes upon deployment. This is crucial for building repeatable labs.
 
-1.  **Prepare cEOS startup config:**
+1.  **Prepare cEOS 1 startup config:**
 Create `ceos1-config.cfg`:
 
 ```
@@ -18,18 +18,22 @@ router bgp 65001
 !
 ```
 
-2.  **Prepare SR Linux startup config:**
-Create `srl1-config.cli`:
+2.   **Prepare cEOS 2 startup config:**
+Create `ceos2-config.cfg`:
 
 ```
-set / interface ethernet-1/1 admin-state enable
-set / interface ethernet-1/1 subinterface 0 admin-state enable
-set / interface ethernet-1/1 subinterface 0 ipv4 address 192.168.1.2/24
-set / network-instance default protocols bgp admin-state enable
-set / network-instance default protocols bgp autonomous-system 65002
-set / network-instance default protocols bgp router-id 2.2.2.2
-set / network-instance default protocols bgp neighbor 192.168.1.1 peer-as 65001
+!
+interface Ethernet1
+    no shutdown
+    no switchport
+    ip address 192.168.1.2/24
+!
+router bgp 65001
+    router-id 2.2.2.2
+    neighbor 192.168.1.1 remote-as 65002
+!
 ```
+
 
 3.  **Update `day2-mixed-lab.yaml` to use custom configs:**
 
@@ -41,12 +45,12 @@ topology:
       kind: arista_ceos
       image: ceos:4.34.0F
       startup-config: ./ceos1-config.cfg # Path to your config file
-    srl1:
-      kind: nokia_srlinux
-      image: ghcr.io/nokia/srlinux:latest
-      startup-config: ./srl1-config.cli # Path to your config file
+    ceos2:
+      kind: arista_ceos
+      image: ceos:4.34.0F
+      startup-config: ./ceos2-config.cfg # Path to your config file
   links:
-      - endpoints: ["ceos1:eth1", "srl1:e1-1"]
+      - endpoints: ["ceos1:eth1", "ceos2:eth1"]
 ```
 
 4.  **Deploy and verify:**

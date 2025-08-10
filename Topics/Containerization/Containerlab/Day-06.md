@@ -39,16 +39,16 @@ topology:
                     router-id 2.2.2.2
                     neighbor 10.0.0.1 remote-as 65000
         spine1:
-            kind: nokia_srlinux
-            image: ghcr.io/nokia/srlinux:latest
+            kind: arista_ceos
+            image: ceos:4.34.0F
             startup-config: |
-                set / system network-instance default protocols bgp admin-state enable
-                set / system network-instance default protocols bgp autonomous-system 65000
-                set / system network-instance default protocols bgp router-id 3.3.3.3
-                set / system network-instance default interface ethernet-1/1 admin-state enable
-                set / system network-instance default interface ethernet-1/1 subinterface 0 admin-state enable
-                set / system network-instance default interface ethernet-1/1 subinterface 0 ipv4 address 10.0.0.2/31
-                set / system network-instance default protocols bgp neighbor 10.0.0.3 peer-as 65000
+                hostname spine1
+                interface Ethernet1
+                    no shutdown
+                    ip address 10.0.0.2/31
+                router bgp 65000
+                    router-id 3.3.3.3
+                    neighbor 10.0.0.3 remote-as 65000
     links:
         - endpoints: ["leaf1:eth1", "leaf2:eth1"]
         - endpoints: ["leaf1:eth2", "spine1:e1-1"]
@@ -81,22 +81,16 @@ all:
     children:
     arista_ceos:
         hosts:
-        leaf1:
-            ansible_host: <leaf1-mgmt-ip>
-        leaf2:
-            ansible_host: <leaf2-mgmt-ip>
+            leaf1:
+                ansible_host: <leaf1-mgmt-ip>
+            leaf2:
+                ansible_host: <leaf2-mgmt-ip>
+            spine1:
+                ansible_host: <spine1-mgmt-ip>
         vars:
-        ansible_user: admin
-        ansible_password: admin
-        ansible_network_os: arista.eos.eos
-    nokia_srlinux:
-        hosts:
-        spine1:
-            ansible_host: <spine1-mgmt-ip>
-        vars:
-        ansible_user: admin
-        ansible_password: NokiaSrl1!
-        ansible_network_os: nokia.srlinux.srlinux
+            ansible_user: admin
+            ansible_password: admin
+            ansible_network_os: arista.eos.eos
 ```
 
 * **Example Ansible Playbook (`ping_devices.yaml`):**
@@ -110,12 +104,6 @@ all:
     - name: Test connectivity to cEOS devices
         ansible.builtin.ping:
 
-- name: Ping Nokia SR Linux devices
-    hosts: nokia_srlinux
-    gather_facts: no
-    tasks:
-    - name: Test connectivity to SR Linux devices
-        ansible.builtin.ping:
 ```
 
 * **Run the playbook:**
