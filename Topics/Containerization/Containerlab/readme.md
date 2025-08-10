@@ -56,12 +56,12 @@ This entire workflow, from lab deployment to configuration and verification, can
 
 
 ## Overview
-| Day | Description | State |
-| ----- | ----- | ----- |
+| Day | Description |
+| ----- | ----- | 
 | Day 01 | [Getting Started and Basic Topology](/Topics/Containerization/Containerlab/Challenges/Day-01.md) | working |
-| Day 02 | [Introducing Nokia SR Linux and Mixed Topology](/Topics/Containerization/Containerlab/Challenges/Day-02.md) | working |
+| Day 02 | [Introducing Nokia SR Linux and Mixed Topology](/Topics/Containerization/Containerlab/Challenges/Day-02.md) | 
 | Day 03 | [Custom Startup Configurations](/Topics/Containerization/Containerlab/Challenges/Day-03.md) | not working |
-| Day 04 | [Managing Lab Lifecycle and Network Modes](/Topics/Containerization/Containerlab/Challenges/Day-04.md) | working |
-| Day 05 | [Lab as Code - Advanced Topologies and Customizations](/Topics/Containerization/Containerlab/Challenges/Day-05.md) | working |
-| Day 06 | [Automation with Containerlab and External Tools](/Topics/Containerization/Containerlab/Challenges/Day-06.md) | not working |
-| Day 07 | [Advanced Use Cases and Community Resources](/Topics/Containerization/Containerlab/Challenges/Day-07.md) | working |
+| Day 04 | [Managing Lab Lifecycle and Network Modes](/Topics/Containerization/Containerlab/Challenges/Day-04.md) | 
+| Day 05 | [Lab as Code - Advanced Topologies and Customizations](/Topics/Containerization/Containerlab/Challenges/Day-05.md) |
+| Day 06 | [Automation with Containerlab and External Tools](/Topics/Containerization/Containerlab/Challenges/Day-06.md) | 
+| Day 07 | [Advanced Use Cases and Community Resources](/Topics/Containerization/Containerlab/Challenges/Day-07.md) | 
