@@ -200,3 +200,8 @@ While powerful, GitHub Actions can present a few challenges, especially as pipel
 This video provides a great overview of how to get started with GitHub Actions and build your first CI/CD pipeline.
 
 [Writing Your First CI/CD Pipeline on Github Actions](https://www.youtube.com/watch?v=Lj59I0NO7J8)
+
+## Final ToDo
+
+Post about your journey, what you learned on different platforms like LinkedIn, Twitter or any other of your favourite platforms. Follow up on your journey and share it with others! Use the Hashtags #NetAutoBootcamp #NetworkAutomation
+You can also tag us on LinkedIn with @netauto-group-rheinmain
