@@ -1,5 +1,5 @@
 # NetAuto-Bootcamp
-This is the Bootcamp to get a basic understanding of Network Automation and what we think is necesary to know to understand the topics we discuss in the NetAuto RheinMain Group.
+This is the Bootcamp to get a basic understanding of Network Automation and what we think is necessary to know to understand the topics we discuss in the NetAuto RheinMain Group.
 
 ## Topics
 * [Linux](/Topics/Linux/readme.md) 
@@ -13,12 +13,3 @@ This is the Bootcamp to get a basic understanding of Network Automation and what
 * [Automation](/Topics/Automation/readme.md)
 * [CI/CD](/Topics/CI/readme.md)
 * [Monitoring / Observability](/Topics/Monitoring/readme.md)
-
-## Prerequisites
-
-
-## Environment
-
-
-## Addtional sources
-* 
