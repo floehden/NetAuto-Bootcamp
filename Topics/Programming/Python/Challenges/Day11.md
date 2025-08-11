@@ -56,8 +56,3 @@ finally:
 
 ## **Day 11 Challenge:** 🎯
 Generate a new SSH key pair on your local machine using `ssh-keygen -t ed25519`. Copy the public key (`~/.ssh/id_ed25519.pub`) to your test server's `~/.ssh/authorized_keys` file. Modify today's script to use this new key for authentication.
-
-## Final ToDo
-
-Post about your journey, what you learned on different platforms like [LinkedIn](https://www.linkedin.com/feed/), [Twitter](https://x.com/intent/post?url=https%3A%2F%2Fgithub.com%2FNetAuto-RheinMain%2FNetAuto-Bootcamp&text=I%20just%20completed%20Day%2011%20of%20the%20NetAuto%20Bootcamp%20on%20Python%20Programming!&hashtags=NetAutoBootcamp%2CNetworkAutomation) or any other of your favourite platforms. Follow up on your journey and share it with others! Use the Hashtags #NetAutoBootcamp #NetworkAutomation </br>
-You can also tag us on LinkedIn with @netauto-group-rheinmain

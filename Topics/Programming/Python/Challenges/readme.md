@@ -25,3 +25,8 @@
 * For Netmiko take a Look at: [Automation / Netmiko](/Topics/Automation/Day-1.md)
 * For Nornir take a Look at: [Automation / Nornir](/Topics/Automation/Day-3.md)
 * Challenges for [pygnmi](/Topics/Programming/Python/Challenges/pygnmi/readme.md).
+
+## Final ToDo
+
+Post about your journey, what you learned on different platforms like LinkedIn, Twitter or any other of your favourite platforms. Follow up on your journey and share it with others! Use the Hashtags #NetAutoBootcamp #NetworkAutomation
+You can also tag us on LinkedIn with @netauto-group-rheinmain

@@ -58,8 +58,3 @@ Write a script that executes two commands:
 
 1.  `uname -a` to get the system's kernel information and print it.
 2.  A deliberately incorrect command, like `list_files`, to see how `stderr` captures the "command not found" error. Print the error message.
-
-## Final ToDo
-
-Post about your journey, what you learned on different platforms like [LinkedIn](https://www.linkedin.com/feed/), [Twitter](https://x.com/intent/post?url=https%3A%2F%2Fgithub.com%2FNetAuto-RheinMain%2FNetAuto-Bootcamp&text=I%20just%20completed%20Day%209%20of%20the%20NetAuto%20Bootcamp%20on%20Python%20Programming!&hashtags=NetAutoBootcamp%2CNetworkAutomation) or any other of your favourite platforms. Follow up on your journey and share it with others! Use the Hashtags #NetAutoBootcamp #NetworkAutomation </br>
-You can also tag us on LinkedIn with @netauto-group-rheinmain

@@ -30,6 +30,11 @@ We have multiple challenges for pygnmi for [Arista ceos](/Topics/Programming/Pyt
 | Day 07 | [Comprehensive Automation Scenario and Cleanup](/Topics/Programming/Python/Challenges/pygnmi/Nokia/Day-07.md) | not working to far |
 | Day 08 | [Configuration Backup and Restore](/Topics/Programming/Python/Challenges/pygnmi/Nokia/Day-08.md) | untested |
 
+## Final ToDo
+
+Post about your journey, what you learned on different platforms like LinkedIn, Twitter or any other of your favourite platforms. Follow up on your journey and share it with others! Use the Hashtags #NetAutoBootcamp #NetworkAutomation
+You can also tag us on LinkedIn with @netauto-group-rheinmain
+
 ## Sources
 * https://pypi.org/project/pygnmi/0.2.5/
 * https://github.com/nokia/pygnmi
