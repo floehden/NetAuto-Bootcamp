@@ -64,4 +64,7 @@ This tutorial is for developers, operations engineers, and anyone interested in 
 * **Troubleshooting is a Skill:** The more you debug, the better you become. Don't be discouraged by errors; they are learning opportunities.
 
 
+## Final ToDo
 
+Post about your journey, what you learned on different platforms like LinkedIn, Twitter or any other of your favourite platforms. Follow up on your journey and share it with others! Use the Hashtags #NetAutoBootcamp #NetworkAutomation
+You can also tag us on LinkedIn with @netauto-group-rheinmain

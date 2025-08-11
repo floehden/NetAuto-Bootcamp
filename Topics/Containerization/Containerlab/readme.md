@@ -65,3 +65,8 @@ This entire workflow, from lab deployment to configuration and verification, can
 | Day 05 | [Lab as Code - Advanced Topologies and Customizations](/Topics/Containerization/Containerlab/Challenges/Day-05.md) |
 | Day 06 | [Automation with Containerlab and External Tools](/Topics/Containerization/Containerlab/Challenges/Day-06.md) | 
 | Day 07 | [Advanced Use Cases and Community Resources](/Topics/Containerization/Containerlab/Challenges/Day-07.md) | 
+
+## Final ToDo
+
+Post about your journey, what you learned on different platforms like LinkedIn, Twitter or any other of your favourite platforms. Follow up on your journey and share it with others! Use the Hashtags #NetAutoBootcamp #NetworkAutomation
+You can also tag us on LinkedIn with @netauto-group-rheinmain

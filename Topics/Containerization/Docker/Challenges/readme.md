@@ -30,3 +30,7 @@ This tutorial is designed for developers, operations professionals, and anyone i
 | Day 11 | [Docker Registries & Distribution](/Topics/Containerization/Docker/Challenges/Day-11.md) |
 | Day 12 | [Docker in Practice - CI/CD & Orchestration (Conceptual & Next Steps)](/Topics/Containerization/Docker/Challenges/Day-12.md) |
 
+## Final ToDo
+
+Post about your journey, what you learned on different platforms like LinkedIn, Twitter or any other of your favourite platforms. Follow up on your journey and share it with others! Use the Hashtags #NetAutoBootcamp #NetworkAutomation
+You can also tag us on LinkedIn with @netauto-group-rheinmain
