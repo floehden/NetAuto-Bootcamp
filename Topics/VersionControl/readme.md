@@ -35,6 +35,6 @@ In [Challenge](/Topics/VersionControl/Challenges/readme.md) you can find the cha
 
 ## Additiional Sources
 * Linux Foundation Training: https://training.linuxfoundation.org/training/git-for-distributed-software-development-lfd109x/
-* Wiki Bookshttps://en.wikibooks.org/wiki/Git
-* W3Schools Traininghttps://www.w3schools.com/git/
-* GitHub Getting startedhttps://docs.github.com/en/get-started
+* Wiki Books: https://en.wikibooks.org/wiki/Git
+* W3Schools Training: https://www.w3schools.com/git/
+* GitHub Getting started: https://docs.github.com/en/get-started
