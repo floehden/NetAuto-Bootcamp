@@ -11,15 +11,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-    name: web-headless
+  name: web-headless
 spec:
-    selector:
-        app: nginx-stateful # Matches StatefulSet Pods
-    ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
-    clusterIP: None # Makes it a headless service
+  selector:
+    app: nginx-stateful # Matches StatefulSet Pods
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  clusterIP: None # Makes it a headless service
 ```
 
 ```yaml
@@ -27,36 +27,36 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-    name: web
+  name: web
 spec:
-    serviceName: "web-headless" # Must match headless service name
-    replicas: 2
-    selector:
-        matchLabels:
-            app: nginx-stateful
-    template:
-        metadata:
-            labels:
-                app: nginx-stateful
-        spec:
-            containers:
-            - name: nginx
-              image: nginx:latest
-              ports:
-              - containerPort: 80
-                name: web
-              volumeMounts:
-              - name: www
-                mountPath: /usr/share/nginx/html
-    volumeClaimTemplates: # Automatically creates PVCs for each replica
-    - metadata:
-        name: www
-      spec:
-        accessModes: [ "ReadWriteOnce" ]
-        storageClassName: standard # Kind's default StorageClass
-        resources:
-           requests:
-                storage: 1Gi
+  serviceName: "web-headless" # Must match headless service name
+  replicas: 2
+  selector:
+    matchLabels:
+        app: nginx-stateful
+  template:
+    metadata:
+      labels:
+        app: nginx-stateful
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+          name: web
+        volumeMounts:
+        - name: www
+          mountPath: /usr/share/nginx/html
+  volumeClaimTemplates: # Automatically creates PVCs for each replica
+  - metadata:
+      name: www
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: standard # Kind's default StorageClass
+      resources:
+        requests:
+          storage: 1Gi
 ```
 
 ```bash
@@ -69,9 +69,9 @@ kubectl get pvc -l app=nginx-stateful
 kubectl exec -it web-0 -- hostname
 kubectl exec -it web-1 -- hostname
 
-# Test DNS for individual pods
-kubectl run -it --rm debug-sts-pod --image=busybox -- nslookup web-0.web-headless
-kubectl run -it --rm debug-sts-pod-2 --image=busybox -- nslookup web-1.web-headless
+# Test Ping for individual pods
+kubectl run -it --rm debug-sts-pod --image=busybox -- ping web-0.web-headless
+kubectl run -it --rm debug-sts-pod-2 --image=busybox -- ping web-1.web-headless
 
 # Scale the StatefulSet
 kubectl scale statefulset web --replicas=3

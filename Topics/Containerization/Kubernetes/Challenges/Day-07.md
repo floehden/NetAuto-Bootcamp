@@ -9,18 +9,20 @@
 * **Kind's default storage:** Kind uses a `hostPath` provisioner by default, which maps to a directory on the Docker daemon's host. This is fine for development but not for production.
 
 ## **Examples (Code):**
+
+
 ```yaml
-# pvc.yaml (Kind's default storage class will auto-provision a hostPath PV)
+# pvc.yaml 
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: my-pvc
 spec:
-    accessModes:
-    - ReadWriteOnce
-    resources:
-      requests:
-        storage: 500Mi
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
 ```
 
 ```bash
@@ -34,17 +36,17 @@ kind: Pod
 metadata:
     name: data-writer-pod
 spec:
-    containers:
-    - name: writer-container
-      image: busybox
-      command: ["sh", "-c", "while true; do echo $(date) >> /data/test.txt; sleep 5; done"]
-      volumeMounts:
-        - name: persistent-storage
-          mountPath: /data
-    volumes:
-    - name: persistent-storage
-      persistentVolumeClaim:
-        claimName: my-pvc
+  containers:
+  - name: writer-container
+    image: busybox
+    command: ["sh", "-c", "while true; do echo $(date) >> /data/test.txt; sleep 5; done"]
+    volumeMounts:
+      - name: persistent-storage
+        mountPath: /data
+  volumes:
+  - name: persistent-storage
+    persistentVolumeClaim:
+      claimName: my-pvc
 EOF
 
 kubectl apply -f pod-with-pvc.yaml
@@ -77,6 +79,8 @@ spec:
     requests:
       storage: 500Mi
 EOF
+
+kubectl apply -f pvc-with-local-path-sc.yaml
 ```
 
 ## **Challenge:** 

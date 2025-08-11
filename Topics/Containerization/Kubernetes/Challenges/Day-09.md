@@ -52,23 +52,23 @@ kubectl wait --namespace ingress-nginx \
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: app-a-deployment
+  name: app-a-deployment
 spec:
-    replicas: 1
-    selector: { matchLabels: { app: app-a } }
-    template:
-      metadata: { labels: { app: app-a } }
-      spec: { containers: [ { name: app-a, image: nginxdemos/hello:plain-text, ports: [ { containerPort: 80 } ] } ] }
+  replicas: 1
+  selector: { matchLabels: { app: app-a } }
+  template:
+    metadata: { labels: { app: app-a } }
+    spec: { containers: [ { name: app-a, image: nginxdemos/hello:plain-text, ports: [ { containerPort: 80 } ] } ] }
 ---
 # app-a-service.yaml
 apiVersion: v1
 kind: Service
 metadata:
-    name: app-a-service
+  name: app-a-service
 spec:
-    selector: { app: app-a }
-    ports: [ { protocol: TCP, port: 80, targetPort: 80 } ]
-    type: ClusterIP
+  selector: { app: app-a }
+  ports: [ { protocol: TCP, port: 80, targetPort: 80 } ]
+  type: ClusterIP
 ```
 
 ```yaml
@@ -76,13 +76,13 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: app-b-deployment
+  name: app-b-deployment
 spec:
-    replicas: 1
-    selector: { matchLabels: { app: app-b } }
-    template:
-        metadata: { labels: { app: app-b } }
-        spec: { containers: [ { name: app-b, image: hashicorp/http-echo --text="Hello from App B!", args: ["--listen=:5678"], ports: [ { containerPort: 5678 } ] } ] }
+  replicas: 1
+  selector: { matchLabels: { app: app-b } }
+  template:
+    metadata: { labels: { app: app-b } }
+    spec: { containers: [ { name: app-b, image: hashicorp/http-echo --text="Hello from App B!", args: ["--listen=:5678"], ports: [ { containerPort: 5678 } ] } ] }
 ---
 # app-b-service.yaml
 apiVersion: v1
@@ -145,7 +145,7 @@ kubectl apply -f ingress-routing.yaml
 kubectl get ingress example-ingress
 
 # Test access on host machine (update /etc/hosts or equivalent)
-echo "127.0.0.1 app.local otherapp.local" | sudo tee -a /etc/hosts # Add to your hosts file
+echo "127.0.0.1 app.local otherapp.local" | sudo tee -a /etc/hosts 
 
 echo "Testing Ingress on http://localhost:8080"
 curl http://localhost:8080/a

@@ -53,7 +53,7 @@ kubectl describe pod <pod-name> # Check Events section for probe status
 * **Simulating Liveness Probe failure with a custom image:**
 ```dockerfile
 # Dockerfile for a failing app (save as failing-app/Dockerfile)
-FROM alpine/git
+FROM alpine
 CMD ["sh", "-c", "echo 'Starting healthy...'; sleep 15; echo 'Becoming unhealthy and exiting...'; exit 1"]
 ```
 
