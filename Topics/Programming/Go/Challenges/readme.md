@@ -103,3 +103,8 @@ For further informations go to https://developer.hashicorp.com/terraform/tutoria
 ## Create a Kubernetes Operator (coming soon!)
 If you are interested in creating a Kubernetes Operator go to [Creating a Kubernetes Operator](/Topics/Programming/Go/Challenges/Kubernetes-Operator/readme.md) </br>
 For further informations go to https://book.kubebuilder.io/
+
+## Final ToDo
+
+Post about your journey, what you learned on different platforms like LinkedIn, Twitter or any other of your favourite platforms. Follow up on your journey and share it with others! Use the Hashtags #NetAutoBootcamp #NetworkAutomation
+You can also tag us on LinkedIn with @netauto-group-rheinmain

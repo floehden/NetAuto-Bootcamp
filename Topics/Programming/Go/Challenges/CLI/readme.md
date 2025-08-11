@@ -41,3 +41,8 @@ We will build a simple CLI that can:
 | Day 8 | [Building and Best Practices](/Topics/Programming/Go/Challenges/CLI/Day-08.md) | works |
 
 For more informations go to: [Corba CLI](https://github.com/spf13/cobra-cli) and the [User Guide](https://github.com/spf13/cobra/blob/main/site/content/user_guide.md#using-the-cobra-library)
+
+## Final ToDo
+
+Post about your journey, what you learned on different platforms like LinkedIn, Twitter or any other of your favourite platforms. Follow up on your journey and share it with others! Use the Hashtags #NetAutoBootcamp #NetworkAutomation
+You can also tag us on LinkedIn with @netauto-group-rheinmain
