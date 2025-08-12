@@ -59,7 +59,6 @@ CIDR replaces the rigid structure of IP classes by allowing subnetting based on 
 
 A subnet is a physical segment of a network in which IP addresses with the same network address are used. These subnets can be connected to each other via routers and then form a large coherent network. There are not enough IP addresses. Subnetting allows networks to be separated from each other and private IP addresses can also be assigned twice.
 
-NEED TO THINK
 
 ## DHCP
 
@@ -70,6 +69,12 @@ Dynamic Host Configuration Protocol  automatically configures network devices wi
 The four steps in lease generation are:
 
 The DHCP client broadcasts a DHCPDISCOVER packet. The only computers that respond are computers that have the DHCP Server role, or computers or routers that are running a DHCP relay agent. In the last case, the DHCP relay agent forwards the message to the DHCP server that you have configured to relay requests.
+
+
+<p align="center">
+  <img src="img/dhcp.png" alt="DHCP DORA">
+</p>
+
 A DHCP Server responds with a DHCPOFFER packet, which contains a potential address for the client. If multiple DHCP servers receive the DHCPDISCOVER packet, then multiple DHCP servers can respond.
 The client receives the DHCPOFFER packet. If the client receives multiple DHCPOFFER packets, it selects the first response. The client then sends a DHCPREQUEST packet that contains a server identifier. This informs the DHCP servers that receive the broadcast which server’s DHCPOFFER the client has chosen to accept.
 The DHCP servers receive the DHCPREQUEST. Servers that the client hasn't accepted use this message as the notification that the client has declined that server’s offer. The chosen server stores the IP address-client information in the DHCP database and responds with a DHCPACK message. If the DHCP server can't provide the address that was offered in the initial DHCPOFFER, the DHCP server sends a DHCPNAK message.
@@ -83,4 +88,16 @@ To attempt to renew the IP address lease, the client sends a unicast DHCPREQUEST
 If the DHCP client cannot contact the DHCP server, then the client waits until 87.5 percent of the lease time expires. At this point, the client sends a DHCPREQUEST broadcast (rather than a unicast) to obtain a renewal, and the request goes to all DHCP servers, not just the server that provided the original lease. However, this broadcast request is for a renewal, not a new lease.
 
 Because client computers might be moved while they are turned off (for example, a laptop computer that is plugged into a new subnet), client computers also attempt renewal during the startup process, or when the computer detects a network change. If renewal is successful, the lease period resets.
+
+## References
+
+1. TechTarget. [What is the difference between an IP address and a physical address?](https://www.techtarget.com/searchnetworking/answer/What-is-the-difference-between-an-IP-address-and-a-physical-address)
+2. GeeksforGeeks. [IP Address as Logical Address and MAC Address as Physical Address](https://www.geeksforgeeks.org/computer-networks/ip-address-as-logical-address-and-mac-address-as-physical-address/)
+3. Wikipedia. [Classless Inter-Domain Routing (CIDR)](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
+4. Wikipedia. [Private Network (RFC 1918)](https://en.wikipedia.org/wiki/Private_network)
+5. Wikipedia. [Dynamic Host Configuration Protocol (DHCP)](https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol)
+
+
+
+
 

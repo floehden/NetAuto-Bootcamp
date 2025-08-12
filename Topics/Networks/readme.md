@@ -1,63 +1,45 @@
-# Beginner Networking Bootcamp
+# Networking Bootcamp – 15-Day Program
 
-Welcome! This **30-day Networking Bootcamp** is designed for absolute beginners who want structured daily learning with practical labs, step-by-step instructions, and real-world networking scenarios.
+Welcome! This **15-day Networking Bootcamp** is designed for absolute beginners who want structured daily learning with practical labs, step-by-step instructions, and real-world networking scenarios.
 
 ---
 
 ## Bootcamp Schedule
 
-| Day | Combined Topics                                                    | Description                                                                                                                                                                                                         |
-| --- | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | **Introduction to Computer Networks**                              | Overview of network types (LAN, WAN, wireless, etc.), common physical and logical topologies (bus, star, ring, mesh), and deep dive into the OSI model vs. the TCP/IP suite—roles and services of each layer.       |
-| 2   | **IPv4 Addressing, Subnetting, DHCP**        | IPv4 structure (classes, binary, CIDR), subnet-mask calculations and efficient IP planning; DHCP lease process and client/server roles.                        |
-| 3   | **Switching Fundamentals & MAC/ARP**                               | Ethernet switching concepts—frame forwarding, MAC learning tables, VLAN basics—plus Layer 2 addressing and ARP’s IP-to-MAC resolution mechanism.                                                                    |
-| 4   | **VLANs, Inter-VLAN Routing & Spanning Tree Protocol**             | VLAN design for broadcast containment and security, router-on-a-stick/L3-switching between VLANs, and STP’s loop-prevention and convergence behavior.                                                               |
-| 5   | **Router Architecture, Static Routing & Dynamic Routing Overview** | Router internals and packet-forwarding steps; when and how to use static routes; introduction to dynamic routing protocols and their trade-offs.                                                                    |
-| 6   | **OSPF Link-State Routing & Routing Table Decision Logic**         | OSPF’s area hierarchy, LSDB flooding, cost-based path selection; longest-prefix-match, administrative distance and how routers build and choose optimal routes.                                                     |
-| 7   | **Network Device CLI & Interface Configuration**                   | Command-line interface navigation, privilege levels, command syntax; configuring physical and logical interfaces, IP assignment, and port roles.                                                                    |
-| 8   | **Device Security & Configuration Management**                     | Securing access via SSH, authentication methods and login banners; startup vs. running configs, saving changes, versioning and backup best practices.                                                               |
-| 9   | **Troubleshooting Methodologies & Diagnostic Tools**               | Layered troubleshooting frameworks; hands-on with `ping`, `traceroute`, ICMP/TCP TTL behavior, and other key network utilities.                                                                                     |
-| 10  | **Packet Analysis, Documentation & Integrated Design Review**      | Packet-capture theory and Wireshark basics; best practices for topology diagrams, IP schemas and config archives; apply all concepts to a simulated network to identify misconfigurations and propose improvements. |
+| Day | Topic                                                                                                      | Description                                                                                                                                                                             |
+| --- | ---------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | [**Introduction to Computer Networks**](day1-introduction-to-computer-networks.md)                         | Overview of network types (LAN, WAN, wireless, etc.), physical and logical topologies (bus, star, ring, mesh), and the OSI vs. TCP/IP models. Discuss roles and services of each layer. |
+| 2   | [**IPv4 Addressing & Subnetting**](day2-ipv4-addressing-subnetting.md)                                     | IPv4 structure (classes, binary, CIDR), subnet-mask calculations, and efficient IP planning.                                                                                            |
+| 3   | [**DHCP**](day3-dhcp.md)                                                                                   | How Dynamic Host Configuration Protocol works, lease process, and client/server roles.                                                                                                  |
+| 4   | [**Switching Fundamentals**](day4-switching-fundamentals.md)                                               | Ethernet switching concepts—frame forwarding, MAC learning tables, VLAN introduction, and ARP operation.                                                                                |
+| 5   | [**VLANs**](day5-vlans.md)                                                                                 | VLAN concepts, segmentation benefits, basic configuration in Cisco Packet Tracer.                                                                                                       |
+| 6   | [**Inter-VLAN Routing**](day6-inter-vlan-routing.md)                                                       | Router-on-a-stick and Layer 3 switch methods for enabling communication between VLANs.                                                                                                  |
+| 7   | [**Spanning Tree Protocol (STP)**](day7-stp.md)                                                            | How STP prevents loops, elects a root bridge, and converges the network.                                                                                                                |
+| 8   | [**Router Architecture**](day8-router-architecture.md)                                                     | Router hardware/software roles and packet-forwarding logic.                                                                                                                             |
+| 9   | [**Static Routing**](day9-static-routing.md)                                                               | How to configure static routes and when to use them.                                                                                                                                    |
+| 10  | [**OSPF Routing**](day10-ospf-routing.md)                                                                  | OSPF concepts, area hierarchy, link-state database, and path calculation.                                                                                                               |
+| 11  | [**BGP Routing**](day11-bgp-routing.md)                                                                    | Border Gateway Protocol basics, path attributes, and neighbor establishment.                                                                                                            |
+| 12  | [**Network Device CLI & Interface Configuration**](day12-network-device-cli-interface-configuration.md)    | Command-line interface navigation, privilege levels, command syntax, and configuring physical/logical interfaces with IP assignments and port roles.                                    |
+| 13  | [**Device Security & Configuration Management**](day13-device-security-config-management.md)               | Securing access via SSH, authentication methods, login banners, configuration backup and versioning.                                                                                    |
+| 14  | [**Troubleshooting Methodologies & Diagnostic Tools**](day14-troubleshooting-methodologies-diagnostics.md) | Layered troubleshooting frameworks; hands-on with `ping`, `traceroute`, and other key network utilities.                                                                                |
+| 15  | [**Final Capstone Project**](day15-final-capstone-project.md)                                              | Design and document a complete network integrating concepts from the entire bootcamp.                                                                                                   |
 
 ---
 
 ## Tools & Resources Needed
 
-- **[Cisco Packet Tracer](https://www.netacad.com/courses/packet-tracer)** *(recommended)*
-- **[GNS3](https://www.gns3.com/)** *(optional, advanced)*
-- Basic PC or laptop
-- Curiosity and commitment to daily practice!
+* **[Cisco Packet Tracer](https://www.netacad.com/courses/packet-tracer)** *(recommended)*
+* **[GNS3](https://www.gns3.com/)** *(optional)*
+* A PC or laptop with internet access
 
 ---
 
-##  Final Capstone Project
+## References
 
-On Day 30, you'll design and document a complete network:
+1. Cisco Networking Academy – [Packet Tracer Resources](https://www.netacad.com/courses/packet-tracer)
+2. Cisco – [IP Addressing and Subnetting](https://www.cisco.com/c/en/us/support/docs/ip/ip-addressing-subnetting)
+3. Arista – [EOS User Manual](https://www.arista.com/en/um-eos)
 
-- Two routers running OSPF.
-- Two VLANs with proper subnetting.
-- Switches configured with VLANs and security.
-- Complete documentation including diagrams, addressing, and config files.
+## Final ToDo
 
-Share your work by submitting a pull request to showcase your project!
-
----
-
-##  How to Contribute
-
-- Improve existing content via PR.
-- Add new lab exercises.
-- Share helpful resources.
-
----
-
-### Extra Resources
-
-- [Cisco Networking Academy](https://www.netacad.com/)
-- [Subnetting Practice](https://subnettingpractice.com/)
-- [Wireshark Basics](https://www.wireshark.org/docs/)
-
----
-
-Happy Learning! Let’s build your networking skills, day by day! 
-
+Post about your journey, what you learned on different platforms like LinkedIn, Twitter or any other of your favourite platforms. Follow up on your journey and share it with others! Use the Hashtags #NetAutoBootcamp #NetworkAutomation You can also tag us on LinkedIn with @netauto-group-rheinmain

@@ -39,9 +39,9 @@ Launch Packet Tracer and Add a Switch
 1. Open Packet Tracer.
 2. From the **Switches** palette, drag a Cisco 2960 (or similar) into the workspace.
 
-![Add Switch in Packet Tracer](./screenshots/add_switch.png)  
-
----
+<p align="center">
+  <img src="img/add_switch.png" alt="Switch tutorial">
+</p>
 
 Console into the Switch
 
@@ -49,34 +49,36 @@ Console into the Switch
 2. Click the switch’s **Console** port, then click a PC’s **RS-232** port.
 3. On the PC, open the **Terminal** and click **OK**.
 
-![Console Connection Screenshot](./screenshots/console_connection.png)  
+<p align="center">
+  <img src="img/cli_switch.png" alt="Switch tutorial">
+</p>
 
 ---
 
 Enter Privileged EXEC Mode
 
-<pre><code>
+```
 Switch> enable
 Switch#
-</code></pre>
+```
 
 ---
 
 Enter Global Configuration Mode
 
-<pre><code>
+```
 Switch# configure terminal
 Switch(config)#
-</code></pre>
+```
 
 ---
 
 Set a Hostname
 
-<pre><code>
+```
 Switch(config)# hostname SW1
 SW1(config)#
-</code></pre>
+```
 
 ---
 
@@ -85,3 +87,16 @@ SW1(config)#
 Address Resolution Protocol (ARP) is a protocol or procedure that connects an ever-changing Internet Protocol (IP) address to a fixed physical machine address, also known as a media access control (MAC) address, in a local-area network (LAN). 
 
 This mapping procedure is important because the lengths of the IP and MAC addresses differ, and a translation is needed so that the systems can recognize one another. The most used IP today is IP version 4 (IPv4). An IP address is 32 bits long. However, MAC addresses are 48 bits long. ARP translates the 32-bit address to 48 and vice versa.
+
+## References
+
+1. GeeksforGeeks. [What is MAC (Media Access Control) Address?](https://www.geeksforgeeks.org/computer-networks/mac-address-in-computer-network/)  
+2. Wikipedia. [MAC Address](https://en.wikipedia.org/wiki/MAC_address)  
+3. Geography of Wikipedia. [Network Switch](https://en.wikipedia.org/wiki/Network_switch)  
+4. Wikipedia. [Forwarding Information Base](https://en.wikipedia.org/wiki/Forwarding_information_base)  
+5. GeeksforGeeks. [Data Link Layer](https://www.geeksforgeeks.org/computer-networks/data-link-layer/)  
+6. NewRelic (Blog). [Guide to Address Resolution Protocol (ARP)](https://newrelic.com/blog/best-practices/arp-address-resolution-protocol)  
+7. Wikipedia. [Address Resolution Protocol (ARP)](https://en.wikipedia.org/wiki/Address_Resolution_Protocol)  
+8. Splunk (Blog). [What's ARP? Address Resolution Protocol Explained](https://www.splunk.com/en_us/blog/learn/address-resolution-protocol-arp.html)  
+9. Practical Networking. [Host to Host Through a Switch](https://www.practicalnetworking.net/series/packet-traveling/host-to-host-through-a-switch/)  
+10. Cisco Learning Network. [Does a Layer 2 Switch Request ARP?](https://learningnetwork.cisco.com/s/question/0D53i00000Kt6GuCAJ/does-a-layer-2-switch-requests-arp)  
