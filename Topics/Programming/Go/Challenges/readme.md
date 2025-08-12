@@ -89,7 +89,7 @@ For further informations on using Golang with gNMI look at the [documentation](h
 ## Project
 | Project | Description | 
 | -------- | ------- | 
-| Final 01 | [Building a Generic Network Client in Go](/Topics/Programming/Go/Challenges/final-project-02.md) | 
+| Final 01 | [Building a Generic Network Client in Go](/Topics/Programming/Go/Challenges/final-project-01.md) | 
 | Final 02 | [Building a Simple Automation Tool & Next Steps](/Topics/Programming/Go/Challenges/final-project-02.md) | 
 
 
