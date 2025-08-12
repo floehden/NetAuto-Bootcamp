@@ -12,7 +12,7 @@ You won’t just learn concepts—you’ll apply them. Expect to design, configu
 * [Version Control](/Topics/VersionControl/readme.md) – Git basics, branching strategies, and collaboration for automation projects.
 * [Networks](/Topics/Networks/readme.md) – Topologies, IP addressing, subnetting, and switching fundamentals.
 * [Protocols](/Topics/Protocols/readme.md) – VLANs, STP, OSPF, BGP, IPv4, and connectivity between networks.
-* [Programming](/Topics/Programming/readme.md) – Python essentials for network engineers.
+* [Programming](/Topics/Programming/readme.md) – Python and Go essentials for network engineers.
 * [Virtualization](/Topics/Virtualization/readme.md) – Creating and managing lab environments with hypervisors.
 * [Containerization](/Topics/Containerization/readme.md) – Deploying automation tools and services in Docker.
 * [Cloud](/Topics/Cloud/readme.md) – Cloud networking principles and automation workflows.
@@ -32,13 +32,13 @@ You won’t just learn concepts—you’ll apply them. Expect to design, configu
 
 * **Lab Tools:** [Cisco Packet Tracer](https://www.netacad.com/courses/packet-tracer), [GNS3](https://www.gns3.com/), [EVE-NG](https://www.eve-ng.net/), [Containerlab](https://containerlab.dev/)
 * **Vendors:** Cisco IOS, Arista EOS
-* **Automation Tools:** [Python](https://www.python.org/), [Ansible](https://www.ansible.com/), [Terraform](https://www.terraform.io/), [OpenTofu](https://opentofu.org/), [NAPALM](https://napalm-automation.net/), [Paramiko](http://www.paramiko.org/), [GitHub](https://github.com/)
+* **Automation Tools:** [Python](https://www.python.org/), [Ansible](https://www.ansible.com/), [Terraform](https://www.terraform.io/), [OpenTofu](https://opentofu.org/), [NAPALM](https://napalm-automation.net/), [Paramiko](http://www.paramiko.org/), [Netmiko](https://pynet.twb-tech.com/blog/netmiko-python-library.html), [GitHub](https://github.com/)
 
 ## Shout-Outs
 
 We’re powered by great tools and inspired by awesome blogs:
 
-* **Tools:** [GitHub](https://github.com/), [Ansible](https://www.ansible.com/), [Terraform](https://www.terraform.io/), [OpenTofu](https://opentofu.org/), [GNS3](https://www.gns3.com/), [Cisco Packet Tracer](https://www.netacad.com/courses/packet-tracer), [NAPALM](https://napalm-automation.net/), [Paramiko](http://www.paramiko.org/), [Containerlab](https://containerlab.dev/), [AWS](https://aws.amazon.com/), [Google Cloud Platform](https://cloud.google.com/), [Prometheus](https://prometheus.io/), [Grafana](https://grafana.com/), [VMware](https://www.vmware.com/), [Libvirt](https://libvirt.org/)
+* **Tools:** [GitHub](https://github.com/), [Ansible](https://www.ansible.com/), [Terraform](https://www.terraform.io/), [OpenTofu](https://opentofu.org/), [GNS3](https://www.gns3.com/), [Cisco Packet Tracer](https://www.netacad.com/courses/packet-tracer), [NAPALM](https://napalm-automation.net/), [Paramiko](http://www.paramiko.org/), [Netmiko](https://pynet.twb-tech.com/blog/netmiko-python-library.html), [Containerlab](https://containerlab.dev/), [AWS](https://aws.amazon.com/), [Google Cloud Platform](https://cloud.google.com/), [Prometheus](https://prometheus.io/), [Grafana](https://grafana.com/), [VMware](https://www.vmware.com/), [Libvirt](https://libvirt.org/)
 * **Blogs & Resources:** [Florian Loehden](https://medium.com/@florian.loehden), [NetOps Chic](https://medium.com/@netopschic)
 
 ## Contribution

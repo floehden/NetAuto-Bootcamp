@@ -4,7 +4,7 @@ A programming language is a system of notation for writing source code such as u
 Computer architecture has strongly influenced the design of programming languages, with the most common type (imperative languages) developed to perform well on the popular von Neumann architecture. While early programming languages were closely tied to the hardware, modern languages hide hardware details via abstraction in an effort to enable better software with less effort.
 
 ## Languages
-* Go
+* [Go](/Topics/Programming/Go/readme.md)
 * [Python](/Topics/Programming/Python/readme.md) 
 
 
