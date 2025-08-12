@@ -7,23 +7,44 @@ You won’t just learn concepts—you’ll apply them. Expect to design, configu
 ---
 
 ## Topics
-* [Linux](/Topics/Linux/readme.md) 
-* [Version Control](/Topics/VersionControl/readme.md)
-* [Networks](/Topics/Networks/readme.md) 
-* [Protocols](/Topics/Protocols/readme.md)
-* [Programming](/Topics/Programming/readme.md)
-* [Virtualization](/Topics/Virtualization/readme.md)
-* [Containerization](/Topics/Containerization/readme.md)
-* [Cloud](/Topics/Cloud/readme.md)
-* [Automation](/Topics/Automation/readme.md)
-* [CI/CD](/Topics/CI/readme.md)
-* [Monitoring / Observability](/Topics/Monitoring/readme.md)
+
+* [Linux](/Topics/Linux/readme.md) – Shell commands, process management, networking tools, and automation scripting.
+* [Version Control](/Topics/VersionControl/readme.md) – Git basics, branching strategies, and collaboration for automation projects.
+* [Networks](/Topics/Networks/readme.md) – Topologies, IP addressing, subnetting, and switching fundamentals.
+* [Protocols](/Topics/Protocols/readme.md) – VLANs, STP, OSPF, BGP, IPv4, and connectivity between networks.
+* [Programming](/Topics/Programming/readme.md) – Python essentials for network engineers.
+* [Virtualization](/Topics/Virtualization/readme.md) – Creating and managing lab environments with hypervisors.
+* [Containerization](/Topics/Containerization/readme.md) – Deploying automation tools and services in Docker.
+* [Cloud](/Topics/Cloud/readme.md) – Cloud networking principles and automation workflows.
+* [Automation](/Topics/Automation/readme.md) – Config management with Ansible, infra provisioning with Terraform/OpenTofu.
+* [CI/CD](/Topics/CI/readme.md) – Building pipelines for testing and deploying network changes.
+* [Monitoring / Observability](/Topics/Monitoring/readme.md) – Using Prometheus, Grafana, and telemetry for network visibility.
+
+---
 
 ## Prerequisites
 
+* Basic understanding of networking (IP addressing, OSI model)
+* Laptop/PC with at least 8 GB RAM and virtualization support
+* Commitment to hands-on labs and daily practice
 
 ## Environment
 
+* **Lab Tools:** [Cisco Packet Tracer](https://www.netacad.com/courses/packet-tracer), [GNS3](https://www.gns3.com/), [EVE-NG](https://www.eve-ng.net/), [Containerlab](https://containerlab.dev/)
+* **Vendors:** Cisco IOS, Arista EOS
+* **Automation Tools:** [Python](https://www.python.org/), [Ansible](https://www.ansible.com/), [Terraform](https://www.terraform.io/), [OpenTofu](https://opentofu.org/), [NAPALM](https://napalm-automation.net/), [Paramiko](http://www.paramiko.org/), [GitHub](https://github.com/)
 
-## Addtional sources
-* 
+## Shout-Outs
+
+We’re powered by great tools and inspired by awesome blogs:
+
+* **Tools:** [GitHub](https://github.com/), [Ansible](https://www.ansible.com/), [Terraform](https://www.terraform.io/), [OpenTofu](https://opentofu.org/), [GNS3](https://www.gns3.com/), [Cisco Packet Tracer](https://www.netacad.com/courses/packet-tracer), [NAPALM](https://napalm-automation.net/), [Paramiko](http://www.paramiko.org/), [Containerlab](https://containerlab.dev/), [AWS](https://aws.amazon.com/), [Google Cloud Platform](https://cloud.google.com/), [Prometheus](https://prometheus.io/), [Grafana](https://grafana.com/), [VMware](https://www.vmware.com/), [Libvirt](https://libvirt.org/)
+* **Blogs & Resources:** [Florian Loehden](https://medium.com/@florian.loehden), [NetOps Chic](https://medium.com/@netopschic)
+
+## Contribution
+
+We’re building this bootcamp together. Have a lab idea, improvement, or fix? Fork the repo, make your changes, and submit a pull request your contribution might be the key to helping the next engineer succeed.
+
+## Spread the Word
+
+If you like what we’re doing, make our day: give us a shout on LinkedIn, share this with a fellow techie, and remember our mission is simple: hoard nothing, share everything.
