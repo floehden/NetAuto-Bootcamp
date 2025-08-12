@@ -1,4 +1,4 @@
-# Inter-VLAN Routing – Theory and Practical Guide
+# Inter-VLAN Routing 
 
 Understand what Inter-VLAN routing is, why it is required, and how to configure it in Cisco Packet Tracer.
 

@@ -1,6 +1,6 @@
-# VLAN Introduction & Practical Guide
+# VLAN
 
-**Goal:** Gain a solid understanding of VLANs — what they are, why they exist, and how to configure them using Cisco Packet Tracer.
+Gain a solid understanding of VLANs — what they are, why they exist, and how to configure them using Cisco Packet Tracer.
 
 ---
 

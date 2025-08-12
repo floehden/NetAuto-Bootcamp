@@ -1,12 +1,12 @@
 # Static Routing 
 
-**Goal:** Understand static routing concepts and implement them on a simulated network with three Cisco routers.
+Understand static routing concepts and implement them on a simulated network with three Cisco routers.
 
 ---
 
 ## 1) Static Routing
 
-**Official Definition (Cisco):** Static routing is the process of manually configuring routes in a router’s routing table. These routes remain until they are manually deleted or the router restarts.
+Static routing is the process of manually configuring routes in a router’s routing table. These routes remain until they are manually deleted or the router restarts.
 
 Routers use static routes to determine the next hop for a given destination network without running a dynamic routing protocol.
 

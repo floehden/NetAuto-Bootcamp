@@ -1,6 +1,6 @@
 # Cisco Device Security & Configuration Management
 
-**Goal:** Learn how to secure network devices and manage configurations effectively using Cisco routers.
+Learn how to secure network devices and manage configurations effectively using Cisco routers.
 
 ---
 

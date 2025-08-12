@@ -1,4 +1,4 @@
-# OSPF – Theory and Practical with 4 Arista Routers
+# OSPF
 
 **Goal:** Understand OSPF (Open Shortest Path First) concepts and implement them on a simulated network with four Arista routers.
 

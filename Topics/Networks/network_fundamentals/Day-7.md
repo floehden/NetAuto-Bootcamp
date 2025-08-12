@@ -1,6 +1,6 @@
-# Router Architecture, Static Routing & Dynamic Routing Overview – 1-Day Theory Course
+# Router Architecture, Static Routing & Dynamic Routing
 
-**Goal:** Gain a deep understanding of router architecture, the principles of static routing, and an overview of dynamic routing using verified definitions and sources.
+Gain a deep understanding of router architecture, the principles of static routing, and an overview of dynamic routing using verified definitions and sources.
 
 ---
 

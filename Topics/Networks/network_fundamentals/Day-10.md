@@ -1,6 +1,6 @@
 # BGP 
 
-**Goal:** Understand Border Gateway Protocol (BGP) concepts and implement them on a simulated network with four Arista routers.
+Understand Border Gateway Protocol (BGP) concepts and implement them on a simulated network with four Arista routers.
 
 ---
 

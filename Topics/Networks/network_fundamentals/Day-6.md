@@ -1,6 +1,6 @@
-# Spanning Tree Protocol (STP) – Theory and Practical Guide
+# Spanning Tree Protocol (STP)
 
-**Goal:** Understand what Spanning Tree Protocol is, why it is required, and how to configure and verify it in Cisco Packet Tracer.
+Understand what Spanning Tree Protocol is, why it is required, and how to configure and verify it in Cisco Packet Tracer.
 
 ---
 
