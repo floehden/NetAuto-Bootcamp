@@ -49,3 +49,10 @@ echo -e '\n' | ssh -p 830 admin@172.20.20.2 -s netconf
         <capability>urn:ietf:params:netconf:capability:url:1.0?scheme=http,https,ftp,sftp,file</capability>
         <capability>urn:ietf:params:netconf:capability:with-defaults:1.0?basic-mode=explicit&amp;also-supported=report-all</capability>
 ```
+In short, NETCONF provides a robust, secure, and structured way to manage network devices at scale. By leveraging standardized data models like YANG and transport mechanisms like SSH, it bridges the gap between manual CLI configuration and fully automated network orchestration—saving time, reducing errors, and enabling true intent-based networking.
+
+## Reference
+
+[netconf](https://datatracker.ietf.org/doc/html/rfc6241)
+
+

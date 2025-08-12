@@ -80,3 +80,17 @@ gnmic -a 172.20.20.2:57401 \
       get --path /interface \
       --encoding ASCII
 ```
+
+That gnmic command will connect to your Nokia SR Linux device at 172.20.20.2:57401 via gNMI, authenticate as admin with password NokiaSrl1!, and request data from the /interface path in the SR Linux YANG model.
+
+Specifically:
+
+- get – means you’re requesting the current state/configuration data for that path.
+
+- --path /interface – targets the top-level interface container (from the srl_nokia-interfaces module).
+
+- --encoding ASCII – tells the device to return the result in ASCII text instead of JSON or Protobuf (basically a CLI-style representation).
+
+## Reference
+
+[gnmi](https://github.com/openconfig/gnmi)

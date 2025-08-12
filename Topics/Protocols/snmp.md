@@ -55,3 +55,10 @@ Those large numbers don’t imply thousands of ports they’re just the internal
 - The numeric suffix after that (e.g. 16382, 49150, …) is the ifIndex, a unique integer the agent uses internally to identify each interface instance.
 
 - The value returned (STRING: "ethernet-1/1", etc.) is the interface’s configured name.
+
+In short, SNMP remains one of the most widely adopted and vendor-agnostic protocols for monitoring and managing network devices. While newer, model-driven interfaces like NETCONF, RESTCONF, and gNMI provide richer data models and more automation-friendly APIs, SNMP’s simplicity, maturity, and broad support across legacy and modern equipment ensure it will remain a key part of network operations for years to come.
+
+## Reference
+
+[restconf](https://datatracker.ietf.org/doc/html/rfc1157)
+
