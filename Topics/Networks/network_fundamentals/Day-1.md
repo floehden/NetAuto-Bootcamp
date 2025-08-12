@@ -1,5 +1,5 @@
 # Introduction of Computer Networks
-## Whats is a network ?
+## What is a network ?
 
 A computer network is a collection of interconnected devices that share resources and information. These devices can include computers, servers, printers, and other hardware. Networks allow for the efficient exchange of data, enabling various applications such as email, file sharing, and internet browsing.
 
