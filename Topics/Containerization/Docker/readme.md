@@ -4,4 +4,4 @@ Docker is an open-source platform that automates the deployment, scaling, and ma
 
 ## Challenges
 
-Find the Challenges for Docekr [here](/Topics/Containerization/Docker/Challenges/readme.md).
+Find the Challenges for Docker [here](/Topics/Containerization/Docker/Challenges/readme.md).
