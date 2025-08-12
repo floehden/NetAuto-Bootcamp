@@ -62,7 +62,7 @@ By the end of this tutorial, you will be able to:
 | Extra | Description | 
 | -------- | ------- | 
 | M3.E 01 | [NETCONF with Go - Basic Get Operations](/Topics/Programming/Go/Challenges/M3-E-01.md) | 
-| M3.E 02 | [NETCONF with Go - Edit Operations](/Topics/Programming/Go/Challenges/M3-E-01.md) | 
+| M3.E 02 | [NETCONF with Go - Edit Operations](/Topics/Programming/Go/Challenges/M3-E-02.md) | 
 
 ## **Module 4: Advanced GoLang for Network Automation (Days 16-20)**
 
