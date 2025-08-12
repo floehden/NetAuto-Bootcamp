@@ -68,3 +68,9 @@ This tutorial is for developers, operations engineers, and anyone interested in 
 
 Post about your journey, what you learned on different platforms like LinkedIn, Twitter or any other of your favourite platforms. Follow up on your journey and share it with others! Use the Hashtags #NetAutoBootcamp #NetworkAutomation
 You can also tag us on LinkedIn with @netauto-group-rheinmain
+
+
+## Interesting Source
+* [The Kubernetes Course 2025 by Kubesimplyfy](https://www.youtube.com/watch?v=EV47Oxwet6Y)
+* [Certified Kubernetes Administrator (CKA) Tutorial Series by Piyush Sachdeva](https://www.youtube.com/playlist?list=PLl4APkPHzsUUOkOv3i62UidrLmSB8DcGC)
+* [Kubernetes Documenetation](https://kubernetes.io/docs/home/)
