@@ -31,7 +31,7 @@ You won’t just learn concepts—you’ll apply them. Expect to design, configu
 ## Environment
 
 * **Lab Tools:** [Cisco Packet Tracer](https://www.netacad.com/courses/packet-tracer), [GNS3](https://www.gns3.com/), [EVE-NG](https://www.eve-ng.net/), [Containerlab](https://containerlab.dev/)
-* **Vendors:** Cisco IOS, Arista EOS
+* **Vendors:** Cisco IOS, Arista EOS, Nokia SRLinux
 * **Automation Tools:** [Python](https://www.python.org/), [Ansible](https://www.ansible.com/), [Terraform](https://www.terraform.io/), [OpenTofu](https://opentofu.org/), [NAPALM](https://napalm-automation.net/), [Paramiko](http://www.paramiko.org/), [Netmiko](https://pynet.twb-tech.com/blog/netmiko-python-library.html), [GitHub](https://github.com/)
 
 ## Shout-Outs
