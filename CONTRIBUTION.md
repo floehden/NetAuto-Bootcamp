@@ -1,6 +1,9 @@
 # Contributing to the Bootcamp
 
-Thanks for your interest in contributing to this project! We welcome all contributions, from fixing a typo to adding a new feature. To ensure a smooth and effective collaboration, please take a moment to read this guide.
+Thanks for your interest in contributing to this project! We welcome all contributions, from fixing a typo to adding a new feature. To ensure a smooth and effective collaboration, please take a moment to read this guide.</br>
+</br>
+For creating an environment, where everyone works together look at the [Code of Conduct](./CODE_OF_CONDUCT.md).
+
 
 ## How to Contribute
 
