@@ -1,18 +1,18 @@
 # Addressing and DHCP
 
-IN the work of networking, just like our world for data to reach its correct destination addressing is a must.
+In the world of networking, just like our world for data to reach its correct destination addressing is a must.
 
 There are 2 kind of addressing
 1. Physical address (Permananet)
 2. Logical address (Temporary)
 
-## Physcial Addressing
+## Physical Addressing
 
-This address is permanent and also unique. It can also be known as MAc address, LAN card address, Hardware address, Network adapter address, Machine address, Burin in (Bia) etc.
+This address is permanent and also unique. It can also be known as MAC address, LAN card address, Hardware address, Network adapter address, Machine address, Burn in (Bia) etc.
 
 ## Logical Address
 
-This temporary kind of address and also LAyer 3 kind of addressing which is the Network layer on OSI and TCP/IP model. 
+This temporary kind of address and also Layer 3 kind of addressing which is the Network layer on OSI and TCP/IP model. 
 
 ### IP addressing
 
@@ -37,7 +37,7 @@ ISPs (internet service providers) generally assign each network and the associat
 
 The public address is accessible from around the world and helps other devices communicate with your network. In short, a public IP address ensures content from websites, emails, and streaming providers as well as other data from the internet is correctly forwarded to you.
 
-#### IP4 Classes
+#### IPv4 Classes
 
 In the IPv4 IP address space, there are five classes: A, B, C, D and E. Each class has a specific range of IP addresses (and ultimately dictates the number of devices you can have on your network). Primarily, class A, B, and C are used by the majority of devices on the Internet. Class D and class E are for special uses.
 
